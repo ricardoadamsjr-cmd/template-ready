@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitLife Pro - Transform Your Body, Transform Your Life</title>
+    <meta name="description" content="Premium fitness center with expert trainers, modern equipment, and personalized workout programs. Join FitLife Pro and achieve your fitness goals today!">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-content">
+            <div class="loading-logo">FitLife Pro</div>
+            <div class="loading-spinner"></div>
+            <div class="loading-text">Preparing your fitness journey...</div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fas fa-dumbbell"></i>
+                <span>FitLife Pro</span>
+            </div>
+            <nav class="nav-menu">
+                <a href="#home" class="nav-link">Home</a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="#trainers" class="nav-link">Trainers</a>
+                <a href="#classes" class="nav-link">Classes</a>
+                <a href="#membership" class="nav-link">Membership</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </nav>
+            <button class="cta-button" onclick="openBookingModal()">
+                <i class="fas fa-calendar-plus"></i>
+                Book Session
+            </button>
+            <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-content">
+            <button class="mobile-menu-close" onclick="toggleMobileMenu()">
+                <i class="fas fa-times"></i>
+            </button>
+            <nav class="mobile-nav">
+                <a href="#home" class="mobile-nav-link" onclick="toggleMobileMenu()">Home</a>
+                <a href="#about" class="mobile-nav-link" onclick="toggleMobileMenu()">About</a>
+                <a href="#trainers" class="mobile-nav-link" onclick="toggleMobileMenu()">Trainers</a>
+                <a href="#classes" class="mobile-nav-link" onclick="toggleMobileMenu()">Classes</a>
+                <a href="#membership" class="mobile-nav-link" onclick="toggleMobileMenu()">Membership</a>
+                <a href="#contact" class="mobile-nav-link" onclick="toggleMobileMenu()">Contact</a>
+                <button class="mobile-cta-button" onclick="openBookingModal(); toggleMobileMenu();">
+                    <i class="fas fa-calendar-plus"></i>
+                    Book Session
+                </button>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-background">
+            <img src="https://plus.unsplash.com/premium_photo-1663036308241-fb660f3a6b4d?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1pbi1zYW1lLXNlcmllc3wzfHx8ZW58MHx8fHx8" alt="Fitness Training" class="hero-image">
+            <div class="hero-overlay"></div>
+        </div>
+        <div class="hero-content">
+            <div class="hero-badge">
+                <i class="fas fa-trophy"></i>
+                #1 Fitness Center
+            </div>
+            <h1 class="hero-title">Transform Your Body,<br>Transform Your Life</h1>
+            <p class="hero-subtitle">Join FitLife Pro and unlock your potential with expert trainers, cutting-edge equipment, and personalized workout programs designed to help you achieve your fitness goals.</p>
+            <div class="hero-buttons">
+                <button class="btn-primary" onclick="openBookingModal()">
+                    <i class="fas fa-rocket"></i>
+                    Start Your Journey
+                </button>
+                <button class="btn-secondary" onclick="scrollToSection('about')">
+                    <i class="fas fa-play"></i>
+                    Learn More
+                </button>
+            </div>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <div class="stat-number">500+</div>
+                    <div class="stat-label">Happy Members</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">15+</div>
+                    <div class="stat-label">Expert Trainers</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label">Access</div>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <div class="scroll-arrow"></div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <div class="section-badge">About FitLife Pro</div>
+                    <h2 class="section-title">Your Fitness Journey Starts Here</h2>
+                    <p class="section-description">At FitLife Pro, we believe fitness is more than just exercise – it's a lifestyle. Our state-of-the-art facility, expert trainers, and supportive community create the perfect environment for you to achieve your goals.</p>
+                    
+                    <div class="features-list">
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-medal"></i>
+                            </div>
+                            <div class="feature-content">
+                                <h4>Certified Trainers</h4>
+                                <p>Work with nationally certified fitness professionals who are passionate about your success.</p>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-cogs"></i>
+                            </div>
+                            <div class="feature-content">
+                                <h4>Modern Equipment</h4>
+                                <p>Train with the latest fitness technology and equipment from industry-leading brands.</p>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="feature-content">
+                                <h4>Supportive Community</h4>
+                                <p>Join a community of like-minded individuals who motivate and inspire each other.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="about-buttons">
+                        <button class="btn-primary" onclick="scrollToSection('trainers')">
+                            <i class="fas fa-user-friends"></i>
+                            Meet Our Trainers
+                        </button>
+                        <button class="btn-outline" onclick="scrollToSection('membership')">
+                            <i class="fas fa-info-circle"></i>
+                            View Membership
+                        </button>
+                    </div>
+                </div>
+                <div class="about-image">
+                    <img src="https://st.focusedcollection.com/14026668/i/1800/focused_166044952-stock-photo-people-exercising-in-gym.jpg" alt="People exercising in gym" class="main-image">
+                    <div class="image-badge">
+                        <i class="fas fa-star"></i>
+                        <span>5-Star Rated</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trainers Section -->
+    <section class="trainers" id="trainers">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-badge">Expert Team</div>
+                <h2 class="section-title">Meet Our Professional Trainers</h2>
+                <p class="section-description">Our certified trainers bring years of experience and passion to help you achieve your fitness goals safely and effectively.</p>
+            </div>
+
+            <div class="trainers-grid">
+                <div class="trainer-card" data-trainer="sarah">
+                    <div class="trainer-image">
+                        <img src="https://media1.popsugar-assets.com/files/thumbor/H2sf98wOcREY0tERYdEZ9l4mvnc/fit-in/1024x1024/filters:format_auto-!!-:strip_icc-!!-/2019/01/12/782/n/40891428/0e26e5205c3a27e48196d9.66277432_Personal_trainer/i/Work-Personal-Trainer.jpg" alt="Sarah Johnson - Personal Trainer">
+                        <div class="trainer-overlay">
+                            <button class="trainer-book-btn" onclick="openBookingModal('sarah')">
+                                <i class="fas fa-calendar-plus"></i>
+                                Book Session
+                            </button>
+                        </div>
+                        <div class="trainer-badge">
+                            <i class="fas fa-star"></i>
+                            4.9
+                        </div>
+                    </div>
+                    <div class="trainer-info">
+                        <h3 class="trainer-name">Sarah Johnson</h3>
+                        <p class="trainer-specialty">Strength & Conditioning</p>
+                        <div class="trainer-credentials">
+                            <span class="credential">NASM-CPT</span>
+                            <span class="credential">5+ Years</span>
+                        </div>
+                        <p class="trainer-description">Specializes in strength training and functional movement. Sarah helps clients build lean muscle and improve overall fitness.</p>
+                        <div class="trainer-stats">
+                            <div class="stat">
+                                <i class="fas fa-users"></i>
+                                <span>200+ Clients</span>
+                            </div>
+                            <div class="stat">
+                                <i class="fas fa-trophy"></i>
+                                <span>Certified</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="trainer-card" data-trainer="mike">
+                    <div class="trainer-image">
+                        <img src="https://s3.envato.com/files/434306372/63eb4313bcb7783d3a5351fe_withmeta.jpg" alt="Mike Rodriguez - Fitness Coach">
+                        <div class="trainer-overlay">
+                            <button class="trainer-book-btn" onclick="openBookingModal('mike')">
+                                <i class="fas fa-calendar-plus"></i>
+                                Book Session
+                            </button>
+                        </div>
+                        <div class="trainer-badge">
+                            <i class="fas fa-star"></i>
+                            4.8
+                        </div>
+                    </div>
+                    <div class="trainer-info">
+                        <h3 class="trainer-name">Mike Rodriguez</h3>
+                        <p class="trainer-specialty">HIIT & Cardio</p>
+                        <div class="trainer-credentials">
+                            <span class="credential">ACE-CPT</span>
+                            <span class="credential">7+ Years</span>
+                        </div>
+                        <p class="trainer-description">Expert in high-intensity interval training and cardiovascular fitness. Mike creates dynamic workouts that burn calories and build endurance.</p>
+                        <div class="trainer-stats">
+                            <div class="stat">
+                                <i class="fas fa-users"></i>
+                                <span>300+ Clients</span>
+                            </div>
+                            <div class="stat">
+                                <i class="fas fa-fire"></i>
+                                <span>HIIT Expert</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="trainer-card" data-trainer="emma">
+                    <div class="trainer-image">
+                        <img src="https://plus.unsplash.com/premium_photo-1663036285669-b4de0dc8e41e?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Emma Chen - Yoga Instructor">
+                        <div class="trainer-overlay">
+                            <button class="trainer-book-btn" onclick="openBookingModal('emma')">
+                                <i class="fas fa-calendar-plus"></i>
+                                Book Session
+                            </button>
+                        </div>
+                        <div class="trainer-badge">
+                            <i class="fas fa-star"></i>
+                            5.0
+                        </div>
+                    </div>
+                    <div class="trainer-info">
+                        <h3 class="trainer-name">Emma Chen</h3>
+                        <p class="trainer-specialty">Yoga & Flexibility</p>
+                        <div class="trainer-credentials">
+                            <span class="credential">RYT-500</span>
+                            <span class="credential">8+ Years</span>
+                        </div>
+                        <p class="trainer-description">Certified yoga instructor focusing on flexibility, mindfulness, and stress relief. Emma creates peaceful yet challenging yoga experiences.</p>
+                        <div class="trainer-stats">
+                            <div class="stat">
+                                <i class="fas fa-users"></i>
+                                <span>150+ Clients</span>
+                            </div>
+                            <div class="stat">
+                                <i class="fas fa-leaf"></i>
+                                <span>Wellness</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="trainer-card" data-trainer="david">
+                    <div class="trainer-image">
+                        <img src="https://images.airtasker.com/v7/https://airtasker-seo-assets-prod.s3.amazonaws.com/en_AU/1673587436477-personal-trainer-with-client.png?w=750&func=bound&org_if_sml=1" alt="David Thompson - CrossFit Coach">
+                        <div class="trainer-overlay">
+                            <button class="trainer-book-btn" onclick="openBookingModal('david')">
+                                <i class="fas fa-calendar-plus"></i>
+                                Book Session
+                            </button>
+                        </div>
+                        <div class="trainer-badge">
+                            <i class="fas fa-star"></i>
+                            4.9
+                        </div>
+                    </div>
+                    <div class="trainer-info">
+                        <h3 class="trainer-name">David Thompson</h3>
+                        <p class="trainer-specialty">CrossFit & Athletics</p>
+                        <div class="trainer-credentials">
+                            <span class="credential">CF-L2</span>
+                            <span class="credential">6+ Years</span>
+                        </div>
+                        <p class="trainer-description">CrossFit Level 2 trainer specializing in functional fitness and athletic performance. David pushes clients to reach new heights.</p>
+                        <div class="trainer-stats">
+                            <div class="stat">
+                                <i class="fas fa-users"></i>
+                                <span>250+ Clients</span>
+                            </div>
+                            <div class="stat">
+                                <i class="fas fa-medal"></i>
+                                <span>Athlete</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Classes Section -->
+    <section class="classes" id="classes">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-badge">Fitness Classes</div>
+                <h2 class="section-title">Group Classes & Programs</h2>
+                <p class="section-description">Join our energizing group classes designed for all fitness levels. From high-intensity workouts to relaxing yoga sessions.</p>
+            </div>
+
+            <div class="classes-grid">
+                <div class="class-card">
+                    <div class="class-image">
+                        <img src="https://www.ghymca.org/sites/default/files/2022-08/Group-Exercie-at-GHYMCA-3.jpg" alt="HIIT Training Class">
+                        <div class="class-overlay">
+                            <div class="class-time">
+                                <i class="fas fa-clock"></i>
+                                45 min
+                            </div>
+                        </div>
+                    </div>
+                    <div class="class-info">
+                        <div class="class-header">
+                            <h3 class="class-name">HIIT Training</h3>
+                            <div class="class-level">
+                                <span class="level-badge intermediate">Intermediate</span>
+                            </div>
+                        </div>
+                        <p class="class-description">High-intensity interval training that combines cardio and strength exercises for maximum calorie burn and fitness improvement.</p>
+                        <div class="class-schedule">
+                            <div class="schedule-item">
+                                <i class="fas fa-calendar"></i>
+                                <span>Mon, Wed, Fri - 6:00 AM</span>
+                            </div>
+                            <div class="schedule-item">
+                                <i class="fas fa-user"></i>
+                                <span>Max 12 people</span>
+                            </div>
+                        </div>
+                        <button class="class-book-btn" onclick="openBookingModal('hiit')">
+                            <i class="fas fa-plus"></i>
+                            Join Class
+                        </button>
+                    </div>
+                </div>
+
+                <div class="class-card">
+                    <div class="class-image">
+                        <img src="https://elementfitness.com.au/wp-content/uploads/2020/02/working-out-group.jpg" alt="Strength Training Class">
+                        <div class="class-overlay">
+                            <div class="class-time">
+                                <i class="fas fa-clock"></i>
+                                60 min
+                            </div>
+                        </div>
+                    </div>
+                    <div class="class-info">
+                        <div class="class-header">
+                            <h3 class="class-name">Strength Training</h3>
+                            <div class="class-level">
+                                <span class="level-badge beginner">Beginner</span>
+                            </div>
+                        </div>
+                        <p class="class-description">Build lean muscle and increase strength with guided weight training sessions focusing on proper form and progressive overload.</p>
+                        <div class="class-schedule">
+                            <div class="schedule-item">
+                                <i class="fas fa-calendar"></i>
+                                <span>Tue, Thu - 7:00 PM</span>
+                            </div>
+                            <div class="schedule-item">
+                                <i class="fas fa-user"></i>
+                                <span>Max 8 people</span>
+                            </div>
+                        </div>
+                        <button class="class-book-btn" onclick="openBookingModal('strength')">
+                            <i class="fas fa-plus"></i>
+                            Join Class
+                        </button>
+                    </div>
+                </div>
+
+                <div class="class-card">
+                    <div class="class-image">
+                        <img src="https://blog.o2fitnessclubs.com/hs-fs/hubfs/DSCF0845-lighter bkgd.jpg?width=3072&name=DSCF0845-lighter bkgd.jpg" alt="Yoga Flow Class">
+                        <div class="class-overlay">
+                            <div class="class-time">
+                                <i class="fas fa-clock"></i>
+                                75 min
+                            </div>
+                        </div>
+                    </div>
+                    <div class="class-info">
+                        <div class="class-header">
+                            <h3 class="class-name">Yoga Flow</h3>
+                            <div class="class-level">
+                                <span class="level-badge all-levels">All Levels</span>
+                            </div>
+                        </div>
+                        <p class="class-description">Flowing yoga sequences that improve flexibility, balance, and mindfulness while reducing stress and tension.</p>
+                        <div class="class-schedule">
+                            <div class="schedule-item">
+                                <i class="fas fa-calendar"></i>
+                                <span>Daily - 8:00 AM</span>
+                            </div>
+                            <div class="schedule-item">
+                                <i class="fas fa-user"></i>
+                                <span>Max 15 people</span>
+                            </div>
+                        </div>
+                        <button class="class-book-btn" onclick="openBookingModal('yoga')">
+                            <i class="fas fa-plus"></i>
+                            Join Class
+                        </button>
+                    </div>
+                </div>
+
+                <div class="class-card">
+                    <div class="class-image">
+                        <img src="https://www.ghymca.org/sites/default/files/2022-08/Group-Exercie-at-GHYMCA-4.jpg" alt="CrossFit WOD">
+                        <div class="class-overlay">
+                            <div class="class-time">
+                                <i class="fas fa-clock"></i>
+                                50 min
+                            </div>
+                        </div>
+                    </div>
+                    <div class="class-info">
+                        <div class="class-header">
+                            <h3 class="class-name">CrossFit WOD</h3>
+                            <div class="class-level">
+                                <span class="level-badge advanced">Advanced</span>
+                            </div>
+                        </div>
+                        <p class="class-description">Workout of the Day featuring functional movements performed at high intensity to improve overall fitness and athleticism.</p>
+                        <div class="class-schedule">
+                            <div class="schedule-item">
+                                <i class="fas fa-calendar"></i>
+                                <span>Mon-Sat - 5:30 PM</span>
+                            </div>
+                            <div class="schedule-item">
+                                <i class="fas fa-user"></i>
+                                <span>Max 10 people</span>
+                            </div>
+                        </div>
+                        <button class="class-book-btn" onclick="openBookingModal('crossfit')">
+                            <i class="fas fa-plus"></i>
+                            Join Class
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Membership Section -->
+    <section class="membership" id="membership">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-badge">Membership Plans</div>
+                <h2 class="section-title">Choose Your Fitness Plan</h2>
+                <p class="section-description">Flexible membership options designed to fit your lifestyle and budget. All plans include access to our premium facilities and equipment.</p>
+            </div>
+
+            <div class="membership-toggle">
+                <span class="toggle-label">Monthly</span>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="membershipToggle" onchange="toggleMembershipPricing()">
+                    <span class="toggle-slider"></span>
+                </label>
+                <span class="toggle-label">Yearly <span class="save-badge">Save 20%</span></span>
+            </div>
+
+            <div class="membership-grid">
+                <div class="membership-card basic">
+                    <div class="membership-header">
+                        <h3 class="membership-name">Basic</h3>
+                        <div class="membership-price">
+                            <span class="price-amount" data-monthly="29" data-yearly="23">$29</span>
+                            <span class="price-period">/month</span>
+                        </div>
+                        <p class="membership-description">Perfect for getting started with your fitness journey</p>
+                    </div>
+                    <div class="membership-features">
+                        <div class="feature">
+                            <i class="fas fa-check"></i>
+                            <span>Gym access during staffed hours</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check"></i>
+                            <span>Basic equipment access</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check"></i>
+                            <span>Locker room access</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check"></i>
+                            <span>1 guest pass per month</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check"></i>
+                            <span>Basic fitness assessment</span>
+                        </div>
+                    </div>
+                    <button class="membership-btn" onclick="selectMembership('basic')">
+                        <i class="fas fa-arrow-right"></i>
+                        Choose Basic
+                    </button>
+                </div>
+
+                <div class="membership-card premium featured">
+                    <div class="membership-badge">Most Popular</div>
+                    <div class="membership-header">
+                        <h3 class="membership-name">Premium</h3>
+                        <div class="membership-price">
+                            <span class="price-amount" data-monthly="59" data-yearly="47">$59</span>
+                            <span class="price-period">/month</span>
+                        </div>
+                        <p class="membership-description">Complete fitness experience with personal training</p>
+                    </div>
+                    <div class="membership-features">
+                        <div class="feature">
+                            <i class="fas fa-check"></i>
+                            <span>24/7 gym access</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check"></i>
+                            <span>All equipment & classes</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check"></i>
+                            <span>2 personal training sessions/month</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check"></i>
+                            <span>Unlimited guest passes</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check"></i>
+                            <span>Nutrition consultation</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check"></i>
+                            <span>Progress tracking app</span>
+                        </div>
+                    </div>
+                    <button class="membership-btn" onclick="selectMembership('premium')">
+                        <i class="fas fa-rocket"></i>
+                        Choose Premium
+                    </button>
+                </div>
+
+                <div class="membership-card elite">
+                    <div class="membership-header">
+                        <h3 class="membership-name">Elite</h3>
+                        <div class="membership-price">
+                            <span class="price-amount" data-monthly="99" data-yearly="79">$99</span>
+                            <span class="price-period">/month</span>
+                        </div>
+                        <p class="membership-description">Ultimate fitness experience with VIP treatment</p>
+                    </div>
+                    <div class="membership-features">
+                        <div class="feature">
+                            <i class="fas fa-check"></i>
+                            <span>All Premium features</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check"></i>
+                            <span>Weekly personal training</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check"></i>
+                            <span>VIP locker room access</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check"></i>
+                            <span>Massage therapy sessions</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check"></i>
+                            <span>Custom meal planning</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check"></i>
+                            <span>Priority class booking</span>
+                        </div>
+                    </div>
+                    <button class="membership-btn" onclick="selectMembership('elite')">
+                        <i class="fas fa-crown"></i>
+                        Choose Elite
+                    </button>
+                </div>
+            </div>
+
+            <div class="membership-guarantee">
+                <i class="fas fa-shield-alt"></i>
+                <span>30-day money-back guarantee • No long-term contracts • Cancel anytime</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="section-badge">Get In Touch</div>
+                    <h2 class="section-title">Ready to Start Your Fitness Journey?</h2>
+                    <p class="section-description">Visit our facility, meet our trainers, and discover how FitLife Pro can help you achieve your fitness goals.</p>
+                    
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h4>Visit Us</h4>
+                                <p>123 Fitness Street<br>Wellness City, WC 12345</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h4>Call Us</h4>
+                                <p>(555) 123-4567<br>Available 24/7</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h4>Email Us</h4>
+                                <p>info@fitlifepro.com<br>support@fitlifepro.com</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h4>Hours</h4>
+                                <p>Mon-Fri: 5:00 AM - 11:00 PM<br>Sat-Sun: 6:00 AM - 10:00 PM</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="social-links">
+                        <a href="#" class="social-link">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="contact-form-container">
+                    <form class="contact-form" onsubmit="submitContactForm(event)">
+                        <h3>Send us a message</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <input type="text" id="firstName" name="firstName" placeholder="First Name" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" id="lastName" name="lastName" placeholder="Last Name" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" id="email" name="email" placeholder="Email Address" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="tel" id="phone" name="phone" placeholder="Phone Number">
+                        </div>
+                        <div class="form-group">
+                            <select id="interest" name="interest" required>
+                                <option value="">What are you interested in?</option>
+                                <option value="membership">Membership Information</option>
+                                <option value="personal-training">Personal Training</option>
+                                <option value="group-classes">Group Classes</option>
+                                <option value="facility-tour">Facility Tour</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <textarea id="message" name="message" placeholder="Your Message" rows="4" required></textarea>
+                        </div>
+                        <button type="submit" class="form-submit">
+                            <i class="fas fa-paper-plane"></i>
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <i class="fas fa-dumbbell"></i>
+                        <span>FitLife Pro</span>
+                    </div>
+                    <p class="footer-description">Transform your body and mind with our expert trainers, modern equipment, and supportive community. Your fitness journey starts here.</p>
+                    <div class="footer-social">
+                        <a href="#" class="social-link">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-tiktok"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#trainers">Our Trainers</a></li>
+                        <li><a href="#classes">Classes</a></li>
+                        <li><a href="#membership">Membership</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Services</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Personal Training</a></li>
+                        <li><a href="#">Group Classes</a></li>
+                        <li><a href="#">Nutrition Coaching</a></li>
+                        <li><a href="#">Fitness Assessment</a></li>
+                        <li><a href="#">Corporate Wellness</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact Info</h4>
+                    <div class="footer-contact">
+                        <p><i class="fas fa-map-marker-alt"></i> 123 Fitness Street, Wellness City, WC 12345</p>
+                        <p><i class="fas fa-phone"></i> (555) 123-4567</p>
+                        <p><i class="fas fa-envelope"></i> info@fitlifepro.com</p>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 FitLife Pro. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Booking Modal -->
+    <div class="booking-modal" id="bookingModal">
+        <div class="booking-modal-content">
+            <button class="booking-modal-close" onclick="closeBookingModal()">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="booking-header">
+                <h3 id="bookingTitle">Book Your Session</h3>
+                <p id="bookingSubtitle">Choose your preferred time and trainer</p>
+            </div>
+            <form class="booking-form" onsubmit="submitBooking(event)">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="bookingName">Full Name</label>
+                        <input type="text" id="bookingName" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="bookingEmail">Email</label>
+                        <input type="email" id="bookingEmail" name="email" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="bookingPhone">Phone</label>
+                        <input type="tel" id="bookingPhone" name="phone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="bookingService">Service</label>
+                        <select id="bookingService" name="service" required>
+                            <option value="">Select Service</option>
+                            <option value="personal-training">Personal Training</option>
+                            <option value="hiit">HIIT Class</option>
+                            <option value="strength">Strength Training</option>
+                            <option value="yoga">Yoga Flow</option>
+                            <option value="crossfit">CrossFit WOD</option>
+                            <option value="consultation">Free Consultation</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="bookingTrainer">Preferred Trainer</label>
+                        <select id="bookingTrainer" name="trainer">
+                            <option value="">Any Available</option>
+                            <option value="sarah">Sarah Johnson</option>
+                            <option value="mike">Mike Rodriguez</option>
+                            <option value="emma">Emma Chen</option>
+                            <option value="david">David Thompson</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="bookingDate">Preferred Date</label>
+                        <input type="date" id="bookingDate" name="date" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="bookingTime">Preferred Time</label>
+                    <select id="bookingTime" name="time" required>
+                        <option value="">Select Time</option>
+                        <option value="06:00">6:00 AM</option>
+                        <option value="07:00">7:00 AM</option>
+                        <option value="08:00">8:00 AM</option>
+                        <option value="09:00">9:00 AM</option>
+                        <option value="10:00">10:00 AM</option>
+                        <option value="11:00">11:00 AM</option>
+                        <option value="12:00">12:00 PM</option>
+                        <option value="13:00">1:00 PM</option>
+                        <option value="14:00">2:00 PM</option>
+                        <option value="15:00">3:00 PM</option>
+                        <option value="16:00">4:00 PM</option>
+                        <option value="17:00">5:00 PM</option>
+                        <option value="18:00">6:00 PM</option>
+                        <option value="19:00">7:00 PM</option>
+                        <option value="20:00">8:00 PM</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="bookingNotes">Additional Notes</label>
+                    <textarea id="bookingNotes" name="notes" rows="3" placeholder="Any specific goals or requirements?"></textarea>
+                </div>
+                <button type="submit" class="booking-submit">
+                    <i class="fas fa-calendar-check"></i>
+                    Book Session
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <div class="toast-content">
+            <i class="fas fa-check-circle"></i>
+            <span id="toastMessage">Success!</span>
+        </div>
+    </div>
+
+    <script src="assets/js/script.js"></script>
+</body>
+</html>
