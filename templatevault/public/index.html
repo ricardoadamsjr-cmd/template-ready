@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TemplateVault - Premium Website Templates for Entrepreneurs</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay" id="mobileMenuOverlay">
+        <div class="mobile-menu-content">
+            <button class="mobile-menu-close" onclick="closeMobileMenu()">
+                <i class="fas fa-times"></i>
+            </button>
+            <nav class="mobile-nav">
+                <a href="#home" class="mobile-nav-link" onclick="closeMobileMenu()">Home</a>
+                <a href="#templates" class="mobile-nav-link" onclick="closeMobileMenu()">Templates</a>
+                <a href="#features" class="mobile-nav-link" onclick="closeMobileMenu()">Features</a>
+                <a href="#pricing" class="mobile-nav-link" onclick="closeMobileMenu()">Pricing</a>
+                <a href="#contact" class="mobile-nav-link" onclick="closeMobileMenu()">Contact</a>
+                <a href="#pricing" class="mobile-cta-button" onclick="closeMobileMenu()">Start Free Trial</a>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Animated Background -->
+    <div class="animated-bg"></div>
+    
+    <!-- Floating Elements -->
+    <div class="floating-elements">
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="nav-container">
+            <a href="#home" class="logo">TemplateVault</a>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="#home" class="nav-link">Home</a></li>
+                    <li><a href="#templates" class="nav-link">Templates</a></li>
+                    <li><a href="#features" class="nav-link">Features</a></li>
+                    <li><a href="#pricing" class="nav-link">Pricing</a></li>
+                    <li><a href="#contact" class="nav-link">Contact</a></li>
+                </ul>
+            </nav>
+            <a href="#pricing" class="cta-button pulse">Start Free Trial</a>
+            <button class="mobile-menu-toggle" onclick="openMobileMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1 class="hero-title">Launch Your Startup with Stunning Templates</h1>
+            <p class="hero-subtitle">Access premium website templates designed specifically for entrepreneurs and startups. Get your business online in minutes, not months.</p>
+            <div class="hero-buttons">
+                <a href="#templates" class="btn-primary">Browse Templates</a>
+                <button class="btn-secondary" onclick="openDemoModal()">
+                    <i class="fas fa-play"></i> Watch Demo
+                </button>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <div class="scroll-arrow"></div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features fade-in" id="features">
+        <div class="container">
+            <h2 class="section-title">Why Choose TemplateVault?</h2>
+            <p class="section-subtitle">Everything you need to build a professional website that converts visitors into customers</p>
+            
+            <div class="features-grid">
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="feature-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3 class="feature-title">Launch in Minutes</h3>
+                    <p class="feature-description">Skip the months of development. Our templates are ready to customize and deploy, getting your startup online instantly.</p>
+                </div>
+                
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="feature-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3 class="feature-title">Mobile-First Design</h3>
+                    <p class="feature-description">Every template is built with mobile users in mind, ensuring your site looks perfect on all devices and screen sizes.</p>
+                </div>
+                
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="feature-icon">
+                        <i class="fas fa-palette"></i>
+                    </div>
+                    <h3 class="feature-title">Easy Customization</h3>
+                    <p class="feature-description">Change colors, fonts, and layouts with simple clicks. No coding knowledge required to make it uniquely yours.</p>
+                </div>
+                
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="feature-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <h3 class="feature-title">SEO Optimized</h3>
+                    <p class="feature-description">Built-in SEO best practices help your startup get discovered by potential customers on search engines.</p>
+                </div>
+                
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="500">
+                    <div class="feature-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h3 class="feature-title">24/7 Support</h3>
+                    <p class="feature-description">Get help when you need it with our dedicated support team, available around the clock for all subscribers.</p>
+                </div>
+                
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="600">
+                    <div class="feature-icon">
+                        <i class="fas fa-sync-alt"></i>
+                    </div>
+                    <h3 class="feature-title">Regular Updates</h3>
+                    <p class="feature-description">Stay current with the latest design trends and features with monthly template updates and new releases.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Templates Showcase -->
+    <section class="templates fade-in" id="templates">
+        <div class="container">
+            <h2 class="section-title">Premium Templates</h2>
+            <p class="section-subtitle">Professionally designed templates for every type of startup and business</p>
+            
+            <!-- Template Filter -->
+            <div class="template-filter">
+                <button class="filter-btn active" data-filter="all">All Templates</button>
+                <button class="filter-btn" data-filter="saas">SaaS & Tech</button>
+                <button class="filter-btn" data-filter="ecommerce">E-commerce</button>
+                <button class="filter-btn" data-filter="agency">Agency</button>
+                <button class="filter-btn" data-filter="restaurant">Restaurant</button>
+                <button class="filter-btn" data-filter="fitness">Fitness</button>
+            </div>
+            
+            <div class="templates-grid" id="templatesGrid">
+                <div class="template-card" data-category="saas" data-aos="fade-up">
+                    <div class="template-image">
+                        <img class="template-preview-img" src="siteprview/homebuild.jpeg" alt="Home Build Showcase" class="template-preview-img">
+                        <div class="template-preview-bg saas-bg"></div>
+                        <div class="template-overlay">
+                            
+                            <div class="template-actions">
+                                <button class="demo-button" onclick="openTemplateDemo('saas', 'TechFlow Pro')">
+                                    <i class="fas fa-eye"></i>Demo
+                                </button>
+                                <button class="favorite-btn" onclick="toggleFavorite(this)">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="template-info">
+                        <div class="template-category">SaaS & Tech</div>
+                        <h3 class="template-title">TechFlow Pro</h3>
+                        <p class="template-description">Perfect for SaaS companies and tech startups. Features modern design, pricing tables, and conversion-focused layouts.</p>
+                        <div class="template-stats">
+                            <span class="downloads"><i class="fas fa-download"></i> 1,234</span>
+                            <span class="rating"><i class="fas fa-star"></i> 4.9</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="template-card" data-category="ecommerce" data-aos="fade-up" data-aos-delay="100">
+                    <div class="template-image">
+                        <div class="template-preview-bg ecommerce-bg"></div>
+                        <div class="template-overlay">
+                            <div class="template-actions">
+                                <button class="demo-button" onclick="openTemplateDemo('ecommerce', 'ShopVibe')">
+                                    <i class="fas fa-eye"></i> Live Demo
+                                </button>
+                                <button class="favorite-btn" onclick="toggleFavorite(this)">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="template-info">
+                        <div class="template-category">E-commerce</div>
+                        <h3 class="template-title">ShopVibe</h3>
+                        <p class="template-description">Stunning e-commerce template with product showcases, shopping cart integration, and mobile-optimized checkout.</p>
+                        <div class="template-stats">
+                            <span class="downloads"><i class="fas fa-download"></i> 987</span>
+                            <span class="rating"><i class="fas fa-star"></i> 4.8</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="template-card" data-category="agency" data-aos="fade-up" data-aos-delay="200">
+                    <div class="template-image">
+                        <div class="template-preview-bg agency-bg"></div>
+                        <div class="template-overlay">
+                            <div class="template-actions">
+                                <button class="demo-button" onclick="openTemplateDemo('agency', 'CreativeHub')">
+                                    <i class="fas fa-eye"></i> Live Demo
+                                </button>
+                                <button class="favorite-btn" onclick="toggleFavorite(this)">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="template-info">
+                        <div class="template-category">Agency & Portfolio</div>
+                        <h3 class="template-title">CreativeHub</h3>
+                        <p class="template-description">Showcase your work with this portfolio template featuring smooth animations and project galleries.</p>
+                        <div class="template-stats">
+                            <span class="downloads"><i class="fas fa-download"></i> 756</span>
+                            <span class="rating"><i class="fas fa-star"></i> 4.9</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="template-card" data-category="restaurant" data-aos="fade-up" data-aos-delay="300">
+                    <div class="template-image">
+                        <div class="template-preview-bg restaurant-bg"></div>
+                        <div class="template-overlay">
+                            <div class="template-actions">
+                                <button class="demo-button" onclick="openTemplateDemo('restaurant', 'FoodieDelight')">
+                                    <i class="fas fa-eye"></i> Live Demo
+                                </button>
+                                <button class="favorite-btn" onclick="toggleFavorite(this)">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="template-info">
+                        <div class="template-category">Restaurant & Food</div>
+                        <h3 class="template-title">FoodieDelight</h3>
+                        <p class="template-description">Appetizing design for restaurants and food businesses with menu displays and online ordering integration.</p>
+                        <div class="template-stats">
+                            <span class="downloads"><i class="fas fa-download"></i> 543</span>
+                            <span class="rating"><i class="fas fa-star"></i> 4.7</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="template-card" data-category="fitness" data-aos="fade-up" data-aos-delay="400">
+                    <div class="template-image">
+                        <div class="template-preview-bg fitness-bg"></div>
+                        <div class="template-overlay">
+                            <div class="template-actions">
+                                <button class="demo-button" onclick="openTemplateDemo('fitness', 'FitLife Pro')">
+                                    <i class="fas fa-eye"></i> Live Demo
+                                </button>
+                                <button class="favorite-btn" onclick="toggleFavorite(this)">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="template-info">
+                        <div class="template-category">Health & Fitness</div>
+                        <h3 class="template-title">FitLife Pro</h3>
+                        <p class="template-description">Energetic template for gyms, trainers, and wellness businesses with class schedules and membership options.</p>
+                        <div class="template-stats">
+                            <span class="downloads"><i class="fas fa-download"></i> 432</span>
+                            <span class="rating"><i class="fas fa-star"></i> 4.8</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="template-card" data-category="saas" data-aos="fade-up" data-aos-delay="500">
+                    <div class="template-image">
+                        <div class="template-preview-bg consulting-bg"></div>
+                        <div class="template-overlay">
+                            <div class="template-actions">
+                                <button class="demo-button" onclick="openTemplateDemo('consulting', 'ConsultPro')">
+                                    <i class="fas fa-eye"></i> Live Demo
+                                </button>
+                                <button class="favorite-btn" onclick="toggleFavorite(this)">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="template-info">
+                        <div class="template-category">Business & Consulting</div>
+                        <h3 class="template-title">ConsultPro</h3>
+                        <p class="template-description">Professional template for consultants and business services with testimonials and service showcases.</p>
+                        <div class="template-stats">
+                            <span class="downloads"><i class="fas fa-download"></i> 321</span>
+                            <span class="rating"><i class="fas fa-star"></i> 4.9</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="pricing fade-in" id="pricing">
+        <div class="container">
+            <h2 class="section-title">Simple, Transparent Pricing</h2>
+            <p class="section-subtitle">One plan, unlimited access to all templates and features</p>
+            
+            <div class="pricing-toggle">
+                <span class="toggle-label">Monthly</span>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="pricingToggle" onchange="togglePricing()">
+                    <span class="toggle-slider"></span>
+                </label>
+                <span class="toggle-label">Yearly <span class="save-badge">Save 20%</span></span>
+            </div>
+            
+            <div class="pricing-card" data-aos="zoom-in">
+                <div class="pricing-badge">Most Popular</div>
+                <h3 class="pricing-title">All Access Pass</h3>
+                <div class="pricing-amount">
+                    <span id="priceAmount">$29</span>
+                    <span class="pricing-currency">USD</span>
+                </div>
+                <div class="pricing-period" id="pricePeriod">per month, billed annually</div>
+                
+                <ul class="pricing-features">
+                    <li><i class="fas fa-check"></i> Unlimited template downloads</li>
+                    <li><i class="fas fa-check"></i> Live demo access for all templates</li>
+                    <li><i class="fas fa-check"></i> Regular updates and new releases</li>
+                    <li><i class="fas fa-check"></i> Premium support & tutorials</li>
+                    <li><i class="fas fa-check"></i> Commercial license included</li>
+                    <li><i class="fas fa-check"></i> Cancel anytime</li>
+                </ul>
+                
+                <button class="pricing-button" onclick="startSubscription()">
+                    <i class="fas fa-rocket"></i> Start Your Free Trial
+                </button>
+                
+                <div class="pricing-guarantee">
+                    <i class="fas fa-shield-alt"></i>
+                    30-day money-back guarantee
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact fade-in" id="contact">
+        <div class="container">
+            <h2 class="section-title">Get In Touch</h2>
+            <p class="section-subtitle">Have questions? We'd love to hear from you.</p>
+            
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Email Us</h4>
+                            <p>hello@templatevault.com</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Call Us</h4>
+                            <p>+1 (555) 123-4567</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Support Hours</h4>
+                            <p>24/7 Available</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <form class="contact-form" onsubmit="submitContactForm(event)">
+                    <div class="form-group">
+                        <input type="text" id="name" name="name" placeholder="Your Name" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" id="email" name="email" placeholder="Your Email" required>
+                    </div>
+                    <div class="form-group">
+                        <select id="subject" name="subject" required>
+                            <option value="">Select Subject</option>
+                            <option value="general">General Inquiry</option>
+                            <option value="support">Technical Support</option>
+                            <option value="billing">Billing Question</option>
+                            <option value="partnership">Partnership</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <textarea id="message" name="message" placeholder="Your Message" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="form-submit">
+                        <i class="fas fa-paper-plane"></i> Send Message
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-main">
+                <div class="footer-section">
+                    <div class="footer-logo">TemplateVault</div>
+                    <p class="footer-description">Premium website templates designed for entrepreneurs and startups who want to launch fast and scale quickly.</p>
+                    <div class="footer-social">
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Templates</h4>
+                    <ul class="footer-links">
+                        <li><a href="#" class="footer-link">SaaS & Tech</a></li>
+                        <li><a href="#" class="footer-link">E-commerce</a></li>
+                        <li><a href="#" class="footer-link">Agency & Portfolio</a></li>
+                        <li><a href="#" class="footer-link">Restaurant & Food</a></li>
+                        <li><a href="#" class="footer-link">Health & Fitness</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Company</h4>
+                    <ul class="footer-links">
+                        <li><a href="#" class="footer-link">About Us</a></li>
+                        <li><a href="#" class="footer-link">Blog</a></li>
+                        <li><a href="#" class="footer-link">Careers</a></li>
+                        <li><a href="#" class="footer-link">Press Kit</a></li>
+                        <li><a href="#" class="footer-link">Affiliate Program</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Support</h4>
+                    <ul class="footer-links">
+                        <li><a href="#" class="footer-link">Help Center</a></li>
+                        <li><a href="#" class="footer-link">Documentation</a></li>
+                        <li><a href="#" class="footer-link">Video Tutorials</a></li>
+                        <li><a href="#" class="footer-link">Community</a></li>
+                        <li><a href="#" class="footer-link">Contact Support</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="footer-copyright">
+                    <p>&copy; 2024 TemplateVault. All rights reserved. Built for entrepreneurs who move fast.</p>
+                </div>
+                <div class="footer-legal">
+                    <a href="#" class="footer-link">Privacy Policy</a>
+                    <a href="#" class="footer-link">Terms of Service</a>
+                    <a href="#" class="footer-link">Cookie Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Demo Modal -->
+    <div class="demo-modal" id="demoModal">
+        <div class="demo-modal-content">
+            <button class="demo-modal-close" onclick="closeDemoModal()">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="demo-modal-header">
+                <h3 id="demoModalTitle">Template Demo</h3>
+                <p id="demoModalSubtitle">Interactive preview</p>
+            </div>
+            <div class="demo-modal-body" id="demoModalBody">
+                <!-- Demo content will be loaded here -->
+            </div>
+            <div class="demo-modal-footer">
+                <button class="btn-secondary" onclick="closeDemoModal()">Close</button>
+                <button class="btn-primary" onclick="startSubscription()">Get This Template</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-content">
+            <div class="loading-logo">TemplateVault</div>
+            <div class="loading-spinner"></div>
+            <div class="loading-text">Loading amazing templates...</div>
+        </div>
+    </div>
+
+    <!-- Success Toast -->
+    <div class="toast" id="toast">
+        <div class="toast-content">
+            <i class="fas fa-check-circle"></i>
+            <span id="toastMessage">Success!</span>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
