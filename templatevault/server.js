@@ -11,7 +11,7 @@ const serviceAccount = require("./serviceAccountKey.json");
 // Initialize Firebase Admin SDK
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
-  databaseURL: "https://<your-project-id>.firebaseio.com"
+  databaseURL: "https://uplift-local.firebaseio.com"
 });
 
 // Initialize Stripe (use your secret key from Stripe Dashboard)
