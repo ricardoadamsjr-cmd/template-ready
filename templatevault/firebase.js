@@ -1,7 +1,5 @@
-// Import Firebase
 import { initializeApp } from "firebase/app";
 
-// Your Firebase project configuration
 const firebaseConfig = {
   apiKey: "YOUR_API_KEY",
   authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
@@ -11,5 +9,6 @@ const firebaseConfig = {
   appId: "YOUR_APP_ID"
 };
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
+
+export default app;
