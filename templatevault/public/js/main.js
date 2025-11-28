@@ -2,6 +2,7 @@ const express = require("express");
 const path = require("path");
 const admin = require("firebase-admin");
 const Stripe = require("stripe");
+import { auth } from "../firebase"; // adjust path to your firebase config
 import { signUp, logIn } from "auth.js";
 
 
@@ -24,10 +25,6 @@ document.getElementById("signup-btn").addEventListener("click", () => {
   const password = document.getElementById("signup-password").value;
   signUp(email, password);
 });
-
-
- 
-
 
 // server.js
 // server.js
@@ -104,7 +101,7 @@ app.post("/create-checkout-session", authenticateToken, async (req, res) => {
 
 // src/components/SignUpForm.jsx
 
-import React, { useState } from "react";
+
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { createUserProfile } from "../services/userService";
 
