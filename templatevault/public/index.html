@@ -519,7 +519,10 @@
             <span id="toastMessage">Success!</span>
         </div>
     </div>
-
-    <script src="js/script.js"></script>
+    <div id="root"></div> <!-- Your React app will mount here -->
+    <!-- Your built client-side JavaScript entry point -->
+    <!-- This path will depend on how your client-side build tool (Vite, Webpack) is configured -->
+    <script type="module" src="/js/main.js"></script> 
+    <script src="src/js/script.js"></script>
 </body>
 </html>

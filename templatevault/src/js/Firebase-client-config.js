@@ -1,4 +1,8 @@
 // Import Firebase SDKs
+//Client-Side Firebase Initialization : Ensure you have a separate file (e.g., src/firebase.js or directly in src/js/main.js ) 
+// that performs initializeApp for the client-side Firebase SDK
+//This is where your client-side Firebase project configuration lives.
+
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 
