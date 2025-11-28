@@ -1,9 +1,9 @@
 {
   "name": "uplift-local",
   "version": "1.0.0",
-  "main": "templatevault/public/js/main.js",
+  "main": "index.js",
   "scripts": {
-    "start": "node templatevault/public/js/main.js"
+    "start": "node index.js"
   },
   "dependencies": {
     "express": "^4.18.2",
