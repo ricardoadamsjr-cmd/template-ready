@@ -4,6 +4,21 @@ const admin = require("firebase-admin");
 const Stripe = require("stripe");
 import { signUp, logIn } from "auth.js";
 
+
+// 📂 Serve static files (frontend)////////////////
+app.use(express.static(path.join(__dirname, "public")));
+
+// SPA fallback (important if using React/Vue/Angular)
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "index.html"));
+});
+
+// 🚀 Start server//////////
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+////////////////end points to static files website//////////////////////
+
+
 document.getElementById("signup-btn").addEventListener("click", () => {
   const email = document.getElementById("signup-email").value;
   const password = document.getElementById("signup-password").value;
@@ -13,7 +28,7 @@ document.getElementById("signup-btn").addEventListener("click", () => {
 // auth.js
 
 // Import the Firebase Auth instance from your firebase-config.js
-import { auth } from "./services/firebase-init.js";
+import { auth } from "./js/firebase-init.js";
 
 // Import the Firebase Auth functions you’ll use
 import {
@@ -23,68 +38,8 @@ import {
   onAuthStateChanged
 } from "firebase/auth";
 
-/**
- * Sign up a new user with email and password
- * @param {string} email
- * @param {string} password
- */
-export function signUp(email, password) {
-  return createUserWithEmailAndPassword(auth, email, password)
-    .then(userCredential => {
-      console.log("✅ User signed up:", userCredential.user);
-      return userCredential.user;
-    })
-    .catch(error => {
-      console.error("❌ Error signing up:", error.code, error.message);
-      throw error;
-    });
-}
-
-/**
- * Log in an existing user with email and password
- * @param {string} email
- * @param {string} password
- */
-export function logIn(email, password) {
-  return signInWithEmailAndPassword(auth, email, password)
-    .then(userCredential => {
-      console.log("✅ User logged in:", userCredential.user);
-      return userCredential.user;
-    })
-    .catch(error => {
-      console.error("❌ Error logging in:", error.code, error.message);
-      throw error;
-    });
-}
-
-/**
- * Log out the current user
- */
-export function logOut() {
-  return signOut(auth)
-    .then(() => {
-      console.log("✅ User logged out");
-    })
-    .catch(error => {
-      console.error("❌ Error logging out:", error.code, error.message);
-      throw error;
-    });
-}
-
-/**
- * Listen for authentication state changes
- * This runs whenever a user logs in or out
- */
-onAuthStateChanged(auth, user => {
-  if (user) {
-    console.log("👤 User is logged in:", user.email);
-    // You can add UI updates here, e.g. show/hide content
-  } else {
-    console.log("🚪 No user logged in");
-    // Handle logged-out state in your UI
-  }
-});
-
+/**********************************************start of auth-service.js********************************************/
+ 
 // from server.js old file
 
 // server.js
@@ -150,17 +105,7 @@ app.post("/create-checkout-session", authenticateToken, async (req, res) => {
   }
 });
 
-// 📂 Serve static files (frontend)
-app.use(express.static(path.join(__dirname, "public")));
 
-// SPA fallback (important if using React/Vue/Angular)
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "index.html"));
-});
-
-// 🚀 Start server
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 
 
 
