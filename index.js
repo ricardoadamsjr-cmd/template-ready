@@ -6,12 +6,12 @@ const path = import("path");
 const admin = import("firebase-admin");
 const Stripe = import("stripe");
 // Consider using a library like 'dotenv' to load environment variables from a .env file
-require('dotenv').config(); 
+import('dotenv').config(); 
 
 // Load Firebase service account (downloaded from Firebase Console)
 // IMPORTANT: Ensure 'serviceAccountKey.json' is in a secure, accessible location.
 // In a real deployment, you'd load this securely via environment variables or a secret manager.
-const serviceAccount = require("./serviceAccountKey.json");
+const serviceAccount = import("./serviceAccountKey.json");
 
 // Initialize Firebase Admin SDK
 admin.initializeApp({
