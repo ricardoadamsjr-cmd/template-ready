@@ -25,22 +25,9 @@ document.getElementById("signup-btn").addEventListener("click", () => {
   signUp(email, password);
 });
 
-// auth.js
 
-// Import the Firebase Auth instance from your firebase-config.js
-import { auth } from "./js/firebase-init.js";
-
-// Import the Firebase Auth functions you’ll use
-import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  signOut,
-  onAuthStateChanged
-} from "firebase/auth";
-
-/**********************************************start of auth-service.js********************************************/
  
-// from server.js old file
+
 
 // server.js
 // server.js
