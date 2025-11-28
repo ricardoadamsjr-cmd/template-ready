@@ -2,9 +2,9 @@
 
 // Server-side imports (using require for Node.js CommonJS modules)
 const express = import("express");
-const path = require("path");
-const admin = require("firebase-admin");
-const Stripe = require("stripe");
+const path = import("path");
+const admin = import("firebase-admin");
+const Stripe = import("stripe");
 // Consider using a library like 'dotenv' to load environment variables from a .env file
 require('dotenv').config(); 
 
