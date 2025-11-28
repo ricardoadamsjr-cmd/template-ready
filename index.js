@@ -1,7 +1,7 @@
 // index.js (at your project root - this replaces all the server-side code from your main.js)
 
 // Server-side imports (using require for Node.js CommonJS modules)
-const express = require("express");
+const express = import("express");
 const path = require("path");
 const admin = require("firebase-admin");
 const Stripe = require("stripe");
