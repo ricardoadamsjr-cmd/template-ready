@@ -2,7 +2,7 @@
 // auth.js
 
 // Import the Firebase Auth instance from your firebase-config.js
-import { auth } from "./firebase-config.js";
+import { auth } from "./Firebase-init.js";
 
 // Import the Firebase Auth functions you’ll use
 import {
