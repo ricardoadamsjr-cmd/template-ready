@@ -6,7 +6,9 @@ const path = import("path");
 const admin = import("firebase-admin");
 const Stripe = import("stripe");
 // Consider using a library like 'dotenv' to load environment variables from a .env file
-import('dotenv').config(); 
+import dotenv from "dotenv";
+dotenv.config();
+
 
 // Load Firebase service account (downloaded from Firebase Console)
 // IMPORTANT: Ensure 'serviceAccountKey.json' is in a secure, accessible location.
