@@ -5,6 +5,7 @@ const express = import("express");
 const path = import("path");
 const admin = import("firebase-admin");
 const Stripe = import("stripe");
+import admin from "firebase-admin";
 // Consider using a library like 'dotenv' to load environment variables from a .env file
 import dotenv from "dotenv";
 dotenv.config();
