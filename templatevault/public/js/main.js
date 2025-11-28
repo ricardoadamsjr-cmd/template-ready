@@ -1,3 +1,7 @@
+const express = require("express");
+const path = require("path");
+const admin = require("firebase-admin");
+const Stripe = require("stripe");
 import { signUp, logIn } from "auth.js";
 
 document.getElementById("signup-btn").addEventListener("click", () => {
@@ -85,10 +89,7 @@ onAuthStateChanged(auth, user => {
 
 // server.js
 // server.js
-const express = require("express");
-const path = require("path");
-const admin = require("firebase-admin");
-const Stripe = require("stripe");
+
 
 // Load Firebase service account (downloaded from Firebase Console)
 const serviceAccount = require("./serviceAccountKey.json");
@@ -173,7 +174,6 @@ app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 
 import React, { useState } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../firebase"; // your firebase.js config
 import { createUserProfile } from "../services/userService";
 
 export default function SignUpForm() {
