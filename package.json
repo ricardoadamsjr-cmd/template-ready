@@ -1,15 +1,14 @@
 {
-  "name": "template-ready",
+  "name": "uplift-local",
   "version": "1.0.0",
-  "main": "main.js",
+  "main": "js/main.js",
   "scripts": {
-    "start": "main.js"
+    "start": "node js/main.js"
   },
   "dependencies": {
     "express": "^4.18.2",
-    "firebase": "^10.7.1",
     "firebase-admin": "^12.0.0",
     "stripe": "^14.0.0"
   }
-  
 }
+
