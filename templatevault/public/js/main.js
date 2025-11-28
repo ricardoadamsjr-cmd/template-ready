@@ -9,7 +9,7 @@ document.getElementById("signup-btn").addEventListener("click", () => {
 // auth.js
 
 // Import the Firebase Auth instance from your firebase-config.js
-import { auth } from "./firebase-config.js";
+import { auth } from "./services/firebase-config.js";
 
 // Import the Firebase Auth functions you’ll use
 import {
