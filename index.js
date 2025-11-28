@@ -1,26 +1,21 @@
 // index.js (at your project root - this replaces all the server-side code from your main.js)
 
-// Server-side imports (using require for Node.js CommonJS modules)
-const express = import("express");
-const path = import("path");
-const admin = import("firebase-admin");
-const Stripe = import("stripe");
+// Server-side imports (using ES6 modules)
+import express from "express";
+import path from "path";
 import admin from "firebase-admin";
-// Consider using a library like 'dotenv' to load environment variables from a .env file
+import Stripe from "stripe";
 import dotenv from "dotenv";
+
 dotenv.config();
 
-
-// Load Firebase service account (downloaded from Firebase Console)
-// IMPORTANT: Ensure 'serviceAccountKey.json' is in a secure, accessible location.
-// In a real deployment, you'd load this securely via environment variables or a secret manager.
-const serviceAccount = import("./serviceAccountKey.json");
+// Load Firebase service account from environment variable
+const serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
 
 // Initialize Firebase Admin SDK
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
-  // If you use Firebase Realtime Database on the server, include databaseURL:
-  // databaseURL: "https://uplift-local.firebaseio.com" 
+  databaseURL: "https://uplift-local.firebaseio.com"
 });
 
 // Initialize Stripe (use your secret key from Stripe Dashboard)
