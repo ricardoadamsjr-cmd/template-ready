@@ -1,9 +1,9 @@
 {
   "name": "your-project-name",
   "version": "1.0.0",
-  "main": "./js/main.js",
+  "main": "./public/js/main.js",
   "scripts": {
-    "start": "node ./js/main.js"
+    "start": "node ./public/js/main.js"
   },
   "dependencies": {
     "express": "^4.18.2",
