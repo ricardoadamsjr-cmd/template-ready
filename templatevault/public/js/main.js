@@ -135,8 +135,12 @@ export default function SignUpForm() {
   };
 
   return (
+    "form",
+  { onSubmit: handleSignUp, style: { maxWidth: "400px", margin: "0 auto" } },
+  React.createElement("h2", null, "Create Account"),
+  // …other children go here …
+
     <form onSubmit={handleSignUp} style={{ maxWidth: "400px", margin: "0 auto" }}>
-      <h2>Create Account</h2>
 
       <input
         type="text"
