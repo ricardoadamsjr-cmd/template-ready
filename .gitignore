@@ -1,0 +1,6 @@
+# .gitignore
+# Firebase Admin SDK Service Account Key
+serviceAccountKey.json
+
+# Environment variables
+.env
