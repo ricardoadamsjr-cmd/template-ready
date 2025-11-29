@@ -2,7 +2,8 @@
 
 import { db } from "../firebase"; // your firebase.js config file
 import { doc, setDoc, getDoc, updateDoc } from "firebase/firestore";
-
+import { collection, addDoc } from "firebase/firestore";
+import { getAuth } from "firebase/auth"; // If you need the current user's UID
 /**
  * Create a new user profile in Firestore after Firebase Auth sign-up.
  * @param {Object} user - Firebase Auth user object
@@ -72,3 +73,27 @@ export async function updateUserProfile(uid, updates) {
     throw error;
   }
 }
+
+
+const auth = getAuth(); // Initialize Auth if not already done
+
+async function collectSomeData(data) {
+  if (!auth.currentUser) {
+    console.warn("No user signed in. Cannot write data.");
+    return;
+  }
+
+  try {
+    const docRef = await addDoc(collection(db, "myWebAppData"), { // Example collection name
+      item: data,
+      timestamp: new Date(),
+      userId: auth.currentUser.uid // Link data to the authenticated user
+    });
+    console.log("Document successfully written with ID: ", docRef.id);
+  } catch (e) {
+    console.error("Error adding document: ", e);
+  }
+}
+
+// Example usage:
+// Call collectSomeData("This is a new piece of info from uplift-local!");

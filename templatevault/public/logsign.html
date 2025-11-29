@@ -326,6 +326,16 @@
             <p>Secure Authentication Portal</p>
         </div>
 
+
+       <!--THIS IS WHERE YOUR REACT APP WILL MOUNT --> 
+       <div id="react-auth-root">
+        <!--react will render your signup  and other components here-->
+       </div>
+
+
+
+
+
         <div id="auth-section">
             <div class="auth-tabs">
                 <button class="tab-btn active" onclick="switchTab('signup')">Sign Up</button>
@@ -373,103 +383,14 @@
         </div>
     </div>
 
-    <script type="module" src="./main.js"></script>
-    <script>
-        // Tab switching functionality
-        function switchTab(tab) {
-            // Update tab buttons
-            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
+   
 
-            // Update forms
-            document.querySelectorAll('.auth-form').forEach(form => form.classList.remove('active'));
-            document.getElementById(tab + '-form').classList.add('active');
-
-            // Clear messages
-            clearMessages();
-        }
-
-        // Message handling
-        function showMessage(message, type = 'success') {
-            clearMessages();
-            const messageEl = document.getElementById(type + '-message');
-            messageEl.textContent = message;
-            messageEl.style.display = 'block';
-        }
-
-        function clearMessages() {
-            document.getElementById('success-message').style.display = 'none';
-            document.getElementById('error-message').style.display = 'none';
-        }
-
-        // Loading state management
-        function setLoading(button, isLoading) {
-            if (isLoading) {
-                button.classList.add('loading');
-                button.disabled = true;
-            } else {
-                button.classList.remove('loading');
-                button.disabled = false;
-            }
-        }
-
-        // Show authenticated state
-        function showLoggedInState(userEmail) {
-            document.getElementById('auth-section').style.display = 'none';
-            document.getElementById('logout-section').classList.add('active');
-            document.getElementById('user-email').textContent = userEmail;
-        }
-
-        // Show login/signup state
-        function showLoggedOutState() {
-            document.getElementById('auth-section').style.display = 'block';
-            document.getElementById('logout-section').classList.remove('active');
-            clearMessages();
-        }
-
-        // Form submission handlers (these will work with your main.js Firebase code)
-        document.getElementById('signup-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const email = document.getElementById('signup-email').value;
-            const password = document.getElementById('signup-password').value;
-            
-            if (email && password) {
-                setLoading(document.getElementById('signup-btn'), true);
-                // Your Firebase signup logic will go here in main.js
-                // For demo purposes, showing success after 1 second
-                setTimeout(() => {
-                    setLoading(document.getElementById('signup-btn'), false);
-                    showMessage('Account created successfully!', 'success');
-                }, 1000);
-            }
-        });
-
-        document.getElementById('login-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const email = document.getElementById('login-email').value;
-            const password = document.getElementById('login-password').value;
-            
-            if (email && password) {
-                setLoading(document.getElementById('login-btn'), true);
-                // Your Firebase login logic will go here in main.js
-                // For demo purposes, showing logged in state after 1 second
-                setTimeout(() => {
-                    setLoading(document.getElementById('login-btn'), false);
-                    showLoggedInState(email);
-                }, 1000);
-            }
-        });
-
-        document.getElementById('logout-btn').addEventListener('click', function() {
-            // Your Firebase logout logic will go here in main.js
-            showLoggedOutState();
-            showMessage('Logged out successfully!', 'success');
-        });
-
-        // Clear messages when user starts typing
-        document.querySelectorAll('.form-input').forEach(input => {
-            input.addEventListener('input', clearMessages);
-        });
-    </script>
+    <!-- At the very end of your <body> tag -->
+<script type="module" src="/path/to/your/react/build/main.js"></script> 
+<!--
+    The exact path depends on your React build setup (e.g., for Vite, it might be /src/main.jsx,
+    or after building, it could be /dist/assets/index.<hash>.js).
+    You need to point this to the JavaScript file that *renders your React app*.
+--> 
 </body>
 </html>
