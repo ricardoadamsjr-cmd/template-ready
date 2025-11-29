@@ -1,4 +1,0 @@
-You write your React components and client-side logic in src/ .
-You run npm run build-client (which uses Vite) to convert your src/ code (including JSX) into standard JavaScript, and places it into templatevault/public/js/ .
-Your index.html (which lives in templatevault/public/ ) references this built main.js .
-You run npm start (which runs node index.js ). This Node.js server then serves everything from templatevault/public to the user's browser.
