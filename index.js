@@ -92,7 +92,15 @@ app.post("/api/create-checkout-session", authenticateToken, async (req, res) => 
 // 📂 Serve static files (YOUR CLIENT-SIDE APPLICATION)
 // This middleware serves all files from the 'templatevault/public' directory.
 // This directory should contain your index.html, CSS, and the *BUILT* JavaScript files.
+import path from "path";
+import { fileURLToPath } from "url";
+
+// Recreate __dirname in ESM
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 app.use(express.static(path.join(__dirname, "templatevault/public")));
+
 
 // SPA fallback: For any routes not handled by the API or static files,
 // send the index.html. This is crucial for client-side routing in React apps.
