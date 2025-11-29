@@ -62,33 +62,15 @@ app.post("/api/create-checkout-session", authenticateToken, async (req, res) => 
   }
 });
 
+// *** ADDED: Basic root route to avoid "Cannot GET /" ***
+app.get('/', (req, res) => {
+  res.send('Firebase Backend Service is Running!');
+});
 
-app.listen(PORT, () => console.log(`Backend running on port ${PORT}`));
-
-
-
-// backend/index.js
-
-
-
-
-// Define a route for the root path '/'
-// Add this line near the top of your backend/index.js (or templatevault/index.js)
+// *** CORRECTED: Define port and start listening ***
 const port = process.env.PORT || 3000; // Render will provide process.env.PORT; 3000 is for local development
 
-// Then, use the 'port' variable in your app.listen call
 app.listen(port, () => {
   console.log(`Backend service listening on port ${port}`);
 });
-
-
-// Add other API routes or Firebase Admin SDK initializations here
-// For example:
-// app.get('/api/users', async (req, res) => {
-//   const usersRef = db.collection('users');
-//   const snapshot = await usersRef.get();
-//   const users = snapshot.docs.map(doc => doc.data());
-//   res.json(users);
-// });
-
 
