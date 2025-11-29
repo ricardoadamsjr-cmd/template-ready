@@ -7,12 +7,16 @@ import {
   signInWithEmailAndPassword,
   signOut,
   onAuthStateChanged
+
+//Imports the firebaseConfig object
 } from "firebase/auth";
 import { firebaseConfig } from "./firebaseConfig";
 
+//this sets up the firebase app and auth instance//
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
+//this funtion handles the authentication UI and logic// it also handles the signup and login forms//
 function AuthApp() {
   const [mode, setMode] = useState("signup");
   const [email, setEmail] = useState("");
@@ -22,6 +26,8 @@ function AuthApp() {
 
   useEffect(() => onAuthStateChanged(auth, setUser), []);
 
+
+//the handleSubmit function handles the form submission for both signup and login//
   async function handleSubmit(e) {
     e.preventDefault();
     setMessage("");
@@ -38,6 +44,7 @@ function AuthApp() {
     }
   }
 
+  // the return statement renders the UI components. it also includes conditional rendering based on the authentication state//
   return (
     <div>
       <div className="auth-tabs">
