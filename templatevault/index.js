@@ -2,7 +2,7 @@ import express from "express";
 import admin from "firebase-admin";
 import Stripe from "stripe";
 import dotenv from "dotenv";
-const PORT = process.env.PORT || 3000;
+
 dotenv.config();
 
 const app = express();
