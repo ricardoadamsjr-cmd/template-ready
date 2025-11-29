@@ -64,3 +64,29 @@ app.post("/api/create-checkout-session", authenticateToken, async (req, res) => 
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Backend running on port ${PORT}`));
+
+
+
+// backend/index.js
+
+const express = require('express');
+const port = process.env.PORT || 3000; // Use port from environment or default to 3000
+
+// Define a route for the root path '/'
+app.get('/', (req, res) => {
+  res.send('Hello from your Firebase-powered backend!'); // Or serve an HTML file
+});
+
+// Add other API routes or Firebase Admin SDK initializations here
+// For example:
+// app.get('/api/users', async (req, res) => {
+//   const usersRef = db.collection('users');
+//   const snapshot = await usersRef.get();
+//   const users = snapshot.docs.map(doc => doc.data());
+//   res.json(users);
+// });
+
+
+app.listen(port, () => {
+  console.log(`Backend service listening on port ${port}`);
+});
