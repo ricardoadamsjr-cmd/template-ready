@@ -19,7 +19,7 @@ let serviceAccount;
 if (process.env.FIREBASE_SERVICE_ACCOUNT_CONFIG_JSON) {
   serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT_CONFIG_JSON);
 } else if (process.env.FIREBASE_SERVICE_ACCOUNT_PATH) {
-  serviceAccount = require(process.env.FIREBASE_SERVICE_ACCOUNT_PATH); // For local dev with .env
+  const serviceAccount = (await import(process.env.FIREBASE_SERVICE_ACCOUNT_PATH, { assert: { type: "json" } })).default; // For local dev with .env
 } else {
   // Fallback if neither env var is set (e.g., local dev without .env)
   console.warn("FIREBASE_SERVICE_ACCOUNT_CONFIG_JSON or FIREBASE_SERVICE_ACCOUNT_PATH not set. Ensure serviceAccountKey.json is available for local testing if needed.");
