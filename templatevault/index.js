@@ -92,6 +92,3 @@ app.listen(port, () => {
 // });
 
 
-app.listen(port, () => {
-  console.log(`Backend service listening on port ${port}`);
-});
