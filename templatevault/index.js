@@ -73,9 +73,14 @@ app.listen(PORT, () => console.log(`Backend running on port ${PORT}`));
 
 
 // Define a route for the root path '/'
-app.get('/', (req, res) => {
-  res.send('Hello from your Firebase-powered backend!'); // Or serve an HTML file
+// Add this line near the top of your backend/index.js (or templatevault/index.js)
+const port = process.env.PORT || 3000; // Render will provide process.env.PORT; 3000 is for local development
+
+// Then, use the 'port' variable in your app.listen call
+app.listen(port, () => {
+  console.log(`Backend service listening on port ${port}`);
 });
+
 
 // Add other API routes or Firebase Admin SDK initializations here
 // For example:
