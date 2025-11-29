@@ -1,113 +1,150 @@
-// index.js (at your project root - this replaces all the server-side code from your main.js)
+// index.js (at your project root)
 
-// Server-side imports (using ES6 modules)
+// Server-side imports
 import express from "express";
 import path from "path";
-import admin from "firebase-admin";
+import admin from "firebase-admin"; // Firebase Admin SDK
 import Stripe from "stripe";
-import dotenv from "dotenv";
+import dotenv from "dotenv"; // For loading .env variables in local development
+import { fileURLToPath } from "url"; // For __dirname in ES Modules
 
+// Load environment variables from .env file in local development.
+// This will not run on Render.com, as Render handles environment variables directly.
 dotenv.config();
 
-// index.js (Server-Side Code)
+// Recreate __filename and __dirname for ES Modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-// ... (your existing imports and Express setup)
-
-// Initialize Firebase Admin SDK
-// This logic handles both local (.env file path) and Render (environment variable JSON) environments
+// --- Firebase Admin SDK Initialization ---
 let serviceAccount;
+// We'll primarily rely on the FIREBASE_SERVICE_ACCOUNT_CONFIG_JSON environment variable.
 if (process.env.FIREBASE_SERVICE_ACCOUNT_CONFIG_JSON) {
-  serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT_CONFIG_JSON);
-} else if (process.env.FIREBASE_SERVICE_ACCOUNT_PATH) {
-  const serviceAccount = (await import(process.env.FIREBASE_SERVICE_ACCOUNT_PATH, { assert: { type: "json" } })).default; // For local dev with .env
+  try {
+    serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT_CONFIG_JSON);
+    console.log("Firebase service account loaded from FIREBASE_SERVICE_ACCOUNT_CONFIG_JSON.");
+  } catch (e) {
+    console.error("Critical Error: Failed to parse FIREBASE_SERVICE_ACCOUNT_CONFIG_JSON.", e);
+    // Exit the application if the critical service account configuration is malformed
+    process.exit(1);
+  }
 } else {
-  // Fallback if neither env var is set (e.g., local dev without .env)
-  console.warn("FIREBASE_SERVICE_ACCOUNT_CONFIG_JSON or FIREBASE_SERVICE_ACCOUNT_PATH not set. Ensure serviceAccountKey.json is available for local testing if needed.");
-  // You might want to throw an error here in production if it's not found
-  // throw new Error("Firebase service account configuration missing!");
+  // In a production environment like Render.com, this variable should *always* be set.
+  console.error("Critical Error: FIREBASE_SERVICE_ACCOUNT_CONFIG_JSON environment variable is not set.");
+  process.exit(1); // Exit if Firebase Admin SDK cannot be initialized without it
 }
 
 if (serviceAccount) {
-    admin.initializeApp({
-      credential: admin.credential.cert(serviceAccount),
-      databaseURL: "https://uplift-local.firebaseio.com"
-    });
+  admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount),
+    // Specify your Firebase project's database URL or project ID for other services.
+    // Using your project ID for general Admin SDK operations is often sufficient,
+    // but databaseURL is needed if you specifically interact with Realtime Database.
+    databaseURL: "https://uplift-local.firebaseio.com", // Your project's Realtime Database URL
+    projectId: "uplift-local", // Your Firebase Project ID
+  });
+  console.log("Firebase Admin SDK initialized successfully for uplift-local!");
 } else {
-    // Handle case where serviceAccount couldn't be loaded (e.g., don't initialize admin)
-    console.error("Firebase Admin SDK not initialized due to missing service account config.");
+  // This block serves as a final safeguard if serviceAccount somehow remains null.
+  console.error("Firebase Admin SDK not initialized: Service account configuration is missing or invalid.");
+  process.exit(1);
 }
 
-// Initialize Stripe (use your secret key from Stripe Dashboard)
-// STRIPE_SECRET_KEY should be an environment variable, NOT hardcoded.
-const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
+// --- Stripe Initialization ---
+const STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY;
+if (!STRIPE_SECRET_KEY) {
+  console.error("Critical Error: STRIPE_SECRET_KEY environment variable is not set.");
+  process.exit(1); // Exit if Stripe secret key is missing
+}
+const stripe = new Stripe(STRIPE_SECRET_KEY, {
+  apiVersion: '2024-04-10', // It's good practice to pin to a recent stable API version
+});
+console.log("Stripe initialized.");
 
+// --- Express App Setup ---
 const app = express();
 app.use(express.json()); // Middleware to parse JSON bodies for API requests
 
+// --- Firebase Authentication Middleware ---
 // 🔒 Middleware to verify Firebase ID tokens (used for protected API routes)
 async function authenticateToken(req, res, next) {
   const idToken = req.headers.authorization?.split("Bearer ")[1];
-  if (!idToken) return res.status(401).send("Unauthorized: No token provided");
+  if (!idToken) {
+    return res.status(401).send("Unauthorized: No authentication token provided.");
+  }
 
   try {
     const decodedToken = await admin.auth().verifyIdToken(idToken);
-    req.user = decodedToken; // Attach decoded user info to the request
+    req.user = decodedToken; // Attach decoded user info to the request (e.g., uid, email)
     next();
   } catch (error) {
     console.error("Token verification failed:", error);
-    res.status(401).send("Unauthorized: Invalid token");
+    // Provide a more informative error message for clients
+    return res.status(401).send(`Unauthorized: Invalid or expired authentication token. (${error.message})`);
   }
 }
 
-// 🛠 Example protected API route (e.g., your client-side app fetches user profile from here)
+// --- API Routes ---
+
+// 🛠 Example protected API route
+// This route requires a valid Firebase ID token and returns basic user information.
 app.get("/api/profile", authenticateToken, (req, res) => {
-  res.json({ message: `Hello ${req.user.email}`, uid: req.user.uid });
+  res.json({
+    message: `Hello ${req.user.email || req.user.uid}`, // Use email if available, else UID
+    uid: req.user.uid,
+    authTime: req.user.auth_time, // Time when the user authenticated
+  });
 });
 
-// 💳 Stripe checkout session API route (your client-side app would call this to initiate payment)
+// 💳 Stripe checkout session API route
+// Your client-side app will call this to initiate a Stripe payment/subscription checkout.
 app.post("/api/create-checkout-session", authenticateToken, async (req, res) => {
+  const STRIPE_PRICE_ID = process.env.STRIPE_PRICE_ID;
+  if (!STRIPE_PRICE_ID) {
+    console.error("Critical Error: STRIPE_PRICE_ID environment variable is not set.");
+    return res.status(500).send("Server configuration error: Stripe Price ID is missing.");
+  }
+
   try {
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
-      mode: "subscription",
+      mode: "subscription", // Assuming you're creating a subscription here
       line_items: [
         {
-          price: process.env.STRIPE_PRICE_ID, // Your Stripe Price ID (from environment variables)
+          price: STRIPE_PRICE_ID, // Your specific Stripe Price ID for the product/service
           quantity: 1,
         },
       ],
-      // Use dynamic URLs for better flexibility
-      success_url: `${req.protocol}://${req.get('host')}/success.html`, 
+      // Dynamic URLs for success/cancel pages based on the request origin
+      success_url: `${req.protocol}://${req.get('host')}/success.html`,
       cancel_url: `${req.protocol}://${req.get('host')}/cancel.html`,
-      client_reference_id: req.user.uid, // Link Stripe session to Firebase user
+      client_reference_id: req.user.uid, // Link this Stripe session to the authenticated Firebase user
+      customer_email: req.user.email, // Pre-fill the customer's email in Stripe Checkout
     });
 
     res.json({ id: session.id });
   } catch (error) {
-    console.error("Stripe session error:", error);
-    res.status(500).send("Error creating checkout session");
+    console.error("Stripe checkout session creation error:", error);
+    res.status(500).send(`Error creating checkout session: ${error.message}`);
   }
 });
 
-// 📂 Serve static files (YOUR CLIENT-SIDE APPLICATION)
-// This middleware serves all files from the 'templatevault/public' directory.
-// This directory should contain your index.html, CSS, and the *BUILT* JavaScript files.
+// --- Static File Serving and SPA Fallback ---
 
-import { fileURLToPath } from "url";
-
-// Recreate __dirname in ESM
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
+// 📂 Serve static files
+// This middleware serves all client-side files (HTML, CSS, JS, images)
+// from the 'templatevault/public' directory. This is where your built frontend
+// application files should reside.
 app.use(express.static(path.join(__dirname, "templatevault/public")));
 
 
-// SPA fallback: For any routes not handled by the API or static files,
-// send the index.html. This is crucial for client-side routing in React apps.
+// SPA fallback: For any routes not explicitly handled by the API or static files,
+// send the 'index.html'. This is essential for client-side routing in frameworks
+// like React, Vue, or Angular, allowing them to manage their own routes.
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "templatevault/public", "index.html"));
 });
 
-// 🚀 Start server
+// --- Start Server ---
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
