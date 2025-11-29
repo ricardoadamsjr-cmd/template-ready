@@ -3,7 +3,22 @@
 
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { auth } from "./Firebase-client-config"; // Import the auth instance you exported
+import { getAuth} from "firebase/auth";
+import { app } from '../firebase-client-config'; // Assuming you export 'app' from there
 
+// Get the Firebase Auth instance
+const auth = getAuth(app); // Pass the initialized app to getAuth()
+
+export async function signUp(email, password) {
+  try {
+    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    // User signed up and signed in automatically
+    return userCredential.user;
+  } catch (error) {
+    console.error("Firebase Auth Sign-up Error:", error.code, error.message);
+    throw error; // Re-throw to be caught by the calling component
+  }
+}
 /**
  * Sign up a new user with email and password
  * @param {string} email
