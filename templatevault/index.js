@@ -2,7 +2,7 @@ import express from "express";
 import admin from "firebase-admin";
 import Stripe from "stripe";
 import dotenv from "dotenv";
-
+const PORT = process.env.PORT || 3000;
 dotenv.config();
 
 const app = express();
@@ -62,7 +62,7 @@ app.post("/api/create-checkout-session", authenticateToken, async (req, res) => 
   }
 });
 
-const PORT = process.env.PORT || 3000;
+
 app.listen(PORT, () => console.log(`Backend running on port ${PORT}`));
 
 
