@@ -2,6 +2,7 @@ import express from "express";
 import admin from "firebase-admin";
 import Stripe from "stripe";
 import dotenv from "dotenv";
+import path from "path"; // <--- ADDED: Import the path module
 
 dotenv.config();
 
@@ -62,15 +63,23 @@ app.post("/api/create-checkout-session", authenticateToken, async (req, res) => 
   }
 });
 
-// *** ADDED: Basic root route to avoid "Cannot GET /" ***
+// --- NEW STATIC FILE SERVING CONFIGURATION ---
+
+// Serve static files from the 'frontend' directory
+// This allows your HTML to link to CSS, JS, images, etc. inside 'frontend'
+// e.g., if you have 'frontend/styles.css', it will be accessible at '/styles.css'
+app.use(express.static(path.join(__dirname, '../../frontend'))); // <--- ADJUSTED PATH
+
+// Explicitly send the index.html for the root path
 app.get('/', (req, res) => {
-  res.send('Firebase Backend Service is Running!');
+  res.sendFile(path.join(__dirname, '../../frontend', 'index.html')); // <--- ADJUSTED PATH
 });
 
-// *** CORRECTED: Define port and start listening ***
-const port = process.env.PORT || 3000; // Render will provide process.env.PORT; 3000 is for local development
+// --- END NEW STATIC FILE SERVING CONFIGURATION ---
+
+// Define port and start listening
+const port = process.env.PORT || 3000;
 
 app.listen(port, () => {
   console.log(`Backend service listening on port ${port}`);
 });
-
