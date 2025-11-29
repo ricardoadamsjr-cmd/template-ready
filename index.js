@@ -9,14 +9,33 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-// Load Firebase service account from environment variable
-const serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
+// index.js (Server-Side Code)
+
+// ... (your existing imports and Express setup)
 
 // Initialize Firebase Admin SDK
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-  databaseURL: "https://uplift-local.firebaseio.com"
-});
+// This logic handles both local (.env file path) and Render (environment variable JSON) environments
+let serviceAccount;
+if (process.env.FIREBASE_SERVICE_ACCOUNT_CONFIG_JSON) {
+  serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT_CONFIG_JSON);
+} else if (process.env.FIREBASE_SERVICE_ACCOUNT_PATH) {
+  serviceAccount = require(process.env.FIREBASE_SERVICE_ACCOUNT_PATH); // For local dev with .env
+} else {
+  // Fallback if neither env var is set (e.g., local dev without .env)
+  console.warn("FIREBASE_SERVICE_ACCOUNT_CONFIG_JSON or FIREBASE_SERVICE_ACCOUNT_PATH not set. Ensure serviceAccountKey.json is available for local testing if needed.");
+  // You might want to throw an error here in production if it's not found
+  // throw new Error("Firebase service account configuration missing!");
+}
+
+if (serviceAccount) {
+    admin.initializeApp({
+      credential: admin.credential.cert(serviceAccount),
+      databaseURL: "https://uplift-local.firebaseio.com"
+    });
+} else {
+    // Handle case where serviceAccount couldn't be loaded (e.g., don't initialize admin)
+    console.error("Firebase Admin SDK not initialized due to missing service account config.");
+}
 
 // Initialize Stripe (use your secret key from Stripe Dashboard)
 // STRIPE_SECRET_KEY should be an environment variable, NOT hardcoded.
