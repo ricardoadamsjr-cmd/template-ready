@@ -92,7 +92,7 @@ app.post("/api/create-checkout-session", authenticateToken, async (req, res) => 
 // 📂 Serve static files (YOUR CLIENT-SIDE APPLICATION)
 // This middleware serves all files from the 'templatevault/public' directory.
 // This directory should contain your index.html, CSS, and the *BUILT* JavaScript files.
-import path from "path";
+
 import { fileURLToPath } from "url";
 
 // Recreate __dirname in ESM
