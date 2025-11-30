@@ -703,13 +703,16 @@
         });
     </script>
     
-  <!-- Inline authentication script -->
-  <!-- Firebase SDKs (v8 style for simplicity) -->
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+  <h1>Dashboard</h1>
+  <p id="userEmail"></p>
+  <button id="logoutBtn">Logout</button>
 
-  <!-- Inline authentication script -->
-  <script>
+  <!-- Put your Firebase code at the bottom of the body -->
+  <script type="module">
+    // Import Firebase functions from CDN
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
+
     // Your Firebase config
     const firebaseConfig = {
       apiKey: "AIzaSyBhsMRHyuWF-R9MyRKKjzGQC0p-eznYILE",
@@ -721,17 +724,16 @@
     };
 
     // Initialize Firebase
-    if (!firebase.apps.length) {
-      firebase.initializeApp(firebaseConfig);
-    }
-    const auth = firebase.auth();
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
 
     // Grab DOM elements
     const userEmail = document.getElementById('userEmail');
     const logoutBtn = document.getElementById('logoutBtn');
 
     // Check if user is logged in
-    auth.onAuthStateChanged((user) => {
+    onAuthStateChanged(auth, (user) => {
+      console.log("Auth state changed:", user); // Debug log
       if (user) {
         userEmail.textContent = `Logged in as: ${user.email}`;
       } else {
@@ -742,13 +744,15 @@
 
     // Handle logout
     logoutBtn.addEventListener('click', () => {
-      auth.signOut().then(() => {
+      signOut(auth).then(() => {
         window.location.href = "login.html";
       }).catch((error) => {
         console.error("Logout error:", error);
       });
     });
   </script>
+
+
 
 
 
