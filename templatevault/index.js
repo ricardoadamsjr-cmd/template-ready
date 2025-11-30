@@ -2,9 +2,14 @@ import express from "express";
 import admin from "firebase-admin";
 import Stripe from "stripe";
 import dotenv from "dotenv";
-import path from "path"; // <--- ADDED: Import the path module
+import path from "path";
+import { fileURLToPath } from 'url'; // <--- ADDED: For __dirname equivalent
 
 dotenv.config();
+
+// Define __filename and __dirname equivalent for ES Modules
+const __filename = fileURLToPath(import.meta.url); // <--- ADDED
+const __dirname = path.dirname(__filename);       // <--- ADDED
 
 const app = express();
 app.use(express.json());
@@ -63,19 +68,20 @@ app.post("/api/create-checkout-session", authenticateToken, async (req, res) => 
   }
 });
 
-// --- NEW STATIC FILE SERVING CONFIGURATION ---
+// --- STATIC FILE SERVING CONFIGURATION ---
+// Assuming your frontend build process outputs files to 'frontend/dist' (or 'frontend/build'),
+// and logsign.html will be located there after the build.
+const FRONTEND_BUILD_DIR = path.join(__dirname, '../../frontend/dist'); // Adjust 'dist' if your build output is different
 
-// Serve static files from the 'frontend' directory
-// This allows your HTML to link to CSS, JS, images, etc. inside 'frontend'
-// e.g., if you have 'frontend/styles.css', it will be accessible at '/styles.css'
-app.use(express.static(path.join(__dirname, '../../frontend'))); // <--- ADJUSTED PATH
+// Serve static files from the frontend's build output directory
+app.use(express.static(FRONTEND_BUILD_DIR));
 
-// Explicitly send the index.html for the root path
+// Explicitly send logsign.html for the root path
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, '../../frontend', 'index.html')); // <--- ADJUSTED PATH
+  res.sendFile(path.join(FRONTEND_BUILD_DIR, 'logsign.html'));
 });
 
-// --- END NEW STATIC FILE SERVING CONFIGURATION ---
+// --- END STATIC FILE SERVING CONFIGURATION ---
 
 // Define port and start listening
 const port = process.env.PORT || 3000;
