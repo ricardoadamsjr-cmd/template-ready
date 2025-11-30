@@ -12,7 +12,7 @@
     <!-- Mobile Menu Overlay -->
     <div class="mobile-menu-overlay" id="mobileMenuOverlay">
         <div class="mobile-menu-content">
-            <buttonbutton class="mobile-menu-close" onclick="closeMobileMenu()" title="Close menu">
+            <buttonbutton class="mobile-menu-close" onclick="closeMobileMenu()" title="Close mobile menu">
                 <i class="fas fa-times"></i>
             </button>
             <nav class="mobile-nav">
@@ -21,8 +21,6 @@
                 <a href="#features" class="mobile-nav-link" onclick="closeMobileMenu()">Features</a>
                 <a href="#pricing" class="mobile-nav-link" onclick="closeMobileMenu()">Pricing</a>
                 <a href="#contact" class="mobile-nav-link" onclick="closeMobileMenu()">Contact</a>
-                <a href="logsign.html" class="mobile-nav-link" onclick="closeMobileMenu()">log in</a>
-                <a href="logsign.html" class="mobile-nav-link" onclick="closeMobileMenu()">create Account</a>
                 <a href="#pricing" class="mobile-cta-button" onclick="closeMobileMenu()">Start Free Trial</a>
             </nav>
         </div>
@@ -51,12 +49,10 @@
                     <li><a href="#features" class="nav-link">Features</a></li>
                     <li><a href="#pricing" class="nav-link">Pricing</a></li>
                     <li><a href="#contact" class="nav-link">Contact</a></li>
-                    <li><a href="logsign.html" class="nav-link">Log in</a></li>
-                    <li><a href="logsign.html" class="nav-link">Create Account</a></li>
                 </ul>
             </nav>
             <a href="#pricing" class="cta-button pulse">Start Free Trial</a>
-            <buttonbutton class="mobile-menu-toggle" onclick="openMobileMenu()" title="Open mobile menu">
+            <button class="mobile-menu-toggle" onclick="openMobileMenu()">
                 <i class="fas fa-bars"></i>
             </button>
         </div>
@@ -486,7 +482,7 @@
     <!-- Demo Modal -->
     <div class="demo-modal" id="demoModal">
         <div class="demo-modal-content">
-            <buttonbutton class="demo-modal-close" onclick="closeDemoModal()" title="Close demo modal">
+            <button class="demo-modal-close" onclick="closeDemoModal()">
                 <i class="fas fa-times"></i>
             </button>
             <div class="demo-modal-header">
@@ -519,9 +515,7 @@
             <span id="toastMessage">Success!</span>
         </div>
     </div>
-    <div id="root"></div> <!-- Your React app will mount here -->
-    <!-- Your built client-side JavaScript entry point -->
-    <!-- This path will depend on how your client-side build tool (Vite, Webpack) is configured -->
-    <script type="module" src="src/main.jsx"></script> 
+
+    <script src="js/script.js"></script>
 </body>
 </html>
