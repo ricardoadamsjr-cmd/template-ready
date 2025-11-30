@@ -395,6 +395,8 @@
     </style>
 </head>
 <body>
+
+    
     <!-- Animated background particles -->
     <div class="bg-particles" id="particles"></div>
 
@@ -413,6 +415,8 @@
         <a href="#" class="nav-tab" data-category="blog">Blog</a>
         <a href="#" class="nav-tab" data-category="landing">Landing Page</a>
     </nav>
+<span id="userEmail"></span>
+  <button id="logoutBtn">Logout</button>
 
     <!-- Search -->
     <div class="search-container">
@@ -698,5 +702,50 @@
             });
         });
     </script>
+     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+
+  <!-- Inline authentication script -->
+  <script>
+    // Your Firebase config
+    const firebaseConfig = {
+      apiKey: "AIzaSyBhsMRHyuWF-R9MyRKKjzGQC0p-eznYILE",
+      authDomain: "uplift-local.firebaseapp.com",
+      projectId: "uplift-local",
+      storageBucket: "uplift-local.firebasestorage.app",
+      messagingSenderId: "615612260052",
+      appId: "1:615612260052:web:c7cac371c0698314e36541"
+    };
+
+    // Initialize Firebase
+    if (!firebase.apps.length) {
+      firebase.initializeApp(firebaseConfig);
+    }
+    const auth = firebase.auth();
+
+    // Grab DOM elements
+    const userEmail = document.getElementById('userEmail');
+    const logoutBtn = document.getElementById('logoutBtn');
+
+    // Check if user is logged in
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        userEmail.textContent = `Logged in as: ${user.email}`;
+      } else {
+        // No user → redirect to login
+        window.location.href = "login.html";
+      }
+    });
+
+    // Handle logout
+    logoutBtn.addEventListener('click', () => {
+      auth.signOut().then(() => {
+        window.location.href = "login.html";
+      }).catch((error) => {
+        console.error("Logout error:", error);
+      });
+    });
+  </script>
+
 </body>
 </html>
