@@ -10,7 +10,9 @@
   appId: "1:615612260052:web:c7cac371c0698314e36541"
 };
 
-firebase.initializeApp(firebaseConfig);
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+}
 const auth = firebase.auth();
 
 // Grab DOM elements
