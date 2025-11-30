@@ -51,3 +51,4 @@ loginForm.addEventListener('submit', (e) => {
       authMessage.textContent = "❌ Error: " + error.message;
     });
 });
+console.log("Auth script loaded");
