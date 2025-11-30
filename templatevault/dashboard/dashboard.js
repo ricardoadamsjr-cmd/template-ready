@@ -41,6 +41,9 @@ logoutBtn.addEventListener('click', () => {
 
 
 
+
+ 
+        // Template data
         const templates = [
             {
                 id: 1,
@@ -302,4 +305,3 @@ logoutBtn.addEventListener('click', () => {
                 }
             });
         });
-// Initialize Firebase (same config as auth.js)
