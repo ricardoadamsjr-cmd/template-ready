@@ -1,11 +1,14 @@
 {
+  "engines": {
+    "node": "20.x"
+  },
   "name": "uplift-local-backend",
   "version": "1.0.0",
   "type": "module",
   "main": "index.js",
   "scripts": {
     "dev": "vite",
-    "build": "vite build", 
+    "build": "npm exec vite build",
     "preview": "vite preview",
     "start": "node index.js"
   },
