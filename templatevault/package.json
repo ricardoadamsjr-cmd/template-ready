@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "npx vite build",
     "preview": "vite preview",
     "start": "node index.js"
   },
@@ -21,4 +21,5 @@
     "vite": "^5.0.0"
   }
 }
+
 
