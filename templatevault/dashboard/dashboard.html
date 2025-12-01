@@ -20,6 +20,7 @@
             overflow-x: hidden;
         }
 
+        
         /* Animated background particles */
         .bg-particles {
             position: fixed;
@@ -415,8 +416,11 @@
         <a href="#" class="nav-tab" data-category="blog">Blog</a>
         <a href="#" class="nav-tab" data-category="landing">Landing Page</a>
     </nav>
+    <div>
+        <button id="logoutBtn">Logout</button>
+    </div>
 <span id="userEmail"></span>
-  <button id="logoutBtn">Logout</button>
+ 
 
     <!-- Search -->
     <div class="search-container">
@@ -703,54 +707,10 @@
         });
     </script>
     
-  <h1>Dashboard</h1>
-  <p id="userEmail"></p>
-  <button id="logoutBtn">Logout</button>
+ 
 
   <!-- Put your Firebase code at the bottom of the body -->
-  <script type="module">
-    // Import Firebase functions from CDN
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
-    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
 
-    // Your Firebase config
-    const firebaseConfig = {
-      apiKey: "AIzaSyBhsMRHyuWF-R9MyRKKjzGQC0p-eznYILE",
-      authDomain: "uplift-local.firebaseapp.com",
-      projectId: "uplift-local",
-      storageBucket: "uplift-local.firebasestorage.app",
-      messagingSenderId: "615612260052",
-      appId: "1:615612260052:web:c7cac371c0698314e36541"
-    };
-
-    // Initialize Firebase
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-
-    // Grab DOM elements
-    const userEmail = document.getElementById('userEmail');
-    const logoutBtn = document.getElementById('logoutBtn');
-
-    // Check if user is logged in
-    onAuthStateChanged(auth, (user) => {
-      console.log("Auth state changed:", user); // Debug log
-      if (user) {
-        userEmail.textContent = `Logged in as: ${user.email}`;
-      } else {
-        // No user → redirect to login
-        window.location.href = "login.html";
-      }
-    });
-
-    // Handle logout
-    logoutBtn.addEventListener('click', () => {
-      signOut(auth).then(() => {
-        window.location.href = "login.html";
-      }).catch((error) => {
-        console.error("Logout error:", error);
-      });
-    });
-  </script>
 
 
 

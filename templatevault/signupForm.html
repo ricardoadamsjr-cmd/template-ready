@@ -73,32 +73,51 @@
   
 
   <!-- Login / Sign Up container -->
-  <div class="auth-container">
-    <h2>Welcome</h2>
+  <script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+  import { getAuth, createUserWithEmailAndPassword, onAuthStateChanged } 
+    from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
 
-    <!-- Sign Up Form -->
-    <form id="signupForm">
-      <h3>Create Account</h3>
-      <input type="email" id="signupEmail" placeholder="Email" required>
-      <input type="password" id="signupPassword" placeholder="Password" required>
-      <button type="submit">Sign Up</button>
-    </form>
+  // Your Firebase config
+  const firebaseConfig = {
+    apiKey: "AIzaSyBhsMRHyuWF-R9MyRKKjzGQC0p-eznYILE",
+    authDomain: "uplift-local.firebaseapp.com",
+    projectId: "uplift-local",
+    storageBucket: "uplift-local.firebasestorage.app",
+    messagingSenderId: "615612260052",
+    appId: "1:615612260052:web:c7cac371c0698314e36541"
+  };
 
-    <!-- Login Form -->
-   
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
 
-    <!-- Status messages -->
-    <p id="authMessage"></p>
-  </div>
+  const signupForm = document.getElementById('signupForm');
+  const authMessage = document.getElementById('authMessage');
 
-  <!-- Firebase App (core SDK) -->
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  // 🔎 Auto‑redirect if already logged in
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      window.location.href = "dashboard/dashboard.html";
+    }
+  });
 
-<!-- Firebase Auth SDK -->
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+  // Handle Signup
+  signupForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const email = document.getElementById('signupEmail').value;
+    const password = document.getElementById('signupPassword').value;
 
-  <!-- Your custom JS -->
-  <script src="auth.js"></script>
+    try {
+      await createUserWithEmailAndPassword(auth, email, password);
+      // ✅ Redirect to dashboard folder after successful signup
+      window.location.href = "dashboard/dashboard.html";
+    } catch (error) {
+      authMessage.textContent = "❌ Error: " + error.message;
+      console.error("Signup error:", error);
+    }
+  });
+</script>
 
 
 </body>

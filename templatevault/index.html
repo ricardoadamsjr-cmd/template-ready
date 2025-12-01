@@ -23,6 +23,7 @@
                 <a href="#contact" class="mobile-nav-link" onclick="closeMobileMenu()">Contact</a>
                 <a href="loginForm.html" class="mobile-nav-link" onclick="closeMobileMenu()">log-in</a>
                 <a href="signupForm.html" class="mobile-nav-link" onclick="closeMobileMenu()">Sign-up</a>
+                <a href="#pricing" class="mobile-cta-button" onclick="closeMobileMenu()">Dashboard</a>
                 <a href="#pricing" class="mobile-cta-button" onclick="closeMobileMenu()">Start Free Trial</a>
             </nav>
         </div>
@@ -41,26 +42,33 @@
     </div>
 
     <!-- Header -->
-    <header class="header" id="header">
-        <div class="nav-container">
-            <a href="#home" class="logo">TemplateVault</a>
-            <nav>
-                <ul class="nav-menu">
-                    <li><a href="#home" class="nav-link">Home</a></li>
-                    <li><a href="#templates" class="nav-link">Templates</a></li>
-                    <li><a href="#features" class="nav-link">Features</a></li>
-                    <li><a href="#pricing" class="nav-link">Pricing</a></li>
-                    <li><a href="#contact" class="nav-link">Contact</a></li>
-                    <li><a href="loginForm.html" class="nav-link">Log-in</a></li>
-                    <li><a href="signupForm.html" class="nav-link">Sign-up</a></li>
-                </ul>
-            </nav>
-            <a href="#pricing" class="cta-button pulse">Start Free Trial</a>
-            <buttonbutton class="mobile-menu-toggle" onclick="openMobileMenu()" title="Open mobile menu">
-                <i class="fas fa-bars"></i>
-            </button>
-        </div>
-    </header>
+  <header class="header" id="header">
+  <div class="nav-container">
+    <a href="#home" class="logo">TemplateVault</a>
+    <nav>
+      <ul class="nav-menu">
+        <li><a href="#home" class="nav-link">Home</a></li>
+        <li><a href="#templates" class="nav-link">Templates</a></li>
+        <li><a href="#features" class="nav-link">Features</a></li>
+        <li><a href="#pricing" class="nav-link">Pricing</a></li>
+        <li><a href="#contact" class="nav-link">Contact</a></li>
+        <li><a href="loginForm.html" class="nav-link">Log-in</a></li>
+        <li><a href="signupForm.html" class="nav-link">Sign-up</a></li>
+      </ul>
+    </nav>
+
+    <!-- Call-to-action buttons -->
+    <a href="#pricing" class="cta-button pulse">Start Free Trial</a>
+    <button id="dashboardBtn" class="cta-button pulse">Dashboard</button>
+
+
+    <!-- Mobile menu toggle -->
+    <button class="cta-button pulse" onclick="openMobileMenu()" title="Open mobile menu">
+      <i class="fas fa-bars"></i>
+    </button>
+  </div>
+</header>
+
 
     <!-- Hero Section -->
     <section class="hero" id="home">
@@ -521,37 +529,40 @@
     </div>
     <script src="js/script.js"></script>
 
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
 
-    
-    <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
-    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
+  const firebaseConfig = {
+    apiKey: "AIzaSyBhsMRHyuWF-R9MyRKKjzGQC0p-eznYILE",
+    authDomain: "uplift-local.firebaseapp.com",
+    projectId: "uplift-local",
+    storageBucket: "uplift-local.firebasestorage.app",
+    messagingSenderId: "615612260052",
+    appId: "1:615612260052:web:c7cac371c0698314e36541"
+  };
 
-    const firebaseConfig = {
-      apiKey: "AIzaSyBhsMRHyuWF-R9MyRKKjzGQC0p-eznYILE",
-      authDomain: "uplift-local.firebaseapp.com",
-      projectId: "uplift-local",
-      storageBucket: "uplift-local.firebasestorage.app",
-      messagingSenderId: "615612260052",
-      appId: "1:615612260052:web:c7cac371c0698314e36541"
-    };
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
 
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
+  const dashboardBtn = document.getElementById('dashboardBtn');
 
-    const status = document.getElementById('status');
-
-    // 🔎 Check login state when index loads
+  dashboardBtn.addEventListener('click', () => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        // User is logged in → go straight to dashboard
-        window.location.href = "dashboard.html";
+        // ✅ Logged in → go to dashboard in the folder
+        window.location.href = "dashboard/dashboard.html";
       } else {
-        // Not logged in → stay on index and show message
-        status.textContent = "You are not logged in.";
+        // ❌ Not logged in → send to auth page
+        window.location.href = "auth.html";
       }
     });
-  </script>
+  });
+</script>
+
+
+
+   
 <!-- Loading Screen -->
 </body>
 </html>
