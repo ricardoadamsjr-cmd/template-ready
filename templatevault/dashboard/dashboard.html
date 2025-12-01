@@ -422,20 +422,7 @@
     </style>
 </head>
 <body>
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
-  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
 
-  
-  // Protect the page
-  onAuthStateChanged(auth, (user) => {
-    if (!user) {
-      // Not logged in → redirect to login or signup
-      window.location.href = "../loginForm.html"; 
-      // or "../signupForm.html" depending on your flow
-    }
-  });
-</script>
     <!-- Animated background particles -->
     <div class="bg-particles" id="particles"></div>
 
