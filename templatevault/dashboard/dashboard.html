@@ -732,14 +732,36 @@
 
 
    
-<script type="module">
-  import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
-  const auth = getAuth();
-  document.getElementById("logoutBtn").addEventListener("click", async () => {
-    await signOut(auth);
-    window.location.href = "/loginForm.html";
-  });
-</script>
+<<button id="logoutBtn">Logout</button>
+
+  <!-- Firebase v9 CDN -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+    import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
+
+    // Replace with your actual Firebase config
+    const firebaseConfig = {
+      apiKey: "YOUR_API_KEY",
+      authDomain: "YOUR_PROJECT.firebaseapp.com",
+      projectId: "YOUR_PROJECT_ID",
+      appId: "YOUR_APP_ID"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    // Wire up the button
+    document.getElementById("logoutBtn").addEventListener("click", async () => {
+      try {
+        await signOut(auth);                 // Logs out in Firebase
+        window.location.href = "login.html"; // Redirects to your login screen
+      } catch (err) {
+        console.error("Logout failed:", err);
+      }
+    });
+  </script>
+
 
 
 
