@@ -755,7 +755,7 @@
       btn.disabled = true;
       try {
         await signOut(auth);              // Updates Firebase auth status to logged out
-        window.location.href = "/login.html"; // Send user to your logon screen
+        window.location.href = "../loginForm.html"; // Send user to your logon screen
       } catch (e) {
         console.error("Sign-out failed:", e);
         btn.disabled = false;
