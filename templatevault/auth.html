@@ -1,13 +1,13 @@
 <script type="module">
   // Import Firebase functions from CDN
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
-  import { 
-    getAuth, 
-    createUserWithEmailAndPassword, 
-    signInWithEmailAndPassword 
-  } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
+import { getAuth, signInWithEmailAndPassword } 
+from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+import { createUserWithEmailAndPassword }
+from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
 
-  // Your Firebase config
+// Your Firebase config
   const firebaseConfig = {
     apiKey: "AIzaSyBhsMRHyuWF-R9MyRKKjzGQC0p-eznYILE",
     authDomain: "uplift-local.firebaseapp.com",
@@ -52,7 +52,7 @@
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       authMessage.textContent = "✅ Logged in successfully!";
       console.log("User logged in:", userCredential.user);
-      window.location.href = "dashboard.html";
+      window.location.href = "dashboardtest.html";
     } catch (error) {
       authMessage.textContent = "❌ Error: " + error.message;
       console.error(error);
