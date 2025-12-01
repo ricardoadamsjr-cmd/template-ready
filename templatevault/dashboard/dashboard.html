@@ -755,7 +755,7 @@
     document.getElementById("logoutBtn").addEventListener("click", async () => {
       try {
         await signOut(auth);                 // Logs out in Firebase
-        window.location.href = "loginForm.html"; // Redirects to your login screen
+        window.location.href = "/loginForm.html"; // Redirects to your login screen
       } catch (err) {
         console.error("Logout failed:", err);
       }
