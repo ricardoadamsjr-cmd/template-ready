@@ -735,29 +735,36 @@
 <<button id="logoutBtn">Logout</button>
 
   <!-- Firebase v9 CDN -->
-  <script type="module">
+   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
     import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
 
-    // Replace with your actual Firebase config
     const firebaseConfig = {
-      apiKey: "YOUR_API_KEY",
-      authDomain: "YOUR_PROJECT.firebaseapp.com",
-      projectId: "YOUR_PROJECT_ID",
-      appId: "YOUR_APP_ID"
+       apiKey: "AIzaSyBhsMRHyuWF-R9MyRKKjzGQC0p-eznYILE",
+    authDomain: "uplift-local.firebaseapp.com",
+    projectId: "uplift-local",
+    storageBucket: "uplift-local.firebasestorage.app",
+    messagingSenderId: "615612260052",
+    appId: "1:615612260052:web:c7cac371c0698314e36541"
     };
 
-    // Initialize Firebase
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
 
-    // Wire up the button
-    document.getElementById("logoutBtn").addEventListener("click", async () => {
+    const btn = document.getElementById("logoutBtn");
+    const msg = document.getElementById("statusMsg");
+
+    btn.addEventListener("click", async () => {
       try {
-        await signOut(auth);                 // Logs out in Firebase
-        window.location.href = "/loginForm.html"; // Redirects to your login screen
+        await signOut(auth);                  // Firebase status → logged out
+        msg.textContent = "You have been logged out."; // Show message
+        // Delay redirect so user sees the message
+        setTimeout(() => {
+          window.location.href = "login.html";
+        }, 1500); // 1.5 seconds
       } catch (err) {
         console.error("Logout failed:", err);
+        msg.textContent = "Logout failed. Try again.";
       }
     });
   </script>
