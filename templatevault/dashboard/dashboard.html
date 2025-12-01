@@ -732,28 +732,43 @@
 
 
    
-    <script type="module">
-         //log out button
- // Import Firebase Auth (modular v9 style)
-import { getAuth, signOut } from "firebase/auth";
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js"></script>
 
-// Initialize Firebase Auth
-const auth = getAuth();
+  <script>
+    // 1) Initialize Firebase
+    const firebaseConfig = {
+      apiKey: "YOUR_API_KEY",
+      authDomain: "YOUR_AUTH_DOMAIN",
+      projectId: "YOUR_PROJECT_ID",
+      appId: "YOUR_APP_ID"
+    };
+    const app = firebase.initializeApp(firebaseConfig);
+    const auth = firebase.getAuth();
 
-// Attach event listener to the logout button
-document.getElementById("logoutBtn").addEventListener("click", () => {
-  signOut(auth)
-    .then(() => {
-      console.log("User logged out successfully.");
-      // Redirect to login page or homepage
-      window.location.href = "/login.html";
-    })
-    .catch((error) => {
-      console.error("Error logging out:", error);
+    // 2) Ensure DOM is ready
+    document.addEventListener("DOMContentLoaded", () => {
+      const btn = document.getElementById("logoutBtn");
+
+      // 3) Guard: show/hide based on auth state
+      firebase.onAuthStateChanged(auth, (user) => {
+        btn.style.display = user ? "inline-block" : "none";
+      });
+
+      // 4) Logout click handler
+      btn.addEventListener("click", async () => {
+        try {
+          await firebase.signOut(auth);
+          // Optional: clear any local UI state
+          window.location.href = "/login.html"; // or "/"
+        } catch (err) {
+          console.error("Logout error:", err);
+          alert("Couldn’t log out. Try again.");
+        }
+      });
     });
-});
+  </script>
 
-</script>
 
  
 
