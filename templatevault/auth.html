@@ -55,6 +55,11 @@
       // Not logged in → send to login page
       window.location.href = "loginForm.html";
     }
+    onAuthStateChanged(auth, (user) => {
+    if (!user) {
+      // No signed-in user → redirect
+      window.location.href = "/loginform.html";
+    }
   });
 
   // If you want to handle loginForm.html separately:
