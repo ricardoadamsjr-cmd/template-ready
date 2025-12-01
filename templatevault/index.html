@@ -519,6 +519,39 @@
             <span id="toastMessage">Success!</span>
         </div>
     </div>
-    <script src="js/script.js"></script><!-- Loading Screen -->
+    <script src="js/script.js"></script>
+
+
+    
+    <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBhsMRHyuWF-R9MyRKKjzGQC0p-eznYILE",
+      authDomain: "uplift-local.firebaseapp.com",
+      projectId: "uplift-local",
+      storageBucket: "uplift-local.firebasestorage.app",
+      messagingSenderId: "615612260052",
+      appId: "1:615612260052:web:c7cac371c0698314e36541"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    const status = document.getElementById('status');
+
+    // 🔎 Check login state when index loads
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // User is logged in → go straight to dashboard
+        window.location.href = "dashboard.html";
+      } else {
+        // Not logged in → stay on index and show message
+        status.textContent = "You are not logged in.";
+      }
+    });
+  </script>
+<!-- Loading Screen -->
 </body>
 </html>
