@@ -5,7 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Template Vault Dashboard</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
     <style>
+
+
+
         * {
             margin: 0;
             padding: 0;
@@ -418,8 +422,20 @@
     </style>
 </head>
 <body>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
 
-    
+  
+  // Protect the page
+  onAuthStateChanged(auth, (user) => {
+    if (!user) {
+      // Not logged in → redirect to login or signup
+      window.location.href = "../loginForm.html"; 
+      // or "../signupForm.html" depending on your flow
+    }
+  });
+</script>
     <!-- Animated background particles -->
     <div class="bg-particles" id="particles"></div>
 
