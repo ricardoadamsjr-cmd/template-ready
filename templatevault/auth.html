@@ -1,64 +1,52 @@
-<script type="module">
-  // Import Firebase functions from CDN
-import { getAuth, signInWithEmailAndPassword } 
-from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
-import { initializeApp }
-from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
-import { createUserWithEmailAndPassword }
-from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login Test</title>
+</head>
+<body>
+  <h1>Login</h1>
+  <form id="loginForm">
+    <input type="email" id="loginEmail" placeholder="Email" required>
+    <input type="password" id="loginPassword" placeholder="Password" required>
+    <button type="submit">Login</button>
+  </form>
+  <p id="authMessage"></p>
 
-// Your Firebase config
-  const firebaseConfig = {
-    apiKey: "AIzaSyBhsMRHyuWF-R9MyRKKjzGQC0p-eznYILE",
-    authDomain: "uplift-local.firebaseapp.com",
-    projectId: "uplift-local",
-    storageBucket: "uplift-local.firebasestorage.app",
-    messagingSenderId: "615612260052",
-    appId: "1:615612260052:web:c7cac371c0698314e36541"
-  };
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
 
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
+    const firebaseConfig = {
+      apiKey: "AIzaSyBhsMRHyuWF-R9MyRKKjzGQC0p-eznYILE",
+      authDomain: "uplift-local.firebaseapp.com",
+      projectId: "uplift-local",
+      storageBucket: "uplift-local.firebasestorage.app",
+      messagingSenderId: "615612260052",
+      appId: "1:615612260052:web:c7cac371c0698314e36541"
+    };
 
-  // Grab DOM elements
-  const signupForm = document.getElementById('signupForm');
-  const loginForm = document.getElementById('loginForm');
-  const authMessage = document.getElementById('authMessage');
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
 
-  // Handle Signup
-  signupForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const email = document.getElementById('signupEmail').value;
-    const password = document.getElementById('signupPassword').value;
+    const loginForm = document.getElementById('loginForm');
+    const authMessage = document.getElementById('authMessage');
 
-    try {
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      authMessage.textContent = "✅ Account created successfully!";
-      console.log("User created:", userCredential.user);
-    } catch (error) {
-      authMessage.textContent = "❌ Error: " + error.message;
-      console.error(error);
-    }
-  });
+    loginForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('loginEmail').value;
+      const password = document.getElementById('loginPassword').value;
 
-  // Handle Login
-  loginForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const email = document.getElementById('loginEmail').value;
-    const password = document.getElementById('loginPassword').value;
-
-    try {
-      const userCredential = await signInWithEmailAndPassword(auth, email, password);
-      authMessage.textContent = "✅ Logged in successfully!";
-      console.log("User logged in:", userCredential.user);
-      window.location.href = "dashboardtest.html";
-    } catch (error) {
-      authMessage.textContent = "❌ Error: " + error.message;
-      console.error(error);
-    }
-  });
-
-  console.log("Auth script loaded (v9)");
-</script>
-
+      try {
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        authMessage.textContent = "✅ Logged in successfully!";
+        console.log("User logged in:", userCredential.user);
+        window.location.href = "dashboardtest.html";
+      } catch (error) {
+        authMessage.textContent = "❌ Error: " + error.message;
+        console.error(error);
+      }
+    });
+  </script>
+</body>
+</html>
