@@ -734,49 +734,25 @@
    
     <script type="module">
          //log out button
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
-  import { getAuth, signOut, onAuthStateChanged } 
-    from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
+ // Import Firebase Auth (modular v9 style)
+import { getAuth, signOut } from "firebase/auth";
 
-  // Your Firebase config
-  const firebaseConfig = {
-    apiKey: "AIzaSyBhsMRHyuWF-R9MyRKKjzGQC0p-eznYILE",
-    authDomain: "uplift-local.firebaseapp.com",
-    projectId: "uplift-local",
-    storageBucket: "uplift-local.firebasestorage.app",
-    messagingSenderId: "615612260052",
-    appId: "1:615612260052:web:c7cac371c0698314e36541"
-  };
+// Initialize Firebase Auth
+const auth = getAuth();
 
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
+// Attach event listener to the logout button
+document.getElementById("logoutBtn").addEventListener("click", () => {
+  signOut(auth)
+    .then(() => {
+      console.log("User logged out successfully.");
+      // Redirect to login page or homepage
+      window.location.href = "/login.html";
+    })
+    .catch((error) => {
+      console.error("Error logging out:", error);
+    });
+});
 
-  const logoutBtn = document.getElementById('logoutBtn');
-  const status = document.getElementById('status');
-
-  // Show current user info
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      status.textContent = `Logged in as: ${user.email}`;
-    } else {
-      status.textContent = "You are not logged in.";
-    }
-  });
-
-  // Handle logout
-  logoutBtn.addEventListener('click', () => {
-    signOut(auth)
-      .then(() => {
-        status.textContent = "✅ You have logged out.";
-        // Redirect to login page
-        window.location.href = "loginForm.html";
-      })
-      .catch((error) => {
-        status.textContent = "❌ Logout error: " + error.message;
-        console.error("Logout error:", error);
-      });
-  });
 </script>
 
  
