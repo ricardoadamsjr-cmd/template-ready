@@ -42,6 +42,28 @@
             opacity: 0.3;
         }
 
+
+        #logoutBtn {
+  display: block;              /* makes it a block element */
+  margin: 2rem auto;           /* centers horizontally */
+  padding: 0.8rem 2rem;        /* size */
+  background-color: orange;    /* orange background */
+  color: white;                /* white text */
+  border: none;                /* remove default border */
+  border-radius: 30px;         /* rounded corners */
+  font-size: 1rem;             /* consistent font size */
+  font-weight: 600;            /* bold text */
+  cursor: pointer;             /* pointer on hover */
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* subtle shadow */
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+#logoutBtn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 10px rgba(0,0,0,0.15);
+  background-color: #ff9933;   /* slightly lighter orange on hover */
+}
+
         @keyframes float {
             0%, 100% { transform: translateY(0px) rotate(0deg); }
             50% { transform: translateY(-20px) rotate(180deg); }
@@ -707,6 +729,56 @@
         });
     </script>
     
+
+
+   
+    <script type="module">
+         //log out button
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+  import { getAuth, signOut, onAuthStateChanged } 
+    from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
+
+  // Your Firebase config
+  const firebaseConfig = {
+    apiKey: "AIzaSyBhsMRHyuWF-R9MyRKKjzGQC0p-eznYILE",
+    authDomain: "uplift-local.firebaseapp.com",
+    projectId: "uplift-local",
+    storageBucket: "uplift-local.firebasestorage.app",
+    messagingSenderId: "615612260052",
+    appId: "1:615612260052:web:c7cac371c0698314e36541"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  const logoutBtn = document.getElementById('logoutBtn');
+  const status = document.getElementById('status');
+
+  // Show current user info
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      status.textContent = `Logged in as: ${user.email}`;
+    } else {
+      status.textContent = "You are not logged in.";
+    }
+  });
+
+  // Handle logout
+  logoutBtn.addEventListener('click', () => {
+    signOut(auth)
+      .then(() => {
+        status.textContent = "✅ You have logged out.";
+        // Redirect to login page
+        window.location.href = "loginForm.html";
+      })
+      .catch((error) => {
+        status.textContent = "❌ Logout error: " + error.message;
+        console.error("Logout error:", error);
+      });
+  });
+</script>
+
  
 
   <!-- Put your Firebase code at the bottom of the body -->
