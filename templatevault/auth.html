@@ -2,44 +2,34 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Login and Sign Up</title>
-  <link rel="stylesheet" href="css/styles.css">
-  <link rel="stylesheet" href="css/login.css">
+  <title>Auth Page</title>
 </head>
 <body>
-  <div class="auth-container">
-    <h2>Welcome</h2>
+  <h2>Welcome</h2>
 
-    <!-- Login Form -->
-    <form id="loginForm">
-      <h3>Login</h3>
-      <input type="email" id="loginEmail" placeholder="Email" required>
-      <input type="password" id="loginPassword" placeholder="Password" required>
-      <button type="submit">Login</button>
-    </form>
+  <!-- Login Form -->
+  <form id="loginForm">
+    <h3>Login</h3>
+    <input type="email" id="loginEmail" placeholder="Email" required>
+    <input type="password" id="loginPassword" placeholder="Password" required>
+    <button type="submit">Login</button>
+  </form>
 
-    <!-- Signup Form -->
-    <form id="signupForm">
-      <h3>Sign Up</h3>
-      <input type="email" id="signupEmail" placeholder="Email" required>
-      <input type="password" id="signupPassword" placeholder="Password" required>
-      <button type="submit">Sign Up</button>
-    </form>
+  <!-- Signup Form -->
+  <form id="signupForm">
+    <h3>Sign Up</h3>
+    <input type="email" id="signupEmail" placeholder="Email" required>
+    <input type="password" id="signupPassword" placeholder="Password" required>
+    <button type="submit">Sign Up</button>
+  </form>
 
-    <!-- Status messages -->
-    <p id="authMessage"></p>
-  </div>
+  <p id="authMessage"></p>
 
-  <!-- Firebase v9 modular script -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
-    import { 
-      getAuth, 
-      createUserWithEmailAndPassword, 
-      signInWithEmailAndPassword 
-    } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
+    import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword } 
+      from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
 
-    // Your Firebase config
     const firebaseConfig = {
       apiKey: "AIzaSyBhsMRHyuWF-R9MyRKKjzGQC0p-eznYILE",
       authDomain: "uplift-local.firebaseapp.com",
@@ -49,28 +39,17 @@
       appId: "1:615612260052:web:c7cac371c0698314e36541"
     };
 
-    // Initialize Firebase
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
 
-    // Grab DOM elements
-    const signupForm = document.getElementById('signupForm');
     const loginForm = document.getElementById('loginForm');
+    const signupForm = document.getElementById('signupForm');
     const authMessage = document.getElementById('authMessage');
 
-    // Handle Signup
-    signupForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const email = document.getElementById('signupEmail').value;
-      const password = document.getElementById('signupPassword').value;
-
-      try {
-        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-        authMessage.textContent = "✅ Account created successfully!";
-        console.log("User created:", userCredential.user);
-      } catch (error) {
-        authMessage.textContent = "❌ Error: " + error.message;
-        console.error(error);
+    // 🔎 Auto‑redirect if already logged in
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        window.location.href = "dashboardtest.html";
       }
     });
 
@@ -79,15 +58,24 @@
       e.preventDefault();
       const email = document.getElementById('loginEmail').value;
       const password = document.getElementById('loginPassword').value;
-
       try {
-        const userCredential = await signInWithEmailAndPassword(auth, email, password);
-        authMessage.textContent = "✅ Logged in successfully!";
-        console.log("User logged in:", userCredential.user);
-        window.location.href = "dashboardtest.html";
+        await signInWithEmailAndPassword(auth, email, password);
+        window.location.href = "dashboard.html";
       } catch (error) {
         authMessage.textContent = "❌ Error: " + error.message;
-        console.error(error);
+      }
+    });
+
+    // Handle Signup
+    signupForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('signupEmail').value;
+      const password = document.getElementById('signupPassword').value;
+      try {
+        await createUserWithEmailAndPassword(auth, email, password);
+        window.location.href = "dashboard.html";
+      } catch (error) {
+        authMessage.textContent = "❌ Error: " + error.message;
       }
     });
   </script>
