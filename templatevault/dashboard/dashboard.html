@@ -732,50 +732,14 @@
 
 
    
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js"></script>
-
-  <script type="module">
-
-
-import { getAuth, signOut } from "firebase/auth"; 
-// NOTE: If you are not using a bundler (like Webpack/Vite), use the CDN URL:
-// import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js";
-
-// 1. Get the Auth service for the default app
-const auth = getAuth();
-
-// 2. Select the logout button from the DOM
-const logoutButton = document.getElementById('logout-btn');
-
-// 3. Define the logout function
-const handleLogout = () => {
-  signOut(auth)
-    .then(() => {
-      // Sign-out successful.
-      console.log("User signed out successfully.");
-      
-      // Redirect one folder up to root loginform.html
-      window.location.href = "../loginform.html";
-    })
-    .catch((error) => {
-      // An error happened.
-      console.error("Error signing out: ", error);
-      alert("Error signing out. Please try again.");
-    });
-};
-
-// 4. Attach the event listener to the button
-if (logoutButton) {
-  logoutButton.addEventListener('click', handleLogout);
-} else {
-  console.warn("Logout button with ID 'logout-btn' not found on this page.");
-}
- 
-
-  <!-- Put your Firebase code at the bottom of the body -->
-
-
+<script type="module">
+  import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
+  const auth = getAuth();
+  document.getElementById("logoutBtn").addEventListener("click", async () => {
+    await signOut(auth);
+    window.location.href = "/loginForm.html";
+  });
+</script>
 
 
 
