@@ -84,7 +84,7 @@
         }
 
 
-        #logoutBtn {
+ #logoutBtn {
   display: block;              /* makes it a block element */
   margin: 2rem auto;           /* centers horizontally */
   padding: 0.8rem 2rem;        /* size */
@@ -98,6 +98,27 @@
   box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* subtle shadow */
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
+
+#logoutBtn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 10px rgba(0,0,0,0.15);
+  background-color: #ff9933;   /* slightly lighter orange on hover */
+}
+#subscribeBtn {
+  display: block;              /* makes it a block element */
+  margin: 2rem auto;           /* centers horizontally */
+  padding: 0.8rem 2rem;        /* size */
+  background-color: orange;    /* orange background */
+  color: white;                /* white text */
+  border: none;                /* remove default border */
+  border-radius: 30px;         /* rounded corners */
+  font-size: 1rem;             /* consistent font size */
+  font-weight: 600;            /* bold text */
+  cursor: pointer;             /* pointer on hover */
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* subtle shadow */
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
 
 #logoutBtn:hover {
   transform: translateY(-3px);
@@ -773,7 +794,8 @@
 
 
    
-<<button id="logoutBtn">Logout</button>
+<button id="logoutBtn">Logout</button>
+<button id="subscribeBtn">Subscribe</button>
 
   <!-- Firebase v9 CDN -->
   <script type="module">

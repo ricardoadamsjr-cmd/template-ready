@@ -178,6 +178,7 @@ body {
     left: 0;
     width: 100%;
     background: rgba(255, 255, 255, 0.95);
+    -webkit-backdrop-filter: blur(20px);
     backdrop-filter: blur(20px);
     z-index: 1000;
     padding: 1rem 0;
@@ -193,8 +194,9 @@ body {
 
 .nav-container {
     max-width: 1400px;
+    min-width: 1400px;
     margin: 0 auto;
-    padding: 0 2rem;
+    padding: 0 1rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -250,46 +252,43 @@ body {
 .nav-link:hover::after {
     width: 100%;
 }
+
 .cta-button {
-  display: inline-block;       /* normalize box model */
-  font-family: inherit;        /* force same font as page */
-  font-size: 1rem;             /* explicitly set font size */
-  line-height: 1.2;            /* normalize line height */
-  background: var(--gradient-primary);
-  color: white;
-  padding: 0.8rem 2rem;
-  border: none;
-  border-radius: 50px;
-  font-weight: 600;
-  text-decoration: none;
-  transition: var(--transition);
-  box-shadow: var(--shadow-light);
-  position: relative;
-  overflow: hidden;
-  cursor: pointer;
+    background: var(--gradient-primary);
+    color: white;
+    padding: 1rem 2rem; /* unified padding for consistent size */
+    border: none;
+    border-radius: 50px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: var(--transition);
+    box-shadow: var(--shadow-light);
+    position: relative;
+    overflow: hidden;
+    display: inline-block; /* ensures consistent scaling */
+    text-align: center;    /* centers text like mobile version */
 }
 
-
 .cta-button:hover {
-  transform: translateY(-3px);
-  box-shadow: var(--shadow-medium);
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-medium);
 }
 
 .cta-button::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-  transition: left 0.5s;
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
 }
+
 
 .cta-button:hover::before {
-  left: 100%;
+    left: 100%;
 }
-
 
 .mobile-menu-toggle {
     display: none;
@@ -386,19 +385,22 @@ body {
 .mobile-cta-button {
     background: var(--gradient-primary);
     color: white;
-    padding: 1rem 2rem;
+    padding: 1rem 2rem; /* same as .cta-button for normalization */
     border-radius: 50px;
     font-weight: 600;
     text-decoration: none;
     text-align: center;
     margin-top: 1rem;
     transition: var(--transition);
+    display: inline-block; /* matches .cta-button */
 }
 
+
 .mobile-cta-button:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-light);
+    transform: translateY(-3px); /* match hover lift */
+    box-shadow: var(--shadow-medium); /* match shadow intensity */
 }
+
 
 /* Hero Section */
 .hero {
