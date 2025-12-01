@@ -117,7 +117,7 @@
   // 🔎 Auto‑redirect if already logged in
   onAuthStateChanged(auth, (user) => {
     if (user) {
-      window.location.href = "dashboard/dashboard.html";
+      window.location.href = "src/dashboard.html";
     }
   });
 
@@ -130,7 +130,7 @@
     try {
       await signInWithEmailAndPassword(auth, email, password);
       // ✅ Redirect to dashboard folder after successful login
-      window.location.href = "dashboard/dashboard.html";
+      window.location.href = "src/dashboard.html";
     } catch (error) {
       authMessage.textContent = "❌ Error: " + error.message;
       console.error("Login error:", error);
