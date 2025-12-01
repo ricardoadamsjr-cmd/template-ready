@@ -733,40 +733,44 @@
 
    
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js"></script>
 
   <script type="module">
 
-    // 1) Initialize Firebase
-   const firebaseConfig = {
-    apiKey: "AIzaSyBhsMRHyuWF-R9MyRKKjzGQC0p-eznYILE",
-    authDomain: "uplift-local.firebaseapp.com",
-    projectId: "uplift-local",
-    storageBucket: "uplift-local.firebasestorage.app",
-    messagingSenderId: "615612260052",
-    appId: "1:615612260052:web:c7cac371c0698314e36541"
-  };
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
 
-    const btn = document.getElementById("logoutBtn");
+import { getAuth, signOut } from "firebase/auth"; 
+// NOTE: If you are not using a bundler (like Webpack/Vite), use the CDN URL:
+// import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js";
 
-    btn.addEventListener("click", async () => {
-      btn.disabled = true;
-      try {
-        await signOut(auth);              // Updates Firebase auth status to logged out
-        window.location.href = "../loginForm.html"; // Send user to your logon screen
-      } catch (e) {
-        console.error("Sign-out failed:", e);
-        btn.disabled = false;
-        alert("Logout failed. Please try again.");
-      }
+// 1. Get the Auth service for the default app
+const auth = getAuth();
+
+// 2. Select the logout button from the DOM
+const logoutButton = document.getElementById('logout-btn');
+
+// 3. Define the logout function
+const handleLogout = () => {
+  signOut(auth)
+    .then(() => {
+      // Sign-out successful.
+      console.log("User signed out successfully.");
+      
+      // Redirect one folder up to root loginform.html
+      window.location.href = "../loginform.html";
+    })
+    .catch((error) => {
+      // An error happened.
+      console.error("Error signing out: ", error);
+      alert("Error signing out. Please try again.");
     });
+};
 
-  </script>
-
-
-
+// 4. Attach the event listener to the button
+if (logoutButton) {
+  logoutButton.addEventListener('click', handleLogout);
+} else {
+  console.warn("Logout button with ID 'logout-btn' not found on this page.");
+}
  
 
   <!-- Put your Firebase code at the bottom of the body -->
