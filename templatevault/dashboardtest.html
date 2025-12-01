@@ -39,7 +39,7 @@
       console.log("Auth state changed:", user); // Debug log
       if (user) {
         // If already logged in → go to real dashboard
-        window.location.href = "dashboardtest.html";
+        window.location.href = "<dashboard>dashboard.html";
       } else {
         // Show mini dashboard message
         status.textContent = "You are not logged in.";
@@ -57,5 +57,7 @@
       });
     });
   </script>
+
+  
 </body>
 </html>
