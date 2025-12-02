@@ -531,7 +531,7 @@
 
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
-  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
+  import { getAuth } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
 
   const firebaseConfig = {
     apiKey: "AIzaSyBhsMRHyuWF-R9MyRKKjzGQC0p-eznYILE",
@@ -548,17 +548,17 @@
   const dashboardBtn = document.getElementById('dashboardBtn');
 
   dashboardBtn.addEventListener('click', () => {
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        // ✅ Logged in → go to dashboard in the folder
-        window.location.href = "src/dashboard.html";
-      } else {
-        // ❌ Not logged in → send to auth page
-        window.location.href = "auth.html";
-      }
-    });
+    const user = auth.currentUser; // check immediately
+    if (user) {
+      // ✅ Logged in → go to dashboard
+      window.location.href = "src/dashboard.html";
+    } else {
+      // ❌ Not logged in → go straight to login form
+      window.location.href = "loginForm.html";
+    }
   });
 </script>
+
 
 
 
