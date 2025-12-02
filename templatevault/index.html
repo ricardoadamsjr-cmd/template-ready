@@ -529,12 +529,14 @@
     </div>
     <script src="js/script.js"></script>
 
+<button id="dashboardBtn">Go to Dashboard</button>
+
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
-  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
+  import { getAuth } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
 
-  const firebaseConfig = { 
-     apiKey: "AIzaSyBhsMRHyuWF-R9MyRKKjzGQC0p-eznYILE",
+  const firebaseConfig = {
+    apiKey: "AIzaSyBhsMRHyuWF-R9MyRKKjzGQC0p-eznYILE",
     authDomain: "uplift-local.firebaseapp.com",
     projectId: "uplift-local",
     storageBucket: "uplift-local.firebasestorage.app",
@@ -544,9 +546,8 @@
 
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
-  const dashboardBtn = document.getElementById('dashboardBtn');
 
-// Ensure DOM is ready
+  // Ensure DOM is ready
   document.addEventListener("DOMContentLoaded", () => {
     const dashboardBtn = document.getElementById('dashboardBtn');
 
@@ -558,16 +559,11 @@
       } else {
         // ❌ Not logged in → go to login form
         window.location.href = "loginForm.html";
-
-  // Only run this on index.html
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      window.location.href = "src/dashboard.html";
-    } else {
-      window.location.href = "loginForm.html";
-    }
+      }
+    });
   });
 </script>
+
 
 
 
