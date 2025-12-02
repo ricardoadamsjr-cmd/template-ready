@@ -794,24 +794,24 @@
     
 
 
-   
-<button id="logoutBtn">Logout</button>
+   <!-- Firebase v9 CDN -->
+<script type="module">
+  import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
+
+  document.getElementById("logoutBtn").addEventListener("click", async () => {
+    try {
+      await signOut(auth);                 // Logs out in Firebase
+      window.location.href = "/loginForm.html"; // Redirects to your login screen
+    } catch (err) {
+      console.error("Logout failed:", err);
+    }
+  });
+</script>
 
 
-  <!-- Firebase v9 CDN -->
-  <script type="module">
-  
 
-    // Wire up the button
-    document.getElementById("logoutBtn").addEventListener("click", async () => {
-      try {
-        await signOut(auth);                 // Logs out in Firebase
-        window.location.href = "/loginForm.html"; // Redirects to your login screen
-      } catch (err) {
-        console.error("Logout failed:", err);
-      }
-    });
-  </script>
+
+
 
 </body>
 </html>
