@@ -10,8 +10,7 @@
 
   <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
-  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
-
+  import { getAuth } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
 
   const firebaseConfig = {
     apiKey: "AIzaSyBhsMRHyuWF-R9MyRKKjzGQC0p-eznYILE",
@@ -25,21 +24,20 @@
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
 
-  // Ensure DOM is ready
- document.getElementById('dashboardBtn').addEventListener('click', (event) => {
-    event.preventDefault(); // stop <a> from navigating immediately
+  // Attach click handler
+  document.getElementById('dashboardBtn').addEventListener('click', (event) => {
+    event.preventDefault(); // if it's an <a> tag, stop default navigation
 
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        console.log("User logged in:", user.email);
-        window.location.href = "src/dashboard.html";
-      } else {
-        console.log("No user logged in");
-        window.location.href = "loginForm.html";
-      }
-
-    });
+    const user = auth.currentUser; // check immediately
+    if (user) {
+      console.log("User logged in:", user.email);
+      window.location.href = "src/dashboard.html";
+    } else {
+      console.log("No user logged in");
+      window.location.href = "loginForm.html";
+    }
   });
 </script>
+
 </body>
 </html>
