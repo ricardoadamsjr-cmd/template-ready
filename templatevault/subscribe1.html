@@ -585,6 +585,28 @@
                                 <!-- Stripe Elements will create form elements here -->
 
 
+<div id="card-element"></div>
+<button id="submit">Pay</button>
+
+<script>
+    const stripe = Stripe('pk_test_your_publishable_key_here'); // Replace with your publishable key
+
+
+  const card = elements.create('card');
+  card.mount('#card-element');
+
+  document.querySelector('#submit').addEventListener('click', async () => {
+    const { paymentMethod, error } = await stripe.createPaymentMethod({
+      type: 'card',
+      card: card,
+    });
+    if (error) {
+      console.error(error);
+    } else {
+      console.log(paymentMethod);
+    }
+  });
+</script>
 
 
 
@@ -684,7 +706,7 @@
     });
 
     // Initialize Stripe
-    const stripe = Stripe('pk_test_your_publishable_key_here'); // Replace with your publishable key
+   
     const elements = stripe.elements();
 
     // Card element
