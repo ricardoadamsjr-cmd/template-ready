@@ -528,46 +528,6 @@
     </div>
     <script src="js/script.js"></script>
 
-
-
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
-  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
-
-
-  const firebaseConfig = {
-    apiKey: "AIzaSyBhsMRHyuWF-R9MyRKKjzGQC0p-eznYILE",
-    authDomain: "uplift-local.firebaseapp.com",
-    projectId: "uplift-local",
-    storageBucket: "uplift-local.firebasestorage.app",
-    messagingSenderId: "615612260052",
-    appId: "1:615612260052:web:c7cac371c0698314e36541"
-  };
-
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-
-  // Ensure DOM is ready
- document.getElementById('dashboardBtn').addEventListener('click', (event) => {
-    event.preventDefault(); // stop <a> from navigating immediately
-
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        console.log("User logged in:", user.email);
-        window.location.href = "src/dashboard.html";
-      } else {
-        console.log("No user logged in");
-        window.location.href = "loginForm.html";
-      }
-
-
-    });
-  });
-</script>
-
-
-
-
 <!-- Loading Screen -->
 </body>
 </html>
