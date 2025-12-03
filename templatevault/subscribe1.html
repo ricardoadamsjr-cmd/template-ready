@@ -583,6 +583,15 @@
                             <label for="card-element" class="form-label">Card Information</label>
                             <div id="card-element" class="stripe-element">
                                 <!-- Stripe Elements will create form elements here -->
+
+
+
+
+
+
+
+
+                                <!-- Stripe Elements will create form elements here -->
                             </div>
                             <div id="card-errors" class="error-message"></div>
                             <div id="card-success" class="success-message"></div>
@@ -667,245 +676,141 @@
     </div>
 
     <script>
-        //gets user info from firebase auth
-        firebase.auth().onAuthStateChanged(user => {
-            if (!user) {
+    // Firebase auth check
+    firebase.auth().onAuthStateChanged(user => {
+        if (!user) {
             window.location.href = 'login.html';
-            }
-        });
+        }
+    });
 
-        // Initialize Stripe
-        const stripe = Stripe('pk_test_your_publishable_key_here'); // Replace with your actual publishable key
-        const elements = stripe.elements();
+    // Initialize Stripe
+    const stripe = Stripe('pk_test_your_publishable_key_here'); // Replace with your publishable key
+    const elements = stripe.elements();
 
-        // Create card element
-        const cardElement = elements.create('card', {
-            style: {
-                base: {
-                    fontSize: '16px',
-                    color: '#1e293b',
-                    fontFamily: 'Inter, sans-serif',
-                    '::placeholder': {
-                        color: '#94a3b8',
-                    },
-                },
-                invalid: {
-                    color: '#ef4444',
-                },
+    // Card element
+    const cardElement = elements.create('card', {
+        style: {
+            base: {
+                fontSize: '16px',
+                color: '#1e293b',
+                fontFamily: 'Inter, sans-serif',
+                '::placeholder': { color: '#94a3b8' },
             },
-        });
+            invalid: { color: '#ef4444' },
+        },
+    });
+    cardElement.mount('#card-element');
 
-        cardElement.mount('#card-element');
+    // Validation feedback
+    cardElement.on('change', ({error}) => {
+        const displayError = document.getElementById('card-errors');
+        const displaySuccess = document.getElementById('card-success');
+        if (error) {
+            displayError.textContent = error.message;
+            displayError.style.display = 'block';
+            displaySuccess.style.display = 'none';
+        } else {
+            displayError.style.display = 'none';
+            displaySuccess.textContent = 'Card information looks good!';
+            displaySuccess.style.display = 'block';
+        }
+    });
 
-        // Handle real-time validation errors from the card Element
-        cardElement.on('change', ({error}) => {
-            const displayError = document.getElementById('card-errors');
-            const displaySuccess = document.getElementById('card-success');
-            
-            if (error) {
-                displayError.textContent = error.message;
-                displayError.style.display = 'block';
-                displaySuccess.style.display = 'none';
-            } else {
-                displayError.style.display = 'none';
-                displaySuccess.textContent = 'Card information looks good!';
-                displaySuccess.style.display = 'block';
-            }
-        });
+    // Form submission
+    const form = document.getElementById('checkout-form');
+    const submitButton = document.getElementById('submit-button');
+    const buttonText = document.getElementById('button-text');
+    const loadingSpinner = document.querySelector('.loading-spinner');
 
-        // Payment method selection
-        const paymentMethods = document.querySelectorAll('.payment-method');
-        const cardPayment = document.getElementById('card-payment');
-        const paypalPayment = document.getElementById('paypal-payment');
+    form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        setLoading(true);
 
-        paymentMethods.forEach(method => {
-            method.addEventListener('click', () => {
-                // Remove active class from all methods
-                paymentMethods.forEach(m => m.classList.remove('active'));
-                // Add active class to clicked method
-                method.classList.add('active');
-                
-                const methodType = method.dataset.method;
-                if (methodType === 'card') {
-                    cardPayment.style.display = 'block';
-                    paypalPayment.style.display = 'none';
-                } else if (methodType === 'paypal') {
-                    cardPayment.style.display = 'none';
-                    paypalPayment.style.display = 'block';
-                }
+        try {
+            // Create PaymentMethod from card
+            const {paymentMethod, error} = await stripe.createPaymentMethod({
+                type: 'card',
+                card: cardElement,
+                billing_details: {
+                    name: `${form.firstName.value} ${form.lastName.value}`,
+                    email: form.email.value,
+                },
             });
-        });
 
-        // Form submission
-        const form = document.getElementById('checkout-form');
-        const submitButton = document.getElementById('submit-button');
-        const buttonText = document.getElementById('button-text');
-        const loadingSpinner = document.querySelector('.loading-spinner');
-
-        form.addEventListener('submit', async (event) => {
-            event.preventDefault();
-
-            // Get selected payment method
-            const activePaymentMethod = document.querySelector('.payment-method.active');
-            const paymentMethod = activePaymentMethod.dataset.method;
-
-            if (paymentMethod === 'paypal') {
-                handlePayPalPayment();
+            if (error) {
+                showError(error.message);
+                setLoading(false);
                 return;
             }
 
-            // Handle Stripe card payment
-            setLoading(true);
+            // Send PaymentMethod to backend
+            const response = await fetch('/create-subscription-intent', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    paymentMethodId: paymentMethod.id,
+                    plan: 'professional',
+                    firstName: form.firstName.value,
+                    lastName: form.lastName.value,
+                    email: form.email.value,
+                    company: form.company.value
+                }),
+            });
 
-            const {token, error} = await stripe.createToken(cardElement);
+            const result = await response.json();
 
-            if (error) {
-                // Show error to customer
-                showError(error.message);
+            if (result.error) {
+                throw new Error(result.error);
+            }
+
+            // Confirm the PaymentIntent client-side
+            const {clientSecret} = result;
+            const confirmResult = await stripe.confirmCardPayment(clientSecret);
+
+            if (confirmResult.error) {
+                showError(confirmResult.error.message);
                 setLoading(false);
-            } else {
-                // Send token to your server
-                submitForm(token);
-            }
-        });
-
-        function handlePayPalPayment() {
-            setLoading(true);
-            
-            // In a real implementation, you would redirect to PayPal
-            // or use PayPal's JavaScript SDK
-            setTimeout(() => {
+            } else if (confirmResult.paymentIntent.status === 'succeeded') {
                 setLoading(false);
-                showSuccess('PayPal payment would be processed here');
-            }, 2000);
-        }
-
-        async function submitForm(token) {
-            try {
-                // Get form data
-                const formData = new FormData(form);
-                
-                const requestData = {
-                    token: token.id,
-                    plan: 'professional', // Fixed to professional plan
-                    firstName: formData.get('firstName'),
-                    lastName: formData.get('lastName'),
-                    email: formData.get('email'),
-                    company: formData.get('company')
-                };
-
-                // Send to backend
-                const response = await fetch('/create-subscription', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(requestData)
-                });
-
-                const result = await response.json();
-
-                if (result.success) {
-                    setLoading(false);
-                    showSuccess('Professional subscription created successfully! Welcome to Template Vault!');
-                    
-                    // Redirect to success page or dashboard
-                    setTimeout(() => {
-                        window.location.href = '/dashboard';
-                    }, 2000);
-                } else {
-                    throw new Error(result.error || 'Subscription creation failed');
-                }
-
-            } catch (error) {
-                console.error('Subscription error:', error);
-                setLoading(false);
-                showError(error.message || 'Something went wrong. Please try again.');
+                showSuccess('Professional subscription created successfully! Welcome to Template Vault!');
+                setTimeout(() => {
+                    window.location.href = '/dashboard';
+                }, 2000);
             }
+        } catch (err) {
+            console.error(err);
+            showError(err.message || 'Something went wrong. Please try again.');
+            setLoading(false);
         }
+    });
 
-        function setLoading(loading) {
-            if (loading) {
-                submitButton.disabled = true;
-                loadingSpinner.style.display = 'inline-block';
-                buttonText.textContent = 'Processing...';
-            } else {
-                submitButton.disabled = false;
-                loadingSpinner.style.display = 'none';
-                buttonText.textContent = 'Start Professional Subscription - $29/month';
-            }
+    // Helpers
+    function setLoading(loading) {
+        if (loading) {
+            submitButton.disabled = true;
+            loadingSpinner.style.display = 'inline-block';
+            buttonText.textContent = 'Processing...';
+        } else {
+            submitButton.disabled = false;
+            loadingSpinner.style.display = 'none';
+            buttonText.textContent = 'Start Professional Subscription - $29/month';
         }
+    }
 
-        function showError(message) {
-            const errorDiv = document.getElementById('card-errors');
-            errorDiv.textContent = message;
-            errorDiv.style.display = 'block';
-            
-            // Hide success message
-            const successDiv = document.getElementById('card-success');
-            successDiv.style.display = 'none';
-        }
+    function showError(message) {
+        const errorDiv = document.getElementById('card-errors');
+        errorDiv.textContent = message;
+        errorDiv.style.display = 'block';
+        document.getElementById('card-success').style.display = 'none';
+    }
 
-        function showSuccess(message) {
-            const successDiv = document.getElementById('card-success');
-            successDiv.textContent = message;
-            successDiv.style.display = 'block';
-            
-            // Hide error message
-            const errorDiv = document.getElementById('card-errors');
-            errorDiv.style.display = 'none';
-        }
+    function showSuccess(message) {
+        const successDiv = document.getElementById('card-success');
+        successDiv.textContent = message;
+        successDiv.style.display = 'block';
+        document.getElementById('card-errors').style.display = 'none';
+    }
+</script>
 
-        // Form validation
-        const requiredFields = ['firstName', 'lastName', 'email'];
-        
-        requiredFields.forEach(fieldName => {
-            const field = document.getElementById(fieldName);
-            field.addEventListener('blur', validateField);
-            field.addEventListener('input', clearFieldError);
-        });
-
-        function validateField(event) {
-            const field = event.target;
-            const value = field.value.trim();
-            
-            if (!value) {
-                field.style.borderColor = 'var(--error-color)';
-                showFieldError(field, 'This field is required');
-            } else if (field.type === 'email' && !isValidEmail(value)) {
-                field.style.borderColor = 'var(--error-color)';
-                showFieldError(field, 'Please enter a valid email address');
-            } else {
-                field.style.borderColor = 'var(--success-color)';
-                clearFieldError(field);
-            }
-        }
-
-        function clearFieldError(event) {
-            const field = event.target;
-            field.style.borderColor = 'var(--border-color)';
-            
-            const errorElement = field.parentNode.querySelector('.field-error');
-            if (errorElement) {
-                errorElement.remove();
-            }
-        }
-
-        function showFieldError(field, message) {
-            clearFieldError({ target: field });
-            
-            const errorElement = document.createElement('div');
-            errorElement.className = 'field-error error-message';
-            errorElement.style.display = 'block';
-            errorElement.textContent = message;
-            
-            field.parentNode.appendChild(errorElement);
-        }
-
-        function isValidEmail(email) {
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            return emailRegex.test(email);
-        }
-    </script>
 </body>
 </html>
