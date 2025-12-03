@@ -196,7 +196,7 @@
                                 <button class="demo-button" onclick="openTemplateDemo('ecommerce', 'ShopVibe')">
                                     <i class="fas fa-eye"></i> Live Demo
                                 </button>
-                                <button class="favorite-btn" onclick="toggleFavorite(this)">
+                                <button class="favorite-btn" onclick="toggleFavorite(this)" title="Add to favorites">
                                     <i class="far fa-heart"></i>
                                 </button>
                             </div>
@@ -221,7 +221,7 @@
                                 <button class="demo-button" onclick="openTemplateDemo('agency', 'CreativeHub')">
                                     <i class="fas fa-eye"></i> Live Demo
                                 </button>
-                                <button class="favorite-btn" onclick="toggleFavorite(this)">
+                                <buttonbutton class="favorite-btn" onclick="toggleFavorite(this)" title="Add to favorites">
                                     <i class="far fa-heart"></i>
                                 </button>
                             </div>
@@ -246,7 +246,7 @@
                                 <button class="demo-button" onclick="openTemplateDemo('restaurant', 'FoodieDelight')">
                                     <i class="fas fa-eye"></i> Live Demo
                                 </button>
-                                <button class="favorite-btn" onclick="toggleFavorite(this)">
+                                <buttonbutton class="favorite-btn" onclick="toggleFavorite(this)" title="Add to favorites">
                                     <i class="far fa-heart"></i>
                                 </button>
                             </div>
@@ -271,7 +271,7 @@
                                 <button class="demo-button" onclick="openTemplateDemo('fitness', 'FitLife Pro')">
                                     <i class="fas fa-eye"></i> Live Demo
                                 </button>
-                                <button class="favorite-btn" onclick="toggleFavorite(this)">
+                                <buttonbutton class="favorite-btn" onclick="toggleFavorite(this)" title="Add to favorites">
                                     <i class="far fa-heart"></i>
                                 </button>
                             </div>
@@ -530,38 +530,6 @@
 
 <!-- Loading Screen -->
 
-<a id="dashboardBtn" href="#" class="btn">Go to Dashboard</a>
-
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
-  import { getAuth } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
-
-  const firebaseConfig = {
-    apiKey: "AIzaSyBhsMRHyuWF-R9MyRKKjzGQC0p-eznYILE",
-    authDomain: "uplift-local.firebaseapp.com",
-    projectId: "uplift-local",
-    storageBucket: "uplift-local.firebasestorage.app",
-    messagingSenderId: "615612260052",
-    appId: "1:615612260052:web:c7cac371c0698314e36541"
-  };
-
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-
-  // Attach click handler to <a> tag
-  document.getElementById('dashboardBtn').addEventListener('click', (event) => {
-    event.preventDefault(); // stop <a> default navigation
-
-    const user = auth.currentUser; // check immediately
-    if (user) {
-      console.log("User logged in:", user.email);
-      window.location.href = "src/dashboard.html"; // adjust path if needed
-    } else {
-      console.log("No user logged in");
-      window.location.href = "loginForm.html";
-    }
-  });
-</script>
 
 </body>
 </html>
