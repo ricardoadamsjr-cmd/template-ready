@@ -51,7 +51,10 @@
             border-radius: 12px;
             padding: 4px;
         }
-
+        #signupBtn{
+            margin-top: 10px;
+        }
+        
         .tab-btn {
             flex: 1;
             padding: 12px 20px;
