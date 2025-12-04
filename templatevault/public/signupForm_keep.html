@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login and Sign Up</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/login.css">
+    <style>
+       
+    </style>
+</head>
+<div id="react-auth-root"></div>
+<body>
+  <!-- Mobile Menu Overlay -->
+  <div class="mobile-menu-overlay" id="mobileMenuOverlay">
+    <div class="mobile-menu-content">
+      <button class="mobile-menu-close" onclick="closeMobileMenu()" title="Close menu">
+        <i class="fas fa-times"></i>
+      </button>
+      <nav class="mobile-nav">
+        <a href="index.html" class="mobile-nav-link" onclick="closeMobileMenu()">Home</a>
+        <a href="index.html#templates" class="mobile-nav-link" onclick="closeMobileMenu()">Templates</a>
+        <a href="index.html#features" class="mobile-nav-link" onclick="closeMobileMenu()">Features</a>
+        <a href="index.html#pricing" class="mobile-nav-link" onclick="closeMobileMenu()">Pricing</a>
+        <a href="index.html#contact" class="mobile-nav-link" onclick="closeMobileMenu()">Contact</a>
+        <a href="index.html#contact" class="mobile-nav-link" onclick="closeMobileMenu()">Log</a>
+        <a href="index.html#pricing" class="mobile-cta-button" onclick="closeMobileMenu()">Start Free Trial</a>
+      </nav>
+    </div>
+  </div>
+
+  <!-- Animated Background -->
+  <div class="animated-bg"></div>
+
+  <!-- Floating Elements -->
+  <div class="floating-elements">
+    <div class="floating-element"></div>
+    <div class="floating-element"></div>
+    <div class="floating-element"></div>
+    <div class="floating-element"></div>
+    <div class="floating-element"></div>
+  </div>
+
+  <!-- Header -->
+  <header class="header" id="header">
+    <div class="nav-container">
+      <a href="#home" class="logo">TemplateVault</a>
+      <nav>
+        <ul class="nav-menu">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+          <li><a href="index.html#templates" class="nav-link">Templates</a></li>
+          <li><a href="index.html#features" class="nav-link">Features</a></li>
+          <li><a href="index.html#pricing" class="nav-link">Pricing</a></li>
+          <li><a href="index.html#contact" class="nav-link">Contact</a></li>
+          <li><a href="loginForm.html" class="nav-link">Log-in</a></li>
+        </ul>
+      </nav>
+      <a href="#pricing" class="cta-button pulse">Start Free Trial</a>
+      <button class="mobile-menu-toggle" onclick="openMobileMenu()" title="Open mobile menu">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- Auth Container -->
+  
+
+  <!-- React bundle -->
+   <!--this line includes the bundled React application script-->
+     <!-- Loading screen (optional, already handled by your initializeWebsite function) -->
+  
+
+  <!-- Login / Sign Up container -->
+  <div class="auth-container">
+    <script type="module">
+    // firebaseClient.js
+import { initializeApp } from "firebase/app";
+import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword } from "firebase/auth";
+import { getFirestore, doc, setDoc, serverTimestamp } from "firebase/firestore";
+
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+  projectId: "YOUR_PROJECT_ID",
+  storageBucket: "YOUR_PROJECT_ID.appspot.com",
+  messagingSenderId: "YOUR_SENDER_ID",
+  appId: "YOUR_APP_ID",
+};
+
+const app = initializeApp(firebaseConfig);
+export const auth = getAuth(app);
+export const db = getFirestore(app);
+
+// Helper: create a user and write a profile doc
+export async function signUpAndRecordUser(email, password) {
+  const cred = await createUserWithEmailAndPassword(auth, email, password);
+  const user = cred.user;
+
+  // Write a document keyed by UID
+  await setDoc(doc(db, "users", user.uid), {
+    uid: user.uid,
+    email: user.email,
+    createdAt: serverTimestamp(),
+    // add any default fields you need
+    plan: "free",
+    status: "active",
+  });
+
+  return user;
+}
+
+// Optional: listen and ensure doc exists after auth
+onAuthStateChanged(auth, async (user) => {
+  if (!user) return;
+  const userRef = doc(db, "users", user.uid);
+  try {
+    await setDoc(userRef, { lastLoginAt: serverTimestamp() }, { merge: true });
+    console.log("User record updated.");
+  } catch (e) {
+    console.error("User record write failed:", e);
+  }
+});
+</script>
+
+
+
+</body>
+
+</html>
