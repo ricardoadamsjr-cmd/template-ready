@@ -96,11 +96,11 @@
 
   <!-- Your custom JS -->
  <script type="module">
-  // firebaseClient.js
-import { initializeApp } from "firebase/app";
-import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword } from "firebase/auth";
-import { getFirestore, doc, setDoc, serverTimestamp } from "firebase/firestore";
-
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+  import { getAuth, createUserWithEmailAndPassword, onAuthStateChanged } 
+    from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
+  import { getFirestore, doc, setDoc, serverTimestamp } 
+    from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
 
   // Your Firebase config
   const firebaseConfig = {
@@ -112,40 +112,46 @@ import { getFirestore, doc, setDoc, serverTimestamp } from "firebase/firestore";
     appId: "1:615612260052:web:c7cac371c0698314e36541"
   };
 
+  // Initialize Firebase
   const app = initializeApp(firebaseConfig);
-export const auth = getAuth(app);
-export const db = getFirestore(app);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
 
-// Helper: create a user and write a profile doc
-export async function signUpAndRecordUser(email, password) {
-  const cred = await createUserWithEmailAndPassword(auth, email, password);
-  const user = cred.user;
+  const signupForm = document.getElementById('signupForm');
+  const authMessage = document.getElementById('authMessage');
 
-  // Write a document keyed by UID
-  await setDoc(doc(db, "users", user.uid), {
-    uid: user.uid,
-    email: user.email,
-    createdAt: serverTimestamp(),
-    // add any default fields you need
-    plan: "free",
-    status: "active",
+  // 🔎 Auto‑redirect if already logged in
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      window.location.href = "dashboard.html";
+    }
   });
 
-  return user;
-}
+  // Handle Signup
+  signupForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const email = document.getElementById('signupEmail').value;
+    const password = document.getElementById('signupPassword').value;
 
-// Optional: listen and ensure doc exists after auth
-onAuthStateChanged(auth, async (user) => {
-  if (!user) return;
-  const userRef = doc(db, "users", user.uid);
-  try {
-    await setDoc(userRef, { lastLoginAt: serverTimestamp() }, { merge: true });
-    console.log("User record updated.");
-  } catch (e) {
-    console.error("User record write failed:", e);
-  }
-});
+    try {
+      // 1️⃣ Create user in Firebase Auth
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const uid = userCredential.user.uid;
 
+      // 2️⃣ Record user in Firestore with default subscription status
+      await setDoc(doc(db, "users", uid), {
+        email: email,
+        subscriptionStatus: "free",   // default tier
+        createdAt: serverTimestamp()
+      });
+
+      // 3️⃣ Redirect after signup
+      window.location.href = "dashboard.html";
+    } catch (error) {
+      authMessage.textContent = "❌ Error: " + error.message;
+      console.error("Signup error:", error);
+    }
+  });
 </script>
 
 
