@@ -589,7 +589,7 @@
 <button id="submit">Pay</button>
 
 <script>
-    const stripe = Stripe('TRIPE_SECRET_KEY'); // Replace with your publishable key
+    const stripe = Stripe('sk_test_51SYdDeEB56lmrQFkbRBYcsqpNGAka3olRu3nai3lbPeXeFGM4K7Ro8u7nLdlyOHsjRgnE0ALj6IVYbKRifDPIvO200lGOnKjVY'); // Replace with your publishable key
 
 
   const card = elements.create('card');
@@ -697,72 +697,60 @@
         </div>
     </div>
 
-    <script type="module">
- // firebaseClient.js
-import { initializeApp } from "firebase/app";
-import { 
-  getAuth, 
-  createUserWithEmailAndPassword, 
-  onAuthStateChanged 
-} from "firebase/auth";
-import { 
-  getFirestore, 
-  doc, 
-  setDoc, 
-  serverTimestamp 
-} from "firebase/firestore";
+<!-- index.html -->
+<script src="https://js.stripe.com/v3/"></script>
 
-// --- Firebase Config ---
-const firebaseConfig = {
-    apiKey: "AIzaSyBhsMRHyuWF-R9MyRKKjzGQC0p-eznYILE",
-    authDomain: "uplift-local.firebaseapp.com",
-    projectId: "uplift-local",
-    storageBucket: "uplift-local.firebasestorage.app",
-    messagingSenderId: "615612260052",
-    appId: "1:615612260052:web:c7cac371c0698314e36541"
-  };
+<form id="payment-form">
+  <div id="card-element"><!-- Stripe injects the card input here --></div>
+  <button id="submit">Pay</button>
+</form>
 
-// --- Init ---
-const app = initializeApp(firebaseConfig);
-export const auth = getAuth(app);
-export const db = getFirestore(app);
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.11/firebase-app.js";
+  import { getAuth } from "https://www.gstatic.com/firebasejs/9.6.11/firebase-auth.js";
+  import { getFirestore } from "https://www.gstatic.com/firebasejs/9.6.11/firebase-firestore.js";
 
-// --- Sign up + Save user profile ---
-export async function registerUser(email, password, subscriptionType = "free") {
-  try {
-    // 1. Create user in Authentication
-    const cred = await createUserWithEmailAndPassword(auth, email, password);
-    const user = cred.user;
+  const firebaseConfig = {
+    apiKey: "AIzaSyBhsMRHyuWF-R9MyRKKjzGQC0p-eznYILE",
+    authDomain: "uplift-local.firebaseapp.com",
+    projectId: "uplift-local",
+    storageBucket: "uplift-local.firebasestorage.app",
+    messagingSenderId: "615612260052",
+    appId: "1:615612260052:web:c7cac371c0698314e36541"
+  };
 
-    // 2. Save user profile in Firestore
-    await setDoc(doc(db, "users", user.uid), {
-      uid: user.uid,
-      email: user.email,
-      createdAt: serverTimestamp(),
-      status: "active",              // custom field
-      subscriptionType: subscriptionType, // custom field
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+
+  // --- Stripe setup ---
+  const elements = stripe.elements();
+
+  const cardElement = elements.create("card");
+  cardElement.mount("#card-element");
+
+  // --- Handle form submission ---
+  const form = document.getElementById("payment-form");
+  form.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    // Create a PaymentMethod from card input
+    const { error, paymentMethod } = await stripe.createPaymentMethod({
+      type: "card",
+      card: cardElement,
     });
 
-    console.log("User created:", user.uid);
-    return user;
-  } catch (err) {
-    console.error("Error registering user:", err.code, err.message);
-    throw err;
-  }
-}
+    if (error) {
+      console.error("Stripe error:", error.message);
+      return;
+    }
 
-// --- Optional: keep Firestore record updated on login ---
-onAuthStateChanged(auth, async (user) => {
-  if (user) {
-    await setDoc(
-      doc(db, "users", user.uid),
-      { lastLoginAt: serverTimestamp() },
-      { merge: true }
-    );
-    console.log("User login timestamp updated.");
-  }
-});
+    console.log("PaymentMethod created:", paymentMethod.id);
 
+    // Send paymentMethod.id to your backend (Firebase Function / Node server)
+    // Example: fetch("/create-subscription", { method: "POST", body: JSON.stringify({ paymentMethodId: paymentMethod.id }) })
+  });
 </script>
 
 </body>
