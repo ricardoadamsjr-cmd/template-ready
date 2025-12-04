@@ -114,6 +114,8 @@
   // Initialize Firebase
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
+  const db = getFirestore(app);
+
 
   const signupForm = document.getElementById('signupForm');
   const authMessage = document.getElementById('authMessage');
@@ -139,6 +141,28 @@
       authMessage.textContent = "❌ Error: " + error.message;
       console.error("Signup error:", error);
     }
+
+    //THIS SECTION ADDS USER TO FIRESTORE WITH DEFAULT SUBSCRIPTION STATUS
+    try {
+      // 1️⃣ Create user in Firebase Auth
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const uid = userCredential.user.uid;
+
+      // 2️⃣ Record user in Firestore with default subscription status
+      await setDoc(doc(db, "users", uid), {
+        email: email,
+        subscriptionStatus: "free",   // default tier
+        createdAt: serverTimestamp()
+      });
+
+      // 3️⃣ Redirect after signup
+      window.location.href = "src/dashboard.html";
+    } catch (error) {
+      authMessage.textContent = "❌ Error: " + error.message;
+      console.error("Signup error:", error);
+    }
+
+
   });
 </script>
 
