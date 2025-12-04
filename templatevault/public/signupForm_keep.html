@@ -110,6 +110,19 @@ export async function signUpAndRecordUser(email, password) {
 
   return user;
 }
+async function main() {
+  const user = await registerUser("ric@example.com", "Str0ngP@ss!");
+  
+  // Start listening for real-time updates
+  const unsubscribe = listenToUserProfile(user.uid, (profile) => {
+    // Update your UI whenever Firestore changes
+    document.getElementById("status").innerText = profile.status;
+    document.getElementById("subscription").innerText = profile.subscriptionType;
+  });
+
+  // Later, if you want to stop listening:
+  // unsubscribe();
+}
 
 // Optional: listen and ensure doc exists after auth
 onAuthStateChanged(auth, async (user) => {
