@@ -585,34 +585,8 @@
                                 <!-- Stripe Elements will create form elements here -->
 
 
-<div id="card-element"></div>
-<button id="submit">Pay</button>
-
-<script>
-    const stripe = Stripe('sk_test_51SYdDeEB56lmrQFkbRBYcsqpNGAka3olRu3nai3lbPeXeFGM4K7Ro8u7nLdlyOHsjRgnE0ALj6IVYbKRifDPIvO200lGOnKjVY'); // Replace with your publishable key
-
-
-  const card = elements.create('card');
-  card.mount('#card-element');
-
-  document.querySelector('#submit').addEventListener('click', async () => {
-    const { paymentMethod, error } = await stripe.createPaymentMethod({
-      type: 'card',
-      card: card,
-    });
-    if (error) {
-      console.error(error);
-    } else {
-      console.log(paymentMethod);
-    }
-  });
-</script>
-
-
-
-
-
-
+                                <div id="card-element"></div>
+                                <button id="submit">Pay</button>
                                 <!-- Stripe Elements will create form elements here -->
                             </div>
                             <div id="card-errors" class="error-message"></div>
@@ -709,7 +683,7 @@
   import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.11/firebase-app.js";
   import { getAuth } from "https://www.gstatic.com/firebasejs/9.6.11/firebase-auth.js";
   import { getFirestore } from "https://www.gstatic.com/firebasejs/9.6.11/firebase-firestore.js";
-
+    const stripe = Stripe('sk_test_51SYdDeEB56lmrQFkbRBYcsqpNGAka3olRu3nai3lbPeXeFGM4K7Ro8u7nLdlyOHsjRgnE0ALj6IVYbKRifDPIvO200lGOnKjVY');
   const firebaseConfig = {
     apiKey: "AIzaSyBhsMRHyuWF-R9MyRKKjzGQC0p-eznYILE",
     authDomain: "uplift-local.firebaseapp.com",
@@ -731,7 +705,7 @@
   cardElement.mount("#card-element");
 
   // --- Handle form submission ---
-  const form = document.getElementById("payment-form");
+  const form = document.getElementById("stripe-element");
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
 
