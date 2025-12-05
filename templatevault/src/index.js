@@ -1,5 +1,5 @@
-import { auth } from "./firebase";
-import { checkSubscription } from "./dashboard";
+import { auth } from "firebase";
+import { checkSubscription } from "dashboard";
 
 auth.onAuthStateChanged((user) => {
   if (user) {

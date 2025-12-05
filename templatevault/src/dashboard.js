@@ -1,6 +1,6 @@
 //____________Check Subscription Status and Update UI____________//
 
-import { auth, db } from "./firebase";
+import { auth, db } from "firebase";
 import { doc, onSnapshot } from "firebase/firestore";
 
 export function checkSubscription() {
