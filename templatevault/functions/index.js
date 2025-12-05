@@ -1,5 +1,11 @@
 ///////////THIS CALLS YOUR BACKEND TO CREATE A STRIPE CHECKOUT SESSION///////////
 //- contains your createCheckoutSession and stripeWebhook Cloud Functions.
+exports.stripeWebhook = functions.https.onRequest((req, res) => {
+  // IMPORTANT: Ensure rawBody is available
+  // In firebase.json, add:
+  // "functions": { "runtime": "nodejs18" },
+  // and deploy with firebase CLI
+});
 
 // These const variables are required for the function to work:
 // - functions: needed to create the cloud function
