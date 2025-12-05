@@ -1,4 +1,5 @@
 ///////////THIS CALLS YOUR BACKEND TO CREATE A STRIPE CHECKOUT SESSION///////////
+//- contains your createCheckoutSession and stripeWebhook Cloud Functions.
 
 // These const variables are required for the function to work:
 // - functions: needed to create the cloud function

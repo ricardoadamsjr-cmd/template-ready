@@ -11,6 +11,6 @@ async function checkSubscription() {
     document.getElementById("subscribeBtn").style.display = "none";
   } else {
     document.getElementById("downloadBtn").style.display = "none";
-    document.getElementById("subscribeBtn").style.display = "block";
+    document.getElementById("subscribe1Btn").style.display = "block";
   }
 }
