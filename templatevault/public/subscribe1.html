@@ -673,6 +673,8 @@
     </div>
 
 <!-- index.html -->
+ <button id="checkout">Subscribe</button>
+
  <script src="https://js.stripe.com/v3/"></script>
 <script>
   // Initialize Stripe with your publishable key
@@ -703,6 +705,7 @@
       document.getElementById("card-success").textContent = "Payment method created: " + paymentMethod.id;
       // TODO: send paymentMethod.id to your server for subscription creation
     }
+
   });
 </script>
 
