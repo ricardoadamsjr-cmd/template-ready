@@ -1,24 +1,15 @@
 //____________Check Subscription Status and Update UI____________//
 
 import { auth, db } from "./firebase";
-import { doc, getDoc, onSnapshot } from "firebase/firestore";
+import { doc, onSnapshot } from "firebase/firestore";
 
-async function checkSubscription() {
+export function checkSubscription() {
   const user = auth.currentUser;
-  if (!user) {
-    console.warn("No user signed in");
-    return;
-  }
+  if (!user) return;
 
   const userRef = doc(db, "users", user.uid);
 
-  // Option A: one-time check
-  const userDoc = await getDoc(userRef);
-  const status = userDoc.data()?.subscriptionStatus;
-
-  updateUI(status);
-
-  // Option B: realtime listener
+  // Realtime listener keeps UI updated automatically
   onSnapshot(userRef, (snapshot) => {
     const status = snapshot.data()?.subscriptionStatus;
     updateUI(status);
@@ -37,3 +28,4 @@ function updateUI(status) {
     subscribeBtn.style.display = "block";
   }
 }
+

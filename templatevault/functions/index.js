@@ -1,11 +1,9 @@
 ///////////// STRIPE CHECKOUT + WEBHOOK CLOUD FUNCTIONS /////////////
-// Make sure you have in firebase.json:
+// firebase.json must include:
 // {
-//   "functions": {
-//     "runtime": "nodejs18"
-//   }
+//   "functions": { "runtime": "nodejs18" }
 // }
-// And deploy with: firebase deploy --only functions
+// Deploy with: firebase deploy --only functions
 
 const functions = require("firebase-functions");
 const admin = require("firebase-admin");
@@ -16,7 +14,6 @@ admin.initializeApp();
 // -------------------- CREATE CHECKOUT SESSION --------------------
 exports.createCheckoutSession = functions.https.onRequest(async (req, res) => {
   try {
-    // Basic validation
     if (!req.body.email || !req.body.uid) {
       return res.status(400).send("Missing required parameters: email or uid");
     }
@@ -59,7 +56,6 @@ exports.stripeWebhook = functions.https.onRequest((req, res) => {
     return res.status(400).send(`Webhook Error: ${err.message}`);
   }
 
-  // Handle subscription lifecycle events
   if (
     event.type === "customer.subscription.updated" ||
     event.type === "customer.subscription.deleted"
