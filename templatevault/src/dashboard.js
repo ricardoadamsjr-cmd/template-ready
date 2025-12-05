@@ -1,16 +1,39 @@
+//____________Check Subscription Status and Update UI____________//
+
 import { auth, db } from "./firebase";
-import { doc, getDoc } from "firebase/firestore";
-// this code below checks the user's subscription status and updates the UI accordingly
+import { doc, getDoc, onSnapshot } from "firebase/firestore";
+
 async function checkSubscription() {
-  const uid = auth.currentUser.uid;
-  const userDoc = await getDoc(doc(db, "users", uid));
+  const user = auth.currentUser;
+  if (!user) {
+    console.warn("No user signed in");
+    return;
+  }
+
+  const userRef = doc(db, "users", user.uid);
+
+  // Option A: one-time check
+  const userDoc = await getDoc(userRef);
   const status = userDoc.data()?.subscriptionStatus;
-//toggle UI elements based on subscription status
+
+  updateUI(status);
+
+  // Option B: realtime listener
+  onSnapshot(userRef, (snapshot) => {
+    const status = snapshot.data()?.subscriptionStatus;
+    updateUI(status);
+  });
+}
+
+function updateUI(status) {
+  const downloadBtn = document.getElementById("downloadBtn");
+  const subscribeBtn = document.getElementById("subscribeBtn");
+
   if (status === "active") {
-    document.getElementById("downloadBtn").style.display = "block";
-    document.getElementById("subscribeBtn").style.display = "none";
+    downloadBtn.style.display = "block";
+    subscribeBtn.style.display = "none";
   } else {
-    document.getElementById("downloadBtn").style.display = "none";
-    document.getElementById("subscribe1Btn").style.display = "block";
+    downloadBtn.style.display = "none";
+    subscribeBtn.style.display = "block";
   }
 }
