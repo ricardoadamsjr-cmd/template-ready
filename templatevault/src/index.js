@@ -1,3 +1,5 @@
+
+//Entry point for Template Vault application
 import { auth } from "firebase";
 import { checkSubscription } from "dashboard";
 
