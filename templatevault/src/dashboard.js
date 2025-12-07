@@ -1,7 +1,22 @@
 //____________Check Subscription Status and Update UI____________//
 
-import { auth, db } from "firebase";
-import { doc, onSnapshot } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
+import { getFirestore, doc, onSnapshot } from "firebase/firestore";
+import { initializeApp } from "firebase/app";
+
+// Initialize Firebase (make sure you have your config object here)
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_PROJECT.firebaseapp.com",
+  projectId: "YOUR_PROJECT_ID",
+  storageBucket: "YOUR_PROJECT.appspot.com",
+  messagingSenderId: "YOUR_SENDER_ID",
+  appId: "YOUR_APP_ID"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
 
 export function checkSubscription() {
   const user = auth.currentUser;
