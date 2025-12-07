@@ -2,19 +2,17 @@
   "name": "template-vault-frontend",
   "version": "1.0.0",
   "private": true,
-  "description": "Frontend for Template Vault",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "test": "react-scripts test"
   },
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
     "firebase": "^11.0.0",
-    "stripe-js": "^2.1.0"
+    "@stripe/stripe-js": "^2.1.0"
   },
   "engines": {
     "node": "22"
