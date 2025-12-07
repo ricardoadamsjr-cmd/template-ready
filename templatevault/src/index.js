@@ -2,7 +2,7 @@
 //Entry point for Template Vault application
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
-import { checkSubscription } from "dashboard.js"; // assuming this is your own module
+import { checkSubscription } from "./dashboard"; // ✅ relative import
 
 // Your Firebase config (make sure it's the same as in firebase.js)
 const firebaseConfig = {
