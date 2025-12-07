@@ -8,7 +8,7 @@ const stripeLib = require("stripe");
 admin.initializeApp();
 
 // -------------------- PARAMETERIZED CONFIG --------------------
-// Define parameters for Stripe secrets
+// Define parameters for Stripe secrets (set in Firebase environment config)
 const stripeSecretKey = defineString("STRIPE_SECRET_KEY");
 const stripeWebhookSecret = defineString("STRIPE_WEBHOOK_SECRET");
 
@@ -28,7 +28,7 @@ exports.createCheckoutSession = onRequest(async (req, res) => {
       mode: "subscription",
       line_items: [
         {
-          price: "prod_TYFHIbsSKtncUh", // TODO: replace with your real Stripe Price ID
+          price: "price_1234567890", // TODO: replace with your real Stripe Price ID
           quantity: 1,
         },
       ],
@@ -46,7 +46,7 @@ exports.createCheckoutSession = onRequest(async (req, res) => {
 // -------------------- STRIPE WEBHOOK LISTENER --------------------
 exports.stripeWebhook = onRequest(
   { rawBody: true }, // IMPORTANT: rawBody must be enabled for signature verification
-  (req, res) => {
+  async (req, res) => {
     let event;
 
     try {
@@ -60,6 +60,7 @@ exports.stripeWebhook = onRequest(
       return res.status(400).send(`Webhook Error: ${err.message}`);
     }
 
+    // Handle subscription updates
     if (
       event.type === "customer.subscription.updated" ||
       event.type === "customer.subscription.deleted"
@@ -68,22 +69,22 @@ exports.stripeWebhook = onRequest(
       const firebaseUID = subscription.metadata.firebaseUID;
 
       if (firebaseUID) {
-        admin
-          .firestore()
-          .collection("users")
-          .doc(firebaseUID)
-          .update({
-            subscriptionStatus: subscription.status,
-            currentPeriodEnd: subscription.current_period_end,
-          })
-          .then(() => {
-            console.log(
-              `Updated subscription for user ${firebaseUID}: ${subscription.status}`
-            );
-          })
-          .catch((err) => {
-            console.error("Error updating Firestore:", err);
-          });
+        try {
+          await admin
+            .firestore()
+            .collection("users")
+            .doc(firebaseUID)
+            .update({
+              subscriptionStatus: subscription.status,
+              currentPeriodEnd: subscription.current_period_end,
+            });
+
+          console.log(
+            `Updated subscription for user ${firebaseUID}: ${subscription.status}`
+          );
+        } catch (err) {
+          console.error("Error updating Firestore:", err);
+        }
       } else {
         console.warn("No firebaseUID found in subscription metadata");
       }
