@@ -15,7 +15,7 @@ const stripeWebhookSecret = defineString("STRIPE_WEBHOOK_SECRET");
 // Initialize Stripe with secret key
 const stripe = stripeLib(stripeSecretKey.value());
 
-// -------------------- CREATE CHECKOUT SESSION --------------------
+// -------------------- collect card data--------------------
 import Stripe from "stripe";
 import { onRequest } from "firebase-functions/v2/https";
 
