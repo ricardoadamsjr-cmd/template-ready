@@ -105,7 +105,7 @@
   box-shadow: 0 6px 10px rgba(0,0,0,0.15);
   background-color: #ff9933;   /* slightly lighter orange on hover */
 }
-#subscribeBtn {
+#subscribe-button {
   display: block;              /* makes it a block element */
   margin: 2rem auto;           /* centers horizontally */
   padding: 0.8rem 2rem;        /* size */
@@ -504,13 +504,9 @@
     <div>
         <button id="logoutBtn">Logout</button>
 
-        <button id="subscribeBtn">Subscribe</button>
-        <script type="module">
-            const subscribeBtn = document.getElementById("subscribeBtn");
-            subscribeBtn.addEventListener("click", () => {
-                window.location.href = "../subscribe1.html";
-            });
-        </script>
+        <button id="subscribe-button" class="btn-primary">
+                Subscribe to Professional Plan
+        </button>
     </div>
 <span id="userEmail"></span>
  
@@ -799,7 +795,43 @@
             });
         });
     </script>
-    
+    <script src="https://js.stripe.com/v3/"></script>
+    <script>
+  // Initialize Stripe with your publishable key
+  const stripe = Stripe("pk_test_12345"); // replace with your real publishable key
+
+  const subscribeButton = document.getElementById("subscribe-button");
+
+  subscribeButton.addEventListener("click", async () => {
+    // Collect customer info (from your dashboard context or Firebase Auth)
+    const customerData = {
+      email: "user@example.com",   // replace with actual user email
+      uid: "firebaseUID123"        // replace with actual Firebase UID
+    };
+
+    try {
+      // Call your backend to create a Checkout Session
+      const response = await fetch("/createCheckoutSession", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(customerData)
+      });
+
+      const session = await response.json();
+
+      // Redirect to Stripe Checkout
+      const result = await stripe.redirectToCheckout({ sessionId: session.id });
+
+      if (result.error) {
+        alert(result.error.message);
+      }
+    } catch (err) {
+      console.error("Error creating checkout session:", err);
+      alert("Something went wrong. Please try again.");
+    }
+  });
+</script>
+
 
 
    <!-- Firebase v9 CDN -->
