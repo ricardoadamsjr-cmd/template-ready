@@ -16,19 +16,25 @@ const stripeWebhookSecret = defineString("STRIPE_WEBHOOK_SECRET");
 const stripe = stripeLib(stripeSecretKey.value());
 
 // -------------------- CREATE CHECKOUT SESSION --------------------
-exports.createCheckoutSession = onRequest(async (req, res) => {
+import Stripe from "stripe";
+import { onRequest } from "firebase-functions/v2/https";
+
+
+
+export const createCheckoutSession = onRequest(async (req, res) => {
   try {
-    if (!req.body.email || !req.body.uid) {
+    const { email, uid } = req.body;
+    if (!email || !uid) {
       return res.status(400).send("Missing required parameters: email or uid");
     }
 
     const session = await stripe.checkout.sessions.create({
-      customer_email: req.body.email,
-      metadata: { firebaseUID: req.body.uid },
+      customer_email: email,
+      metadata: { firebaseUID: uid },
       mode: "subscription",
       line_items: [
         {
-          price: "price_1234567890", // TODO: replace with your real Stripe Price ID
+          price: "price_1234567890", // replace with your real Stripe Price ID
           quantity: 1,
         },
       ],
@@ -42,6 +48,7 @@ exports.createCheckoutSession = onRequest(async (req, res) => {
     res.status(500).send(err.toString());
   }
 });
+
 
 // -------------------- STRIPE WEBHOOK LISTENER --------------------
 exports.stripeWebhook = onRequest(

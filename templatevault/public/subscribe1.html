@@ -673,41 +673,36 @@
     </div>
 
 <!-- index.html -->
- <button id="checkout">Subscribe</button>
+ <script type="module">
+  import { loadStripe } from "https://js.stripe.com/v3/";
 
- <script src="https://js.stripe.com/v3/"></script>
-<script>
-  // Initialize Stripe with your publishable key
-  const stripe = Stripe("psk_test_51SYdDeEB56lmrQFkbRBYcsqpNGAka3olRu3nai3lbPeXeFGM4K7Ro8u7nLdlyOHsjRgnE0ALj6IVYbKRifDPIvO200lGOnKjVY"); // replace with your real publishable key
-  const elements = stripe.elements();
+  const stripe = await loadStripe("psk_test_51SYdDeEB56lmrQFkbRBYcsqpNGAka3olRu3nai3lbPeXeFGM4K7Ro8u7nLdlyOHsjRgnE0ALj6IVYbKRifDPIvO200lGOnKjVY"); // your publishable test key
 
-  // Create a card element
-  const card = elements.create("card");
-  card.mount("#card-element");
-
-  // Handle form submission
   const form = document.getElementById("checkout-form");
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
 
-    const {error, paymentMethod} = await stripe.createPaymentMethod({
-      type: "card",
-      card: card,
-      billing_details: {
-        name: document.getElementById("firstName").value + " " + document.getElementById("lastName").value,
+    // Call Firebase function to create Checkout Session
+    const response = await fetch("/createCheckoutSession", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
         email: document.getElementById("email").value,
-      },
+        uid: "firebase-user-id", // replace with actual UID
+      }),
     });
 
-    if (error) {
-      document.getElementById("card-errors").textContent = error.message;
-    } else {
-      document.getElementById("card-success").textContent = "Payment method created: " + paymentMethod.id;
-      // TODO: send paymentMethod.id to your server for subscription creation
-    }
+    const session = await response.json();
 
+    // Redirect to Stripe Checkout
+    const result = await stripe.redirectToCheckout({ sessionId: session.id });
+    if (result.error) {
+      alert(result.error.message);
+    }
   });
 </script>
+
+
 
 
 </body>
