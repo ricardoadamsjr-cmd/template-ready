@@ -7,6 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    //this is stripe js it helps to create payment forms
     <script src="https://js.stripe.com/v3/"></script>
 
     <style>
@@ -673,35 +674,38 @@
     </div>
 
 <!-- index.html -->
- <script type="module">
-  import { loadStripe } from "https://js.stripe.com/v3/";
+ 
 
-  const stripe = await loadStripe("psk_test_51SYdDeEB56lmrQFkbRBYcsqpNGAka3olRu3nai3lbPeXeFGM4K7Ro8u7nLdlyOHsjRgnE0ALj6IVYbKRifDPIvO200lGOnKjVY"); // your publishable test key
+<script>
+  // Replace with your own publishable key
+  const stripe = Stripe("sk_test_51SYdDeEB56lmrQFkbRBYcsqpNGAka3olRu3nai3lbPeXeFGM4K7Ro8u7nLdlyOHsjRgnE0ALj6IVYbKRifDPIvO200lGOnKjVY");  
 
-  const form = document.getElementById("checkout-form");
-  form.addEventListener("submit", async (event) => {
-    event.preventDefault();
+  const elements = stripe.elements();
 
-    // Call Firebase function to create Checkout Session
-    const response = await fetch("/createCheckoutSession", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        email: document.getElementById("email").value,
-        uid: "firebase-user-id", // replace with actual UID
-      }),
-    });
+  // Create a card element and mount it
+  const card = elements.create("card", {
+    style: {
+      base: {
+        color: "#32325d",
+        fontFamily: "Arial, sans-serif",
+        fontSize: "16px",
+        "::placeholder": { color: "#a0a0a0" }
+      },
+      invalid: { color: "#fa755a" }
+    }
+  });
+  card.mount("#card-element");
 
-    const session = await response.json();
-
-    // Redirect to Stripe Checkout
-    const result = await stripe.redirectToCheckout({ sessionId: session.id });
-    if (result.error) {
-      alert(result.error.message);
+  // Handle real-time validation errors
+  card.on("change", (event) => {
+    const displayError = document.getElementById("card-errors");
+    if (event.error) {
+      displayError.textContent = event.error.message;
+    } else {
+      displayError.textContent = "";
     }
   });
 </script>
-
 
 
 
