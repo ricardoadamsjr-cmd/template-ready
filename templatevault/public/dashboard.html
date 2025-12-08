@@ -799,7 +799,7 @@
 <script src="https://js.stripe.com/v3/"></script>
 <script>
   document.addEventListener("DOMContentLoaded", () => {
-    const stripe = Stripe("psk_test_51SYdDeEB56lmrQFkbRBYcsqpNGAka3olRu3nai3lbPeXeFGM4K7Ro8u7nLdlyOHsjRgnE0ALj6IVYbKRifDPIvO200lGOnKjVY"); // replace with your publishable key
+    const stripe = Stripe("pk_test_51SYdDeEB56lmrQFkbRBYcsqpNGAka3olRu3nai3lbPeXeFGM4K7Ro8u7nLdlyOHsjRgnE0ALj6IVYbKRifDPIvO200lGOnKjVY"); // replace with your publishable key
     const subscribeButton = document.getElementById("subscribe-button");
 
     subscribeButton.addEventListener("click", async () => {
@@ -812,7 +812,7 @@
       const customerData = { email: user.email, uid: user.uid };
 
       try {
-        const response = await fetch("/createCheckoutSession", {
+        const response = await fetch("/http://northamerica-northeast1-uplift-local.cloudfunctions.net/createCheckoutSession", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(customerData)
