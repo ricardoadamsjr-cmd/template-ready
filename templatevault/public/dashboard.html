@@ -6,7 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Template Vault Dashboard</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <script src="src/firebasejs" defer></script>
+    <!-- Firebase App (core SDK) -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-app.js"></script>
+    <!-- Firebase Auth -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-auth.js"></script>
+    <!-- Firebase Firestore -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-firestore.js"></script>
 
 <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
@@ -105,7 +110,7 @@
   box-shadow: 0 6px 10px rgba(0,0,0,0.15);
   background-color: #ff9933;   /* slightly lighter orange on hover */
 }
-#subscribe-button {
+#subscribebutton {
   display: block;              /* makes it a block element */
   margin: 2rem auto;           /* centers horizontally */
   padding: 0.8rem 2rem;        /* size */
@@ -504,7 +509,7 @@
     <div>
         <button id="logoutBtn">Logout</button>
 
-        <button id="subscribe-button" class="btn-primary">
+        <button id="subscribebutton" class="btn-primary">
                 Subscribe to Professional Plan
         </button>
     </div>
@@ -800,7 +805,7 @@
 <script>
   document.addEventListener("DOMContentLoaded", () => {
     const stripe = Stripe("pk_test_51SYdDeEB56lmrQFkbRBYcsqpNGAka3olRu3nai3lbPeXeFGM4K7Ro8u7nLdlyOHsjRgnE0ALj6IVYbKRifDPIvO200lGOnKjVY"); // replace with your publishable key
-    const subscribeButton = document.getElementById("subscribe-button");
+    const subscribeButton = document.getElementById("subscribebutton");
 
     subscribeButton.addEventListener("click", async () => {
       const user = firebase.auth().currentUser;
