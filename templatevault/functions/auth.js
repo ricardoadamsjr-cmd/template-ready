@@ -24,7 +24,7 @@ export const createCheckoutSession = onRequest(async (req, res) => {
       mode: "subscription",
       line_items: [
         {
-          price: "price_1234567890", // replace with your real Stripe Price ID
+          price: "price_1Sb8n4EB56lmrQFkxL0aairz", // replace with your real Stripe Price ID
           quantity: 1,
         },
       ],
