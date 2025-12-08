@@ -6,12 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Template Vault Dashboard</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <!-- Firebase App (compat) -->
-<script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-app-compat.js"></script>
-<!-- Firebase Auth (compat) -->
-<script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-auth-compat.js"></script>
-<!-- Firebase Firestore (compat) -->
-<script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-firestore-compat.js"></script>
+   
 
 
 <script type="module">
@@ -803,45 +798,72 @@
     </script>
 
 <script src="https://js.stripe.com/v3/"></script>
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const stripe = Stripe("pk_test_51SYdDeEB56lmrQFkbRBYcsqpNGAka3olRu3nai3lbPeXeFGM4K7Ro8u7nLdlyOHsjRgnE0ALj6IVYbKRifDPIvO200lGOnKjVY"); // replace with your publishable key
-    const subscribeButton = document.getElementById("subscribebutton");
 
-    subscribeButton.addEventListener("click", async () => {
-      const user = firebase.auth().currentUser;
-      if (!user) {
-        alert("You must be logged in to subscribe.");
-        return;
-      }
+  <!-- Firebase SDKs (compat builds for global `firebase`) -->
+  <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-firestore-compat.js"></script>
 
-      const customerData = { email: user.email, uid: user.uid };
+  <script>
+    // Your Firebase project configuration (replace with your actual values)
+    const firebaseConfig = {
+      apiKey: "YOUR_API_KEY",
+      authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+      projectId: "YOUR_PROJECT_ID",
+      storageBucket: "YOUR_PROJECT_ID.appspot.com",
+      messagingSenderId: "YOUR_SENDER_ID",
+      appId: "YOUR_APP_ID"
+    };
 
-      try {
-        const response = await fetch("http://northamerica-northeast1-templatevault-aOb23.cloudfunctions.net/createCheckoutSession", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(customerData)
-        });
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
 
-        if (!response.ok) {
-          const text = await response.text();
-          throw new Error(text);
+    // Initialize Stripe with your publishable key (must start with pk_test or pk_live)
+    const stripe = Stripe("pk_test_51SYdDeEB56lmrQFkbRBYcsqpNGAka3olRu3nai3lbPeXeFGM4K7Ro8u7nLdlyOHsjRgnE0ALj6IVYbKRifDPIvO200lGOnKjVY"); 
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const subscribeButton = document.getElementById("subscribe-button");
+
+      subscribeButton.addEventListener("click", async () => {
+        const user = firebase.auth().currentUser;
+        if (!user) {
+          alert("You must be logged in to subscribe.");
+          return;
         }
 
-        const session = await response.json();
-        const result = await stripe.redirectToCheckout({ sessionId: session.id });
+        const customerData = { email: user.email, uid: user.uid };
 
-        if (result.error) {
-          alert(result.error.message);
+        try {
+          // IMPORTANT: If serving from Render, use full Firebase Function URL
+          const response = await fetch(
+            "http://northamerica-northeast1-uplift-local.cloudfunctions.net/createCheckoutSession",
+            {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(customerData)
+            }
+          );
+
+          if (!response.ok) {
+            const text = await response.text();
+            throw new Error(text);
+          }
+
+          const session = await response.json();
+          console.log("Checkout session created:", session);
+
+          const result = await stripe.redirectToCheckout({ sessionId: session.id });
+          if (result.error) {
+            alert(result.error.message);
+          }
+        } catch (err) {
+          console.error("Error creating checkout session:", err);
+          alert(err.message);
         }
-      } catch (err) {
-        console.error("Error creating checkout session:", err);
-        alert(err.message);
-      }
+      });
     });
-  });
-</script>
+  </script>
+
 
 
 
