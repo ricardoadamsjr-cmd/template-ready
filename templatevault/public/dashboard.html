@@ -812,7 +812,7 @@
       const customerData = { email: user.email, uid: user.uid };
 
       try {
-        const response = await fetch("https://us-central1-templatevault-us-central1-templatevault-aOb23.cloudfunctions.net/createCheckoutSession", {
+        const response = await fetch("http://northamerica-northeast1-templatevault-aOb23.cloudfunctions.net/createCheckoutSession", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(customerData)
