@@ -797,42 +797,46 @@
     </script>
 
 <script src="https://js.stripe.com/v3/"></script>
-    
 <script>
-  // Initialize Stripe with your publishable key
-  const stripe = Stripe("sk_test_51SYdDeEB56lmrQFkbRBYcsqpNGAka3olRu3nai3lbPeXeFGM4K7Ro8u7nLdlyOHsjRgnE0ALj6IVYbKRifDPIvO200lGOnKjVY"); // replace with your real publishable key
+  document.addEventListener("DOMContentLoaded", () => {
+    const stripe = Stripe("psk_test_51SYdDeEB56lmrQFkbRBYcsqpNGAka3olRu3nai3lbPeXeFGM4K7Ro8u7nLdlyOHsjRgnE0ALj6IVYbKRifDPIvO200lGOnKjVY"); // replace with your publishable key
+    const subscribeButton = document.getElementById("subscribe-button");
 
-  const subscribeButton = document.getElementById("subscribe-button");
-
-  subscribeButton.addEventListener("click", async () => {
-    // Collect customer info (from your dashboard context or Firebase Auth)
-    const customerData = {
-      email: "user@example.com",   // replace with actual user email
-      uid: "firebaseUID123"        // replace with actual Firebase UID
-    };
-
-    try {
-      // Call your backend to create a Checkout Session
-      const response = await fetch("http://uplift-local/createCheckoutSession", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(customerData)
-      });
-
-      const session = await response.json();
-
-      // Redirect to Stripe Checkout
-      const result = await stripe.redirectToCheckout({ sessionId: session.id });
-
-      if (result.error) {
-        alert(result.error.message);
+    subscribeButton.addEventListener("click", async () => {
+      const user = firebase.auth().currentUser;
+      if (!user) {
+        alert("You must be logged in to subscribe.");
+        return;
       }
-    } catch (err) {
-      console.error("Error creating checkout session:", err);
-      alert("Something went wrong. Please try again.");
-    }
+
+      const customerData = { email: user.email, uid: user.uid };
+
+      try {
+        const response = await fetch("/createCheckoutSession", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(customerData)
+        });
+
+        if (!response.ok) {
+          const text = await response.text();
+          throw new Error(text);
+        }
+
+        const session = await response.json();
+        const result = await stripe.redirectToCheckout({ sessionId: session.id });
+
+        if (result.error) {
+          alert(result.error.message);
+        }
+      } catch (err) {
+        console.error("Error creating checkout session:", err);
+        alert(err.message);
+      }
+    });
   });
 </script>
+
 
 
 

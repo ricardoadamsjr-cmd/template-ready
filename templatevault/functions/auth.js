@@ -11,11 +11,6 @@ import Stripe from "stripe";
 const stripeSecretKey = defineString("STRIPE_SECRET_KEY");
 const stripe = new Stripe(stripeSecretKey.value());
 
-const user = firebase.auth().currentUser;
-const customerData = {
-  email: user.email,
-  uid: user.uid
-};
 
 
 export const createCheckoutSession = onRequest(async (req, res) => {
