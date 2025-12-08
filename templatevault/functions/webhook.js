@@ -1,9 +1,9 @@
 // webhook.js
 //Handles Stripe webhook events. Also pure ESM.
-import Stripe from "stripe";
 import { onRequest } from "firebase-functions/v2/https";
 import { defineString } from "firebase-functions/params";
 import admin from "firebase-admin";
+import Stripe from "stripe";
 
 admin.initializeApp();
 
@@ -35,22 +35,13 @@ export const stripeWebhook = onRequest(
       const firebaseUID = subscription.metadata.firebaseUID;
 
       if (firebaseUID) {
-        try {
-          await admin.firestore().collection("users").doc(firebaseUID).update({
-            subscriptionStatus: subscription.status,
-            currentPeriodEnd: subscription.current_period_end,
-          });
-          console.log(
-            `Updated subscription for user ${firebaseUID}: ${subscription.status}`
-          );
-        } catch (err) {
-          console.error("Error updating Firestore:", err);
-        }
-      } else {
-        console.warn("No firebaseUID found in subscription metadata");
+        await admin.firestore().collection("users").doc(firebaseUID).update({
+          subscriptionStatus: subscription.status,
+          currentPeriodEnd: subscription.current_period_end,
+        });
+        console.log(`Updated subscription for user ${firebaseUID}: ${subscription.status}`);
       }
     }
-
     res.sendStatus(200);
   }
 );
