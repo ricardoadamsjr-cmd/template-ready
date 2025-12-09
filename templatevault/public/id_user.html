@@ -32,7 +32,7 @@
     // Watch auth state
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
-        userInfo.textContent = `✅ Logged in as: ${user.email}`;
+        userInfo.textContent = `✅ Logged in now: ${user.email}`;
         subscribeButton.disabled = false;
       } else {
         userInfo.textContent = "❌ No user logged in";
