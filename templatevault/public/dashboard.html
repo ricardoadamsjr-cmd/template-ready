@@ -802,7 +802,7 @@
             });
         });
     </script>
-
+<script src="/auth.js"></script>
 <script src="https://js.stripe.com/v3/"></script>
 
   <!-- Firebase SDKs (compat builds for global `firebase`) -->
@@ -813,6 +813,15 @@
   <script>
     // Your Firebase project configuration (replace with your actual values)
    
+auth.onAuthStateChanged(user => {
+  if (user) {
+    console.log("Logged in as:", user.email);
+    // enable subscribe button
+  } else {
+    console.log("No user logged in");
+    alert("You must be logged in to subscribe.");
+  }
+});
 
     // Initialize Firebase
    
