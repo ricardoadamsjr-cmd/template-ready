@@ -867,7 +867,7 @@
         try {
           // Call your backend to create a Checkout Session
           const response = await fetch(
-            "https://us-central1/YOUR_PROJECT_ID.cloudfunctions.net/createCheckoutSession",
+            "http://northamerica-northeast1-uplift-local.cloudfunctions.net/stripeWebhook",
             {
               method: "POST",
               headers: { "Content-Type": "application/json" },
