@@ -7,7 +7,7 @@
 <body>
   <h1>Dashboard</h1>
   <p id="user-info">Checking login status...</p>
-  <button id="subscribe-button">Subscribe</button>
+ 
 
   <!-- Firebase SDKs (compat builds for global firebase object) -->
   <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-app-compat.js"></script>
@@ -27,12 +27,12 @@
     firebase.initializeApp(firebaseConfig);
 
     const userInfo = document.getElementById("user-info");
-    const subscribeButton = document.getElementById("subscribe-button");
+   
 
     // Watch auth state
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
-        userInfo.textContent = `✅ Logged in now: ${user.email}`;
+        userInfo.textContent = `✅ Logging in now: ${user.email}`;
         window.location.replace("dashboard.html");
         subscribeButton.disabled = false;
       } else {
