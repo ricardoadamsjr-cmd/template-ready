@@ -876,6 +876,41 @@
   });
 </script>
 
+<script>
+    // Initialize Stripe with your publishable key
+    const stripe = Stripe("pk_test_XXXXXXXXXXXXXXXXXXXXXXXX");
+
+    document.getElementById("subscribe-button").addEventListener("click", async () => {
+      try {
+        // Call your backend to create a Checkout Session
+        const response = await fetch(
+          "https://us-central1-YOUR_PROJECT_ID.cloudfunctions.net/createCheckoutSession",
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            // For now, just send a dummy payload
+            body: JSON.stringify({ plan: "professional" })
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error(await response.text());
+        }
+
+        const session = await response.json();
+        console.log("Checkout session:", session);
+
+        // Redirect to Stripe Checkout
+        const result = await stripe.redirectToCheckout({ sessionId: session.id });
+        if (result.error) {
+          alert(result.error.message);
+        }
+      } catch (err) {
+        console.error("Error:", err);
+        alert(err.message);
+      }
+    });
+  </script>
 
 
 
