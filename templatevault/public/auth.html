@@ -27,30 +27,23 @@
   const subscribeButton = document.getElementById("subscribe-button");
 
   // Watch auth state
+  
+  // Replace with your Firebase project config (from Firebase Console → Project Settings → SDK setup)
+ 
+  firebase.initializeApp(firebaseConfig);
+
+  // Watch auth state and redirect
   firebase.auth().onAuthStateChanged(user => {
     if (user) {
-      userInfo.textContent = `✅ Logged in now: ${user.email}`;
-      subscribeButton.disabled = false;
-      // Redirect to dashboard if logged in
+      console.log("✅ Logged in as:", user.email);
       window.location.replace("dashboard.html");
     } else {
-      userInfo.textContent = "❌ No user logged in";
-      subscribeButton.disabled = true;
-      // Redirect to login form if not logged in
+      console.log("❌ No user logged in");
       window.location.replace("loginform.html");
     }
   });
-
-  // Just log button clicks for now
-  subscribeButton.addEventListener("click", () => {
-    const user = firebase.auth().currentUser;
-    if (!user) {
-      alert("You must be logged in to subscribe.");
-      return;
-    }
-    console.log("Subscribe clicked by:", user.email);
-  });
 </script>
+
 </body>
 </html>
 
