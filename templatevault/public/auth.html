@@ -30,6 +30,15 @@
    
 
     // Watch auth state
+    document.addEventListener("DOMContentLoaded", () => {
+      firebase.auth().onAuthStateChanged(user => {
+        if (user) {
+          userInfo.textContent = `Logged in as: ${user.email}`;
+        } else {
+          userInfo.textContent = "Not logged in.";
+        }
+      });
+    });
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
         window.location.replace("dashboard.html");
