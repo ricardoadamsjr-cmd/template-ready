@@ -512,7 +512,7 @@
         <a href="#" class="nav-tab" data-category="landing">Landing Page</a>
     </nav>
     <div>
-        <p id="current-user"></p>
+        <p id="current-user">THIS IS A TEST</p>
         <button id="logoutBtn">Logout</button>
 
         <button id="subscribebutton" class="btn-primary">
@@ -852,46 +852,46 @@
 
 
 <script>
-    //Below is working script for stripe checkout
-    // Initialize Stripe with your publishable key
-    const stripe = Stripe("pk_test_51SYdDeEB56lmrQFkbRBYcsqpNGAka3olRu3nai3lbPeXeFGM4K7Ro8u7nLdlyOHsjRgnE0ALj6IVYbKRifDPIvO200lGOnKjV");
+  document.addEventListener("DOMContentLoaded", () => {
+    const subscribeButton = document.getElementById("subscribe-button");
 
+    if (subscribeButton) {
+      subscribeButton.addEventListener("click", async () => {
+        try {
+          // Call your backend to create a Checkout Session
+          const response = await fetch(
+            "https://us-central1/YOUR_PROJECT_ID.cloudfunctions.net/createCheckoutSession",
+            {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              // For now, just send a dummy payload
+              body: JSON.stringify({ plan: "professional" })
+            }
+          );
 
-
-  
-
-
-    document.getElementById("subscribe-button").addEventListener("click", async () => {
-      try {
-        // Call your backend to create a Checkout Session
-        const response = await fetch(
-          "https://us-central1-YOUR_PROJECT_ID.cloudfunctions.net/createCheckoutSession",
-          {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            // For now, just send a dummy payload
-            body: JSON.stringify({ plan: "professional" })
+          if (!response.ok) {
+            throw new Error(await response.text());
           }
-        );
 
-        if (!response.ok) {
-          throw new Error(await response.text());
+          const session = await response.json();
+          console.log("Checkout session:", session);
+
+          // Redirect to Stripe Checkout
+          const result = await stripe.redirectToCheckout({ sessionId: session.id });
+          if (result.error) {
+            alert(result.error.message);
+          }
+        } catch (err) {
+          console.error("Error:", err);
+          alert(err.message);
         }
+      });
+    } else {
+      console.error("❌ No element with id='subscribe-button' found in the DOM.");
+    }
+  });
+</script>
 
-        const session = await response.json();
-        console.log("Checkout session:", session);
-
-        // Redirect to Stripe Checkout
-        const result = await stripe.redirectToCheckout({ sessionId: session.id });
-        if (result.error) {
-          alert(result.error.message);
-        }
-      } catch (err) {
-        console.error("Error:", err);
-        alert(err.message);
-      }
-    });
-  </script>
 
 
 
