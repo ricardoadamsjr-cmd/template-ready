@@ -834,12 +834,13 @@ auth.onAuthStateChanged(user => {
 
       subscribeButton.addEventListener("click", async () => {
         const user = firebase.auth().currentUser;
+        const customerData = { email: user.email, uid: user.uid };
         if (!user) {
           alert("You must be logged in to subscribe.");
           return;
         }
 
-        const customerData = { email: user.email, uid: user.uid };
+        
 
         try {
           // IMPORTANT: If serving from Render, use full Firebase Function URL
