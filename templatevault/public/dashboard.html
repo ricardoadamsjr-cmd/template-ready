@@ -544,7 +544,11 @@
 
         <button id="subscribebutton" class="btn-primary">
                 Subscribe to Professional Plan
-                
+                <script>
+                        document.getElementById("subscribebutton").addEventListener("click", () => {
+                            window.location.href = "/functions/auth.js";
+                        });
+                </script>
         </button>
     </div>
 <span id="userEmail"></span>
