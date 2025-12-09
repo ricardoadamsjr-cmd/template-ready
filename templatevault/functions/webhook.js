@@ -10,7 +10,7 @@ admin.initializeApp();
 const stripeSecretKey = defineString("STRIPE_SECRET_KEY");
 const stripeWebhookSecret = defineString("STRIPE_WEBHOOK_SECRET");
 
-const stripe = new Stripe(stripeSecretKey.value());
+const stripe = new Stripe("pk_test_51SYdDeEB56lmrQFkbRBYcsqpNGAka3olRu3nai3lbPeXeFGM4K7Ro8u7nLdlyOHsjRgnE0ALj6IVYbKRifDPIvO200lGOnKjVY");
 
 export const stripeWebhook = onRequest(
   { rawBody: true },
