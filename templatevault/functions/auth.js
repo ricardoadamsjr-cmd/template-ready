@@ -4,7 +4,7 @@
 //index.js simply re‑exports them so Firebase can discover and deploy both functions.
 //You don’t need to initialize Stripe or Firebase Admin in index.js anymore — that logic lives inside auth.js and webhook.js.
 
-
+//import { onRequest } from "firebase-functions/v2/https";
 import { defineString } from "firebase-functions/params";
 import Stripe from "stripe";
 
