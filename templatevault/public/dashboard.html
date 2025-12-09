@@ -42,11 +42,15 @@
         const auth = getAuth(app);
 
         // Protect the page
-        onAuthStateChanged(auth, (user) => {
-            if (!user) {
-            window.location.href = "/loginForm.html";
-            }
-        });
+       auth.onAuthStateChanged(user => {
+  if (user) {
+    console.log("Logged in as:", user.email);
+    // enable subscribe button
+  } else {
+    console.log("No user logged in");
+    alert("You must be logged in to subscribe.");
+  }
+});
 
         // Logout button
         document.getElementById("logoutBtn").addEventListener("click", async () => {
