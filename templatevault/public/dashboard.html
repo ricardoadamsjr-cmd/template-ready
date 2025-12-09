@@ -812,71 +812,10 @@
   <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-firestore-compat.js"></script>
 
-<script>
-  // Initialize Firebase
- 
 
-
-  firebase.auth().onAuthStateChanged(user => {
-      if (user) {
-        console.log("✅ Logged in as:", user.email);
-        subscribeButton.disabled = false;
-      } else {
-        console.log("❌ No user logged in");
-        subscribeButton.disabled = true;
-      }
-
-  // Initialize Stripe
-  const stripe = Stripe("pk_test_51SYdDeEB56lmrQFkbRBYcsqpNGAka3olRu3nai3lbPeXeFGM4K7Ro8u7nLdlyOHsjRgnE0ALj6IVYbKRifDPIvO200lGOnKjVY");
-
-  document.addEventListener("DOMContentLoaded", () => {
-    const subscribeButton = document.getElementById("subscribe-button");
-
-    // Watch auth state
-    
-    });
-
-    // Subscribe button click
-    subscribeButton.addEventListener("click", async () => {
-      const user = firebase.auth().currentUser;
-      if (!user) {
-        alert("You must be logged in to subscribe.");
-        return;
-      }
-
-      const customerData = { email: user.email, uid: user.uid };
-
-      try {
-        const response = await fetch(
-          "https://northamerica-northeast1-uplift-local.cloudfunctions.net/createCheckoutSession",
-          {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(customerData)
-          }
-        );
-
-        if (!response.ok) {
-          const text = await response.text();
-          throw new Error(text);
-        }
-
-        const session = await response.json();
-        console.log("Checkout session created:", session);
-
-        const result = await stripe.redirectToCheckout({ sessionId: session.id });
-        if (result.error) {
-          alert(result.error.message);
-        }
-      } catch (err) {
-        console.error("Error creating checkout session:", err);
-        alert(err.message);
-      }
-    });
-  });
-</script>
 
 <script>
+    //Below is working script for stripe checkout
     // Initialize Stripe with your publishable key
     const stripe = Stripe("pk_test_51SYdDeEB56lmrQFkbRBYcsqpNGAka3olRu3nai3lbPeXeFGM4K7Ro8u7nLdlyOHsjRgnE0ALj6IVYbKRifDPIvO200lGOnKjV");
 
