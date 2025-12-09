@@ -9,6 +9,15 @@
     <script src="/auth.js"></script>
 
    
+<script>
+  firebase.auth().onAuthStateChanged(user => {
+    if (user) {
+      console.log("Logged in as:", user.email);
+    } else {
+      console.log("No user logged in");
+    }
+  });
+</script>
 
 
 <script type="module">
