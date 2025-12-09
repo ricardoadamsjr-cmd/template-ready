@@ -33,9 +33,11 @@
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
         userInfo.textContent = `✅ Logged in now: ${user.email}`;
+        window.location.replace("dashboard.html");
         subscribeButton.disabled = false;
       } else {
         userInfo.textContent = "❌ No user logged in";
+        window.location.replace("loginform.html");
         subscribeButton.disabled = true;
       }
     });
