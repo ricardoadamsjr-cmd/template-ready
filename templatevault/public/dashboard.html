@@ -876,14 +876,21 @@
         try {
           // Call your backend to create a Checkout Session
           const response = await fetch(
-            "hhttps://northamerica-northeast1/templatevault-a0b23.cloudfunctions.net/stripeWebhook",
-            {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              // For now, just send a dummy payload
-              body: JSON.stringify({ plan: "professional" })
-            }
-          );
+  "https://northamerica-northeast1-uplift-local.cloudfunctions.net/createCheckoutSession",
+  {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      email: firebase.auth().currentUser.email,
+      uid: firebase.auth().currentUser.uid
+    })
+  }
+);
+
+
+const stripe = Stripe("pk_test_51SYdDeEB56lmrQFkbRBYcsqpNGAka3olRu3nai3lbPeXeFGM4K7Ro8u7nLdlyOHsjRgnE0ALj6IVYbKRifDPIvO200lGOnKjVY");
+await stripe.redirectToCheckout({ sessionId: session.id });
+
 
           if (!response.ok) {
             throw new Error(await response.text());
