@@ -511,6 +511,7 @@
         <a href="#" class="nav-tab" data-category="landing">Landing Page</a>
     </nav>
     <div>
+        <p id="current-user">Loading user...</p>
         <button id="logoutBtn">Logout</button>
 
         <button id="subscribebutton" class="btn-primary">
@@ -809,6 +810,36 @@
             });
         });
     </script>
+
+
+
+
+<script>
+  // Grab the element where you want to show the user
+  const currentUserElement = document.getElementById("current-user");
+
+  // Global variable to hold the email
+  window.currentUserEmail = null;
+
+  // Watch auth state
+  firebase.auth().onAuthStateChanged(user => {
+    if (user) {
+      // Update the <p> element
+      currentUserElement.textContent = `Logged in as: ${user.email}`;
+      // Save email in a variable for other code
+      window.currentUserEmail = user.email;
+      console.log("✅ Current user:", window.currentUserEmail);
+    } else {
+      currentUserElement.textContent = "No user logged in";
+      window.currentUserEmail = null;
+      console.log("❌ No user logged in");
+    }
+  });
+</script>
+
+
+
+
 
 <script src="https://js.stripe.com/v3/"></script>
 
