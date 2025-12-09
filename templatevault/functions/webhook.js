@@ -1,6 +1,6 @@
 // webhook.js
-//Handles Stripe webhook events. Also pure ESM.
-//import { onRequest } from "firebase-functions/v2/https";
+// Handles Stripe webhook events. Pure ESM.
+import { onRequest } from "firebase-functions/v2/https";   // <-- keep this import
 import { defineString } from "firebase-functions/params";
 import admin from "firebase-admin";
 import Stripe from "stripe";
@@ -10,8 +10,7 @@ admin.initializeApp();
 const stripeSecretKey = defineString("STRIPE_SECRET_KEY");
 const stripeWebhookSecret = defineString("STRIPE_WEBHOOK_SECRET");
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
-
+const stripe = new Stripe(stripeSecretKey.value());
 
 export const stripeWebhook = onRequest(
   { rawBody: true },
@@ -40,7 +39,9 @@ export const stripeWebhook = onRequest(
           subscriptionStatus: subscription.status,
           currentPeriodEnd: subscription.current_period_end,
         });
-        console.log(`Updated subscription for user ${firebaseUID}: ${subscription.status}`);
+        console.log(
+          `Updated subscription for user ${firebaseUID}: ${subscription.status}`
+        );
       }
     }
     res.sendStatus(200);

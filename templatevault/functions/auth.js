@@ -1,17 +1,15 @@
 // auth.js
-//- auth.js contains your createCheckoutSession function (Stripe Checkout session creation).
-//webhook.js contains your stripeWebhook function (Stripe webhook listener).
-//index.js simply re‑exports them so Firebase can discover and deploy both functions.
-//You don’t need to initialize Stripe or Firebase Admin in index.js anymore — that logic lives inside auth.js and webhook.js.
+// Contains your createCheckoutSession function (Stripe Checkout session creation).
+// webhook.js contains your stripeWebhook function (Stripe webhook listener).
+// index.js simply re‑exports them so Firebase can discover and deploy both functions.
 
-//import { onRequest } from "firebase-functions/v2/https";
+import { onRequest } from "firebase-functions/v2/https";   // <-- keep this, you are using onRequest
 import { defineString } from "firebase-functions/params";
 import Stripe from "stripe";
 
+// Use Firebase's secret manager for your Stripe key
 const stripeSecretKey = defineString("STRIPE_SECRET_KEY");
 const stripe = new Stripe(stripeSecretKey.value());
-
-
 
 export const createCheckoutSession = onRequest(async (req, res) => {
   try {
