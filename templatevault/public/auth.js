@@ -1,13 +1,7 @@
 
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Auth Redirect</title>
-</head>
-<body>
-  <script type="module">
+
+  
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
     import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
 
@@ -32,8 +26,10 @@
         console.log("❌ No user logged in");
         window.location.replace("loginForm.html");
       }
+      firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
+        .then(() => firebase.auth().signInWithEmailAndPassword(email, password))
+        .catch(err => console.error(err));
     });
-  </script>
-</body>
-</html>
+
+
 
