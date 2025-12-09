@@ -7,11 +7,12 @@
   <title>Auth Redirect</title>
 </head>
 <body>
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
-    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
 
-    const firebaseConfig = {
+  <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-auth-compat.js"></script>
+<script>
+  // Replace with your Firebase project config (from Firebase Console → Project Settings → SDK setup)
+  const firebaseConfig = {
     apiKey: "AIzaSyBhsMRHyuWF-R9MyRKKjzGQC0p-eznYILE",
     authDomain: "uplift-local.firebaseapp.com",
     projectId: "uplift-local",
@@ -20,20 +21,36 @@
     appId: "1:615612260052:web:c7cac371c0698314e36541"
   };
 
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
+  firebase.initializeApp(firebaseConfig);
 
-    // Run immediately on page load
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        console.log("✅ User logged in:", user.email);
-        window.location.replace("dashboard.html"); 
-      } else {
-        console.log("❌ No user logged in");
-        window.location.replace("loginForm.html");
-      }
-    });
-  </script>
+  const userInfo = document.getElementById("user-info");
+  const subscribeButton = document.getElementById("subscribe-button");
+
+  // Watch auth state
+  firebase.auth().onAuthStateChanged(user => {
+    if (user) {
+      userInfo.textContent = `✅ Logged in now: ${user.email}`;
+      subscribeButton.disabled = false;
+      // Redirect to dashboard if logged in
+      window.location.replace("dashboard.html");
+    } else {
+      userInfo.textContent = "❌ No user logged in";
+      subscribeButton.disabled = true;
+      // Redirect to login form if not logged in
+      window.location.replace("loginform.html");
+    }
+  });
+
+  // Just log button clicks for now
+  subscribeButton.addEventListener("click", () => {
+    const user = firebase.auth().currentUser;
+    if (!user) {
+      alert("You must be logged in to subscribe.");
+      return;
+    }
+    console.log("Subscribe clicked by:", user.email);
+  });
+</script>
 </body>
 </html>
 

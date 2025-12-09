@@ -34,11 +34,9 @@
       if (user) {
         userInfo.textContent = `✅ Logged in now: ${user.email}`;
         subscribeButton.disabled = false;
-        window.location.replace("dashboard.html");
       } else {
         userInfo.textContent = "❌ No user logged in";
         subscribeButton.disabled = true;
-        window.location.replace("loginForm.html");
       }
     });
 
