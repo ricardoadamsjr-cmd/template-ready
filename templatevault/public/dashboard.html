@@ -7,7 +7,34 @@
     <title>Template Vault Dashboard</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
    
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    // Grab the element where you want to show the user
+    const currentUserElement = document.getElementById("current-user");
 
+    // Global variable to hold the email
+    window.currentUserEmail = null;
+
+    // Watch auth state
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        // Update the <p> element
+        if (currentUserElement) {
+          currentUserElement.textContent = `Logged in as: ${user.email}`;
+        }
+        // Save email in a variable for other code
+        window.currentUserEmail = user.email;
+        console.log("✅ Current user:", window.currentUserEmail);
+      } else {
+        if (currentUserElement) {
+          currentUserElement.textContent = "No user logged in";
+        }
+        window.currentUserEmail = null;
+        console.log("❌ No user logged in");
+      }
+    });
+  });
+</script>
 
 <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
@@ -815,34 +842,7 @@
 
 
 
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    // Grab the element where you want to show the user
-    const currentUserElement = document.getElementById("current-user");
 
-    // Global variable to hold the email
-    window.currentUserEmail = null;
-
-    // Watch auth state
-    firebase.auth().onAuthStateChanged(user => {
-      if (user) {
-        // Update the <p> element
-        if (currentUserElement) {
-          currentUserElement.textContent = `Logged in as: ${user.email}`;
-        }
-        // Save email in a variable for other code
-        window.currentUserEmail = user.email;
-        console.log("✅ Current user:", window.currentUserEmail);
-      } else {
-        if (currentUserElement) {
-          currentUserElement.textContent = "No user logged in";
-        }
-        window.currentUserEmail = null;
-        console.log("❌ No user logged in");
-      }
-    });
-  });
-</script>
 
 
 
