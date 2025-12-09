@@ -1,7 +1,22 @@
 
 //Entry point for Template Vault application
-import { auth } from "firebase";
-import { checkSubscription } from "dashboard";
+import { initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
+import { checkSubscription } from "./dashboard"; // make sure this path is correct
+
+// Your Firebase config from the Firebase Console
+const firebaseConfig = {
+  apiKey: "AIzaSyBhsMRHyuWF-R9MyRKKjzGQC0p-eznYILE",
+    authDomain: "uplift-local.firebaseapp.com",
+    projectId: "uplift-local",
+    storageBucket: "uplift-local.firebasestorage.app",
+    messagingSenderId: "615612260052",
+    appId: "1:615612260052:web:c7cac371c0698314e36541"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
 
 auth.onAuthStateChanged((user) => {
   if (user) {
@@ -12,3 +27,4 @@ auth.onAuthStateChanged((user) => {
     // Optionally hide subscription-only UI here
   }
 });
+

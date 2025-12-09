@@ -1,6 +1,7 @@
 //____________Check Subscription Status and Update UI____________//
 
-import { auth, db } from "firebase";
+// src/dashboard.js
+import { auth, db } from "./firebaseConfig";   // ✅ use your config file
 import { doc, onSnapshot } from "firebase/firestore";
 
 export function checkSubscription() {
@@ -28,4 +29,5 @@ function updateUI(status) {
     subscribeBtn.style.display = "block";
   }
 }
+
 
