@@ -810,9 +810,18 @@
   <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-firestore-compat.js"></script>
 
-  <script>
+<script>
     // Your Firebase project configuration (replace with your actual values)
-   
+   // Run immediately on page load
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        console.log("✅ User logged in:", user.email);
+        window.location.replace("dashboard.html"); 
+      } else {
+        console.log("❌ No user logged in");
+        window.location.replace("loginForm.html");
+      }
+    });
 auth.onAuthStateChanged(user => {
   if (user) {
     console.log("Logged in as:", user.email);
