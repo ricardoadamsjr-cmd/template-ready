@@ -1,4 +1,0 @@
-- Frontend (public/) → HTML/CSS/JS, calls backend for Stripe.
-- Backend (functions/ or server/) → Creates Stripe Checkout sessions securely.
-- Config (.env) → Holds secrets.
-- Firebase (firebase.js) → Client SDK for auth.
