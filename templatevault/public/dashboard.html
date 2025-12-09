@@ -815,14 +815,7 @@
  
   firebase.initializeApp(firebaseConfig);
 
-  // Initialize Stripe
-  const stripe = Stripe("pk_test_51SYdDeEB56lmrQFkbRBYcsqpNGAka3olRu3nai3lbPeXeFGM4K7Ro8u7nLdlyOHsjRgnE0ALj6IVYbKRifDPIvO200lGOnKjVY");
-
-  document.addEventListener("DOMContentLoaded", () => {
-    const subscribeButton = document.getElementById("subscribe-button");
-
-    // Watch auth state
-    firebase.auth().onAuthStateChanged(user => {
+  firebase.auth().onAuthStateChanged(user => {
       if (user) {
         console.log("✅ Logged in as:", user.email);
         subscribeButton.disabled = false;
@@ -830,6 +823,15 @@
         console.log("❌ No user logged in");
         subscribeButton.disabled = true;
       }
+
+  // Initialize Stripe
+  const stripe = Stripe("pk_test_51SYdDeEB56lmrQFkbRBYcsqpNGAka3olRu3nai3lbPeXeFGM4K7Ro8u7nLdlyOHsjRgnE0ALj6IVYbKRifDPIvO200lGOnKjVY");
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const subscribeButton = document.getElementById("subscribe-button");
+
+    // Watch auth state
+    
     });
 
     // Subscribe button click
