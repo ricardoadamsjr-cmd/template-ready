@@ -53,25 +53,6 @@
 
 
 
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
-    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
-
-  
-
-
-    // Run immediately on page load
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        console.log("✅ User logged in:", user.email);
-        window.location.replace("dashboard.html"); 
-      } else {
-        console.log("❌ No user logged in");
-        window.location.replace("loginForm.html");
-      }
-    });
-  </script>
-
     <style>
 
 
