@@ -1,6 +1,5 @@
 // webhook.js
 //Handles Stripe webhook events. Also pure ESM.
-import { onRequest } from "firebase-functions/v2/https";
 import { defineString } from "firebase-functions/params";
 import admin from "firebase-admin";
 import Stripe from "stripe";
