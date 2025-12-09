@@ -3,8 +3,9 @@
 // It imports your function definitions from auth.js and webhook.js
 // and re‑exports them so Firebase can deploy them.
 
-import { createCheckoutSession } from "./auth.js";
-import { stripeWebhook } from "./webhook.js";
+const {logger} = require("firebase-functions");
+const {onObjectFinalized} = require("firebase-functions/storage");
+
 
 export { createCheckoutSession, stripeWebhook };
 
