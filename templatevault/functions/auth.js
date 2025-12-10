@@ -3,7 +3,7 @@
 // webhook.js contains your stripeWebhook function (Stripe webhook listener).
 // index.js simply re‑exports them so Firebase can discover and deploy both functions.
 
-import { onRequest } from "firebase-functions/v2/https";   // <-- keep this, you are using onRequest
+import { onRequest } from "firebase-functions/v2/https";
 import { defineString } from "firebase-functions/params";
 import Stripe from "stripe";
 

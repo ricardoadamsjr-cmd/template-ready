@@ -1,10 +1,14 @@
 // webhook.js
 // Handles Stripe webhook events. Pure ESM.
-
+import { onRequest } from "firebase-functions/v2/https";
+import { defineString } from "firebase-functions/params";
 import admin from "firebase-admin";
 import Stripe from "stripe";
 
-admin.initializeApp();
+// Initialize Firebase Admin (only if not already initialized)
+if (!admin.apps.length) {
+  admin.initializeApp();
+}
 
 const stripeSecretKey = defineString("STRIPE_SECRET_KEY");
 const stripeWebhookSecret = defineString("STRIPE_WEBHOOK_SECRET");
