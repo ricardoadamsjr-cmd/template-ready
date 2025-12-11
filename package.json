@@ -1,20 +1,12 @@
 {
-  "name": "template-vault-frontend",
+  "name": "render-starter",
   "version": "1.0.0",
-  "private": true,
-  "dependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-scripts": "5.0.1",
-    "firebase": "^11.0.0"
-  },
+  "main": "server.js",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "start": "node server.js"
   },
-  "engines": {
-    "node": "20"
+  "dependencies": {
+    "express": "^4.18.2",
+    "firebase": "^10.7.1" // or whatever version you installed
   }
 }
