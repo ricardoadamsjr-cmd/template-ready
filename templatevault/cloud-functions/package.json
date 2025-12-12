@@ -1,0 +1,28 @@
+{
+  "name": "uplift-stripe-functions",
+  "version": "1.0.0",
+  "description": "Stripe integration for Uplift Local project",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "functions-framework --target=createCheckoutSession",
+    "deploy": "chmod +x deploy.sh && ./deploy.sh",
+    "test": "echo \"Run: npm run deploy\" && exit 1",
+    "logs": "gcloud functions logs read createCheckoutSession --region=us-central1 --limit=20"
+  },
+  "dependencies": {
+    "@google-cloud/functions-framework": "^3.3.0",
+    "firebase-admin": "^12.0.0",
+    "stripe": "^14.0.0",
+    "cors": "^2.8.5"
+  },
+  "engines": {
+    "node": "18"
+  },
+  "keywords": [
+    "stripe",
+    "google-cloud-functions",
+    "firebase",
+    "subscription"
+  ]
+}
