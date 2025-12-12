@@ -846,10 +846,9 @@
 
 
 
-<!-- Your existing subscribe button should look like this -->
-<button id="subscribebutton">Subscribe to Professional Plan</button>
-<!-- If you have a download button, make sure it has this ID -->
-<button id="loadbuttons" style="display: none;" disabled>Download Files</button>
+
+
+
 
 
 
@@ -922,6 +921,17 @@ await stripe.redirectToCheckout({ sessionId: session.id });
     }
   });
 </script>
+
+
+<!-- Add Stripe SDK if not already included -->
+<script src="https://js.stripe.com/v3/"></script>
+<!-- Add the integration script -->
+<script src="dashboard-integration.js"></script>
+
+<!-- Your existing subscribe button should look like this -->
+<button id="subscribebutton">Subscribe to Professional Plan</button>
+<!-- If you have a download button, make sure it has this ID -->
+<button id="loadbuttons" style="display: none;" disabled>Download Files</button>
 
 
 
