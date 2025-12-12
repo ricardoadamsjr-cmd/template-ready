@@ -1,20 +1,24 @@
 {
-  "name": "template-vault-frontend",
+  "name": "static-site",
   "version": "1.0.0",
-  "private": true,
+  "description": "Static website deployed on Render",
+  "main": "index.js",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test"
+    "start": "serve -s . -l 3000",
+    "build": "echo 'No build step required for static site'",
+    "dev": "serve -s . -l 3000"
   },
+  "keywords": [
+    "static",
+    "website",
+    "render"
+  ],
+  "author": "",
+  "license": "MIT",
   "dependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-scripts": "5.0.1",
-    "firebase": "^11.0.0",
-    "@stripe/stripe-js": "^2.1.0"
+    "serve": "^14.2.1"
   },
   "engines": {
-    "node": "22"
+    "node": ">=18.0.0"
   }
 }
