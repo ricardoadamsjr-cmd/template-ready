@@ -718,37 +718,50 @@
 
         // Generate template cards
         function generateTemplateCard(template) {
-            return `
-                <div class="template-card" data-category="${template.category}">
-                    <div class="card-image">
-                        <i class="${template.icon}"></i>
-                    </div>
-                    <div class="card-content">
-                        <h3 class="card-title">${template.title}</h3>
-                        <p class="card-description">${template.description}</p>
-                        <div class="card-tags">
-                            ${template.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+    return `
+        <div class="template-card" data-category="${template.category}">
+            <div class="card-image">
+                <i class="${template.icon}"></i>
+            </div>
+            <div class="card-content">
+                <h3 class="card-title">${template.title}</h3>
+                <p class="card-description">${template.description}</p>
+                <div class="card-tags">
+                    ${template.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                </div>
+                <div class="card-footer">
+                    <!-- Download button - hidden by default, shown only for subscribed users -->
+                    <a href="#" class="downloadbtn template-download-btn" 
+                       data-template-id="${template.id}" 
+                       onclick="handleTemplateDownload(${template.id})"
+                       style="display: none;">
+                        <i class="fas fa-download"></i>
+                        Download
+                    </a>
+                    
+                    <!-- Subscribe prompt - shown for non-subscribed users -->
+                    <a href="#" class="subscribebtn template-subscribe-btn" 
+                       onclick="showSubscriptionPrompt()"
+                       style="display: block;">
+                        <i class="fas fa-lock"></i>
+                        Subscribe to Download
+                    </a>
+                    
+                    <div class="card-stats">
+                        <div class="stat">
+                            <i class="fas fa-download"></i>
+                            <span>${template.downloads}</span>
                         </div>
-                        <div class="card-footer">
-                            <a href="#" class="downloadbtn" onclick="downloadTemplate(${template.id})">
-                                <i class="fas fa-download"></i>
-                                Download
-                            </a>
-                            <div class="card-stats">
-                                <div class="stat">
-                                    <i class="fas fa-download"></i>
-                                    <span>${template.downloads}</span>
-                                </div>
-                                <div class="stat">
-                                    <i class="fas fa-star"></i>
-                                    <span>${template.rating}</span>
-                                </div>
-                            </div>
+                        <div class="stat">
+                            <i class="fas fa-star"></i>
+                            <span>${template.rating}</span>
                         </div>
                     </div>
                 </div>
-            `;
-        }
+            </div>
+        </div>
+    `;
+}
 
         // Render templates
         function renderTemplates(templatesToRender = templates) {
