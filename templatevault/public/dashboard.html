@@ -6,6 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Template Vault Dashboard</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <!-- Add Stripe SDK if not already included -->
+    <script src="https://js.stripe.com/v3/"></script>
+    <!-- Add the integration script -->
+    <script src="dashboard-integration.js"></script>
    
 <script>
   document.addEventListener("DOMContentLoaded", () => {
@@ -842,7 +846,10 @@
 
 
 
-
+<!-- Your existing subscribe button should look like this -->
+<button id="subscribebutton">Subscribe to Professional Plan</button>
+<!-- If you have a download button, make sure it has this ID -->
+<button id="loadbuttons" style="display: none;" disabled>Download Files</button>
 
 
 
