@@ -2,6 +2,7 @@
 //Entry point for Template Vault application
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
+//the bolow imported to dashboard.js it is called when the user signs in from the dashboard component
 import { checkSubscription } from "./dashboard"; // make sure this path is correct
 
 // Your Firebase config from the Firebase Console
@@ -14,7 +15,10 @@ const firebaseConfig = {
     appId: "1:615612260052:web:c7cac371c0698314e36541"
 };
 
-// Initialize Firebase
+// Initialize Firebase and attach Firestore listener to user state changes and check subscription status when user signs in
+//and it is called when the user signs in or when the app starts and the user is already signed in and the app starts to listen for changes in the user's authentication state
+//This is a common pattern in Firebase applications to ensure that the app can respond to changes in the user's authentication state
+//which file 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 

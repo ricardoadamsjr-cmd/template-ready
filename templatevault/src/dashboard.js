@@ -3,6 +3,7 @@
 // src/dashboard.js
 import { auth, db } from "./firebaseConfig";   // ✅ use your config file
 import { doc, onSnapshot } from "firebase/firestore";
+import { checkSubscription } from "./dashboard"; 
 
 export function checkSubscription() {
   const user = auth.currentUser;
