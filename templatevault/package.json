@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "serve -s . -l 3000",
-    "build": "echo 'No build step required for static site'",
+    "build": "mkdir -p build && cp -r public/* build/ 2>/dev/null || true",
     "dev": "serve -s . -l 3000"
   },
   "keywords": [
