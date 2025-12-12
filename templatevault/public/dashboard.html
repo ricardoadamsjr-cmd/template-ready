@@ -717,7 +717,8 @@
         }
 
         // Generate template cards
-        function generateTemplateCard(template) {
+    // Updated generateTemplateCard function with subscription-aware download button
+function generateTemplateCard(template) {
     return `
         <div class="template-card" data-category="${template.category}">
             <div class="card-image">
@@ -762,6 +763,58 @@
         </div>
     `;
 }
+
+// Function to handle template download attempts
+function handleTemplateDownload(templateId) {
+    if (!window.isSubscriptionActive) {
+        showSubscriptionPrompt();
+        return;
+    }
+    
+    // Proceed with actual download
+    downloadTemplate(templateId);
+}
+
+// Function to show subscription prompt
+function showSubscriptionPrompt() {
+    const modal = document.createElement('div');
+    modal.className = 'subscription-modal';
+    modal.innerHTML = `
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Premium Feature</h3>
+                <span class="close-modal" onclick="closeSubscriptionModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <i class="fas fa-crown" style="font-size: 3rem; color: #ffd700; margin-bottom: 1rem;"></i>
+                <p>Access to template downloads requires a Professional subscription.</p>
+                <p>Unlock unlimited downloads and premium features!</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" onclick="closeSubscriptionModal()">Cancel</button>
+                <button class="btn-primary" onclick="handleSubscribeClick(); closeSubscriptionModal();">
+                    Subscribe Now
+                </button>
+            </div>
+        </div>
+    `;
+    
+    document.body.appendChild(modal);
+    modal.style.display = 'flex';
+}
+
+// Function to close subscription modal
+function closeSubscriptionModal() {
+    const modal = document.querySelector('.subscription-modal');
+    if (modal) {
+        modal.remove();
+    }
+}
+
+
+
+
+
 
         // Render templates
         function renderTemplates(templatesToRender = templates) {
