@@ -845,77 +845,11 @@
 
 
 
+
+<!-- Add Stripe SDK if not already included -->
 <script src="https://js.stripe.com/v3/"></script>
-
-  <!-- Firebase SDKs (compat builds for global `firebase`) -->
-  <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-auth-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-firestore-compat.js"></script>
-
-
-  <script>
-    // Initialize Firebase
-    
-
-    firebase.initializeApp(firebaseConfig);
-   
-  </script>
-
-  <script>
-    // Initialize Stripe
-    const stripe = Stripe("pk_test_51SYdDeEB56lmrQFkbRBYcsqpNGAka3olRu3nai3lbPeXeFGM4K7Ro8u7nLdlyOHsjRgnE0ALj6IVYbKRifDPIvO200lGOnKjVY");
-  </script>
-
-
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const subscribeButton = document.getElementById("subscribebutton");
-
-    if (subscribeButton) {
-      subscribeButton.addEventListener("click", async () => {
-        try {
-          // Call your backend to create a Checkout Session
-          const response = await fetch(
-  "https://northamerica-northeast1-uplift-local.cloudfunctions.net/createCheckoutSession",
-  {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      email: firebase.auth().currentUser.email,
-      uid: firebase.auth().currentUser.uid
-    })
-  }
-);
-
-
-const stripe = Stripe("pk_test_51SYdDeEB56lmrQFkbRBYcsqpNGAka3olRu3nai3lbPeXeFGM4K7Ro8u7nLdlyOHsjRgnE0ALj6IVYbKRifDPIvO200lGOnKjVY");
-await stripe.redirectToCheckout({ sessionId: session.id });
-
-
-          if (!response.ok) {
-            throw new Error(await response.text());
-          }
-
-          const session = await response.json();
-          console.log("Checkout session:", session);
-
-          // Redirect to Stripe Checkout
-          const result = await stripe.redirectToCheckout({ sessionId: session.id });
-          if (result.error) {
-            alert(result.error.message);
-          }
-        } catch (err) {
-          console.error("Error:", err);
-          alert(err.message);
-        }
-      });
-    } else {
-      console.error("❌ No element with id='subscribebutton' found in the DOM.");
-    }
-  });
-</script>
-
-
+<!-- Add the integration script -->
+<script src="dashboard-integration.js"></script>
 
 
 
