@@ -13,10 +13,10 @@
     "lint:fix": "eslint . --fix"
   },
   "engines": {
-    "node": "18"
+    "node": "20.x"
   },
   "dependencies": {
-    "stripe": "^14.0.0",
+    "stripe": "^14.25.0",
     "firebase-admin": "^13.6.0",
     "firebase-functions": "^7.0.0",
     "cors": "^2.8.5"
