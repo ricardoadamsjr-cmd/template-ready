@@ -1,7 +1,7 @@
-import functions from '@google-cloud/functions-framework';
-import cors from 'cors';
-import admin from 'firebase-admin';
-import Stripe from 'stripe';
+// Fixed index.js for Google Cloud Functions
+const cors = require('cors');
+const admin = require('firebase-admin');
+const Stripe = require('stripe');
 
 // Initialize Firebase Admin
 if (!admin.apps.length) {
@@ -24,8 +24,8 @@ const corsHandler = cors({
   credentials: true 
 });
 
-// Create Checkout Session Function
-functions.http('createCheckoutSession', (req, res) => {
+// Create Checkout Session Function - MAIN EXPORT
+exports.createcheckoutsession = (req, res) => {
   corsHandler(req, res, async () => {
     // Only allow POST requests
     if (req.method !== 'POST') {
@@ -79,10 +79,10 @@ functions.http('createCheckoutSession', (req, res) => {
       });
     }
   });
-});
+};
 
 // Stripe Webhook Handler
-functions.http('stripeWebhook', (req, res) => {
+exports.stripewebhook = (req, res) => {
   // No CORS for webhooks - Stripe doesn't need it
   if (req.method !== 'POST') {
     return res.status(405).send('Method Not Allowed');
@@ -119,7 +119,18 @@ functions.http('stripeWebhook', (req, res) => {
         eventType: event.type 
       });
     });
-});
+};
+
+// Health check function
+exports.healthcheck = (req, res) => {
+  corsHandler(req, res, () => {
+    res.json({ 
+      status: 'healthy', 
+      timestamp: new Date().toISOString(),
+      service: 'uplift-stripe-functions'
+    });
+  });
+};
 
 // Handle different Stripe webhook events
 async function handleStripeEvent(event) {
@@ -246,14 +257,3 @@ async function handlePaymentFailed(invoice) {
 
   console.log(`❌ Payment failed for ${firebaseUID}`);
 }
-
-// Health check function
-functions.http('healthCheck', (req, res) => {
-  corsHandler(req, res, () => {
-    res.json({ 
-      status: 'healthy', 
-      timestamp: new Date().toISOString(),
-      service: 'uplift-stripe-functions'
-    });
-  });
-});
