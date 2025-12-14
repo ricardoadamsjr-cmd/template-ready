@@ -19,7 +19,7 @@ const corsHandler = cors({
   origin: [
     'http://localhost:3000',
     'http://localhost:8080', 
-    'https://your-app.onrender.com', // Replace with your actual Render.com URL
+    'https://template-ready-static.onrender.com', // Replace with your actual Render.com URL
     /\.onrender\.com$/ // Allow any onrender.com subdomain
   ],
   credentials: true 
