@@ -99,7 +99,7 @@ async function handleSubscribeClick() {
 
     // Call your Google Cloud Function
     const response = await fetch(
-      "https://us-central1-uplift-local.cloudfunctions.net/createCheckoutSession",
+      "https://stripe-run-subscription-615612260052.us-east4.run.app",
       {
         method: "POST",
         headers: { 
