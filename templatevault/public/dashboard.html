@@ -724,6 +724,12 @@ function generateTemplateCard(template) {
     return `
         <div class="template-card" data-category="${template.category}">
             <div class="card-image">
+                ${template.demoUrl 
+                  ? `<a href="${template.demoUrl}" target="_blank" rel="noopener">
+                       <img src="${template.image}" alt="${template.title} preview" class="card-image-img" />
+                     </a>`
+                  : `<img src="${template.image}" alt="${template.title} preview" class="card-image-img" />`
+                }
                 <i class="${template.icon}"></i>
             </div>
             <div class="card-content">
@@ -765,6 +771,7 @@ function generateTemplateCard(template) {
         </div>
     `;
 }
+
 
 // Function to handle template download attempts
 function handleTemplateDownload(templateId) {
