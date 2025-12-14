@@ -2,6 +2,7 @@
 const cors = require('cors');
 const admin = require('firebase-admin');
 const Stripe = require('stripe');
+const cors = require('cors')({ origin: true });
 
 // Initialize Firebase Admin
 if (!admin.apps.length) {
