@@ -15,7 +15,7 @@ if (!admin.apps.length) {
 }
 
 // Initialize Stripe with secret key from environment variable
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+const stripe = new Stripe(sk_test_51SYdDeEB56lmrQFkbRBYcsqpNGAka3olRu3nai3lbPeXeFGM4K7Ro8u7nLdlyOHsjRgnE0ALj6IVYbKRifDPIvO200lGOnKjVY);
 
 exports.createCheckoutSession = (req, res) => {
   return cors(req, res, async () => {
