@@ -29,6 +29,7 @@ const corsHandler = cors({
   ],
   credentials: true 
 });
+
 app.use(cors({
   origin: 'https://template-ready-static.onrender.com', // allow your frontend to access this endpoint
 
@@ -273,3 +274,8 @@ async function handlePaymentFailed(invoice) {
 
   console.log(`❌ Payment failed for ${firebaseUID}`);
 }
+
+const PORT = process.env.PORT || 8080;
+app.listen(PORT, () => {
+  console.log(`Server listening on port ${PORT}`);
+});
