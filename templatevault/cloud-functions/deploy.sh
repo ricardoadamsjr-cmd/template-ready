@@ -5,7 +5,7 @@ echo "🚀 Deploying Uplift Stripe Functions to Google Cloud..."
 
 # Configuration - UPDATE THESE VALUES
 PROJECT_ID="uplift-local"  # Your Firebase project ID
-REGION="us-central1"       # Keep same region as your current setup
+REGION="us-east4"       # Keep same region as your current setup
 
 # Validate environment variables
 echo "🔍 Checking environment variables..."
@@ -29,7 +29,7 @@ fi
 
 if [ -z "$FRONTEND_URL" ]; then
     echo "⚠️  Warning: FRONTEND_URL not set, using placeholder"
-    FRONTEND_URL="https://your-app.onrender.com"
+    FRONTEND_URL="https://template-ready-static.onrender.com"
 fi
 
 echo "✅ Environment variables validated"
@@ -38,7 +38,7 @@ echo "✅ Environment variables validated"
 echo "📦 Deploying createCheckoutSession function..."
 gcloud functions deploy createCheckoutSession \
   --gen2 \
-  --runtime=nodejs18 \
+  --runtime=nodejs20 \
   --region=$REGION \
   --source=. \
   --entry-point=createCheckoutSession \
@@ -60,7 +60,7 @@ echo "✅ createCheckoutSession deployed successfully!"
 echo "📦 Deploying stripeWebhook function..."
 gcloud functions deploy stripeWebhook \
   --gen2 \
-  --runtime=nodejs18 \
+  --runtime=nodejs20 \
   --region=$REGION \
   --source=. \
   --entry-point=stripeWebhook \
