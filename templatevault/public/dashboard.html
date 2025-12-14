@@ -549,8 +549,7 @@
         <button id="logoutBtn">Logout</button>
 
         <button id="subscribebutton" class="btn-primary">
-                Subscribe to Professional Plan
-                
+                Subscribe to Professional Plan    
         </button>
     </div>
 <span id="userEmail"></span>
@@ -960,7 +959,9 @@ function closeSubscriptionModal() {
     })
   }
 );
-
+app.listen(8080, () => {
+  console.log("Server is running on port 8080");
+});
 
 const stripe = Stripe("pk_test_51SYdDeEB56lmrQFkbRBYcsqpNGAka3olRu3nai3lbPeXeFGM4K7Ro8u7nLdlyOHsjRgnE0ALj6IVYbKRifDPIvO200lGOnKjVY");
 await stripe.redirectToCheckout({ sessionId: session.id });
