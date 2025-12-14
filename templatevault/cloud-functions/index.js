@@ -4,6 +4,10 @@ const admin = require('firebase-admin');
 const Stripe = require('stripe');
 const cors = require('cors')({ origin: true });
 
+  res.set('Access-Control-Allow-Origin', 'https://template-ready-static.onrender.com');
+  res.set('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.set('Access-Control-Allow-Headers', 'Content-Type');
+
 // Initialize Firebase Admin
 if (!admin.apps.length) {
   admin.initializeApp({
