@@ -819,46 +819,43 @@ function closeSubscriptionModal() {
 
 
         // Render templates
-        function renderTemplates() {
-  const container = document.getElementById('template-container');
-  container.innerHTML = '';
+        function renderTemplates(templatesToRender = templates) {
+            const grid = document.getElementById('templateGrid');
+            grid.innerHTML = templatesToRender.map(generateTemplateCard).join('');
+        }
 
-  templates.forEach(template => {
-    const card = document.createElement('div');
-    card.className = 'template-card';
+        // Filter templates by category
+        function filterTemplates(category) {
+            const filtered = category === 'all' ? templates : templates.filter(t => t.category === category);
+            renderTemplates(filtered);
+        }
 
-    // Image with link to demo
-    const demoLink = document.createElement('a');
-    demoLink.href = template.demoUrl;
-    demoLink.target = "_blank"; // open in new tab
+        // Search functionality
+        function searchTemplates(query) {
+            const filtered = templates.filter(template => 
+                template.title.toLowerCase().includes(query.toLowerCase()) ||
+                template.description.toLowerCase().includes(query.toLowerCase()) ||
+                template.tags.some(tag => tag.toLowerCase().includes(query.toLowerCase()))
+            );
+            renderTemplates(filtered);
+        }
 
-    const img = document.createElement('img');
-    img.src = template.image;
-    img.alt = template.title;
-    img.className = 'template-image';
-
-    demoLink.appendChild(img);
-    card.appendChild(demoLink);
-
-    // Title
-    const title = document.createElement('h3');
-    title.textContent = template.title;
-    card.appendChild(title);
-
-    // Description
-    const desc = document.createElement('p');
-    desc.textContent = template.description;
-    card.appendChild(desc);
-
-    // Add other info (downloads, rating, etc.)
-    const info = document.createElement('p');
-    info.textContent = `Downloads: ${template.downloads} | Rating: ${template.rating}`;
-    card.appendChild(info);
-
-    container.appendChild(card);
-  });
-}
-
+        // Download template function
+        function downloadTemplate(templateId) {
+            const template = templates.find(t => t.id === templateId);
+            if (template) {
+                // Show loading
+                const loading = document.getElementById('loading');
+                loading.style.display = 'block';
+                
+                // Simulate download process
+                setTimeout(() => {
+                    loading.style.display = 'none';
+                    alert(`Downloading ${template.title}...`);
+                    // In a real application, this would trigger the actual download
+                }, 1500);
+            }
+        }
 
         // Event listeners
         document.addEventListener('DOMContentLoaded', function() {
