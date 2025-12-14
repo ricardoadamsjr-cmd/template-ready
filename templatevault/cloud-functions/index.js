@@ -1,5 +1,4 @@
 // Fixed index.js for Google Cloud Functions
-const cors = require('cors');
 const admin = require('firebase-admin');
 const Stripe = require('stripe');
 const cors = require('cors')({ origin: true });
