@@ -24,7 +24,16 @@ const corsHandler = cors({
   ],
   credentials: true 
 });
-
+app.use(cors({
+  origin: 'https://template-ready-static.onrender.com', // allow your frontend
+  methods: ['GET', 'POST', 'OPTIONS'],
+  credentials: true
+}));
+////////////////////////////////////////////////////////////////
+// Example route
+app.post('/subscribe', (req, res) => {
+  res.json({ message: 'Subscription successful!' });
+});
 // Create Checkout Session Function - MAIN EXPORT
 exports.createcheckoutsession = (req, res) => {
   corsHandler(req, res, async () => {
