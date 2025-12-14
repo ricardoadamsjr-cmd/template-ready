@@ -2,7 +2,7 @@
 const cors = require('cors');
 const admin = require('firebase-admin');
 const Stripe = require('stripe');
-
+const cors = require('cors')({ origin: true });
 
 // Initialize Firebase Admin
 if (!admin.apps.length) {
@@ -15,19 +15,14 @@ if (!admin.apps.length) {
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 // Configure CORS to allow requests from your Render.com frontend
-const cors = require('cors')({
+const corsHandler = cors({ 
   origin: [
-    'https://template-ready-static.onrender.com', // Your current domain
-    'https://uplift-local.web.app',               // Firebase hosting
-    'https://uplift-local.firebaseapp.com',       // Firebase hosting alternative
-    'http://localhost:3000',                      // Local development
-    'http://localhost:5000',                      // Local development
-    'http://127.0.0.1:3000',                     // Local development
-    'http://127.0.0.1:5000'                      // Local development
+    'http://localhost:3000',
+    'http://localhost:8080', 
+    'https://your-app.onrender.com', // Replace with your actual Render.com URL
+    /\.onrender\.com$/ // Allow any onrender.com subdomain
   ],
-  credentials: true,
-  methods: ['GET', 'POST', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'Accept', 'Origin']
+  credentials: true 
 });
 
 // Create Checkout Session Function - MAIN EXPORT
