@@ -2,6 +2,8 @@
 const admin = require('firebase-admin');
 const Stripe = require('stripe');
 const cors = require('cors')({ origin: true });
+const express = require('express');
+const app = express();
 
   res.set('Access-Control-Allow-Origin', 'https://template-ready-static.onrender.com');
   res.set('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
@@ -28,7 +30,8 @@ const corsHandler = cors({
   credentials: true 
 });
 app.use(cors({
-  origin: 'https://template-ready-static.onrender.com', // allow your frontend
+  origin: 'https://template-ready-static.onrender.com', // allow your frontend to access this endpoint
+
   methods: ['GET', 'POST', 'OPTIONS'],
   credentials: true
 }));
