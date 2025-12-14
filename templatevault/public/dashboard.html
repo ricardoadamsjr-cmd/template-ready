@@ -88,6 +88,25 @@
 
     <style>
 
+            .template-card {
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;       /* ensures image doesn’t spill out */
+            border-radius: 8px;     /* optional rounded corners */
+            }
+
+            .card-image {
+            margin: 0;              /* remove any default spacing */
+            padding: 0;
+            line-height: 0;         /* prevents extra space above image */
+            }
+
+            .card-image-img {
+            width: 100%;            /* span full card width */
+            height: 180px;          /* fixed height for consistency */
+            object-fit: cover;      /* scales and crops to fill area */
+            display: block;         /* removes inline spacing */
+            }
 
 
         * {
