@@ -18,9 +18,9 @@ window.isSubscriptionActive = false;
 const CONFIG = {
   // Updated with your actual Cloud Function URL
   CLOUD_FUNCTION_URLS: [
-    "https://northamerica-northeast1-uplift-local.cloudfunctions.net/createCheckoutSession", // Your actual endpoint
-    "https://us-central1-uplift-local.cloudfunctions.net/createCheckoutSession", // Fallback
-    "https://createcheckoutsession-uplift-local.cloudfunctions.net/" // Alternative format
+    "https://stripe-run-subscription-615612260052.us-east4.run.app", // Your actual endpoint
+    "https://stripe-run-subscription-615612260052.us-east4.run.app", // Fallback
+    "https://stripe-run-subscription-615612260052.us-east4.run.app" // Alternative format
   ],
   RETRY_ATTEMPTS: 3,
   TIMEOUT: 15000 // 15 seconds for better reliability
