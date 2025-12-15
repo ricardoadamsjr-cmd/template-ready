@@ -3,7 +3,7 @@
 // webhook.js contains your stripeWebhook function (Stripe webhook listener).
 // index.js simply re‑exports them so Firebase can discover and deploy both functions.
 
-const Stripe = require("stripe");
+
 const admin = require("firebase-admin");
 const cors = require('cors')({ origin: true });
 

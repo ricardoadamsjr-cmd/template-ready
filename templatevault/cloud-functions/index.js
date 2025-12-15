@@ -63,7 +63,7 @@ api.post('/subscribe', (req, res) => {
 
 // C. Create Checkout Session Route (Your primary function)
 // Path: /createcheckoutsession
-api.post('/createcheckoutsession', async (req, res) => {
+api.post('/createCheckoutSession', async (req, res) => {
   // All validation and logic now happens inside the Express route handler
 
   try {
