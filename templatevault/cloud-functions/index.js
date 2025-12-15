@@ -22,8 +22,6 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 // --- CORS Configuration ---
 // Configure CORS for all client-facing API endpoints
 const allowedOrigins = [
-  'http://localhost:3000',
-  'http://localhost:8080',
   'https://template-ready-static.onrender.com',
   /\.onrender\.com$/ // Allows any subdomain onrender.com
 ];
