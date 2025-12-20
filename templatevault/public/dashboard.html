@@ -25,7 +25,7 @@
       if (user) {
         // Update the <p> element
         if (currentUserElement) {
-          currentUserElement.textContent = `Logged in as: ${user.email}`;w
+          currentUserElement.textContent = `Logged in as: ${user.full_name || user.email}`;
         }
         // Save email in a variable for other code
         window.currentUserEmail = user.email;
