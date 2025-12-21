@@ -87,8 +87,8 @@
     <!-- Sign Up Form -->
     <form id="signupForm">
   <h3>Create Account</h3>
-    <input type="fullName" id="fullName" placeholder="Full Name" required>
-    <input type="company" id="company" placeholder="Company (optional)">
+    <input type="text" id="fullName" placeholder="Full Name" required>
+    <input type="text" id="company" placeholder="Company (optional)">
     <input type="email" id="email" placeholder="email" required>
     <input type="password" id="password" placeholder="password" required>
     <button type="submit">Sign Up</button>
@@ -145,8 +145,8 @@
 
   const fullName = document.getElementById('fullName').value;
   const company = document.getElementById('company').value;
-  const email = document.getElementById('signupEmail').value;
-  const password = document.getElementById('signupPassword').value;
+  const email = document.getElementById('Email').value;
+  const password = document.getElementById('Password').value;
 
   try {
     // 1️⃣ Create user in Firebase Auth (correct args)
