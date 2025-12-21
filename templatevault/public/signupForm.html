@@ -31,7 +31,6 @@
       <!-- ADDED FIELDS -->
       <input type="text" id="fullName" placeholder="Full Name" required>
       <input type="text" id="company" placeholder="Company (optional)">
-
       <input type="email" id="signupEmail" placeholder="Email" required>
       <input type="password" id="signupPassword" placeholder="Password" required>
       <button type="submit">Sign Up</button>
@@ -87,7 +86,7 @@
       const uid = userCredential.user.uid;
 
       // Save user profile
-      await setDoc(doc(db, "users", uid, fullName, company), {
+      await setDoc(doc(db, "users", uid), {
         fullName: fullName,
         company: company || null,
         email: email,
