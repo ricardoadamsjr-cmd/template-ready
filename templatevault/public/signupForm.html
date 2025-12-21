@@ -149,7 +149,7 @@ signupForm.addEventListener('submit', async (e) => {
 
   try {
     // 1️⃣ Create user in Firebase Auth
-    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    const userCredential = await createUserWithEmailAndPassword(auth, fullName, company, email, password,f,);
     const uid = userCredential.user.uid;
 
     // 2️⃣ Record user in Firestore with new fields
