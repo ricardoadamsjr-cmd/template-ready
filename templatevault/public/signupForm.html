@@ -141,6 +141,8 @@
   // Handle Signup
   signupForm.addEventListener('submit', async (e) => {
     e.preventDefault();
+    const fullName = document.getElementById('fullName').value;
+    const company = document.getElementById('company').value;
     const email = document.getElementById('signupEmail').value;
     const password = document.getElementById('signupPassword').value;
 
