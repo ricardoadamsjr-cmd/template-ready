@@ -145,9 +145,11 @@
   e.preventDefault();
 
   const fullName = document.getElementById('fullName').value;
-  const company = document.getElementById('company').value;
-  const email = document.getElementById('Email').value;
-  const password = document.getElementById('Password').value;
+const company = document.getElementById('company').value;
+const email = document.getElementById('signupEmail').value;
+const password = document.getElementById('signupPassword').value;
+
+const userCredential = await createUserWithEmailAndPassword(auth, email, password);
 
   try {
     // 1️⃣ Create user in Firebase Auth (correct args)
