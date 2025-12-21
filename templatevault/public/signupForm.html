@@ -155,7 +155,8 @@
 
     // 2️⃣ Save user profile in Firestore
     await setDoc(doc(db, "users", uid), {
-
+      fullName: fullName,
+      company: company,
       email: email,
       subscriptionStatus: "free",
       createdAt: serverTimestamp()
