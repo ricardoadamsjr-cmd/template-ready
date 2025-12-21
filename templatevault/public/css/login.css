@@ -280,10 +280,9 @@
 }
 
 /* Input fields */
-.auth-container input[type="signupemail"],
-.auth-container input[type="signupPassword"]
-.auth-container input[type="fullName"]
-.auth-container input[type="company"] {
+.auth-container input[type="email"],
+.auth-container input[type="password"]
+ {
   width: 100%;
   padding: 12px 15px;
   margin-bottom: 15px;
