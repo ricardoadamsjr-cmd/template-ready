@@ -89,11 +89,12 @@
       // Save user profile
       await setDoc(doc(db, "users", uid), {
         fullName: fullName,
-        company: company,
+        company: company || null,
         email: email,
         subscriptionStatus: "free",
         createdAt: serverTimestamp()
-      });
+});
+
 
       // Redirect
       window.location.href = "dashboard.html";
