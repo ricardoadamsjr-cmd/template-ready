@@ -139,38 +139,32 @@
   });
 
   // Handle Signup
-signupForm.addEventListener('submit', async (e) => {
-  e.preventDefault();
+  signupForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const email = document.getElementById('signupEmail').value;
+    const password = document.getElementById('signupPassword').value;
 
-  const fullName = document.getElementById('fullName').value;
-  const company = document.getElementById('company').value || null; // optional
-  const email = document.getElementById('signupEmail').value;
-  const password = document.getElementById('signupPassword').value;
+    try {
+      // 1️⃣ Create user in Firebase Auth
+      const userCredential = await createUserWithEmailAndPassword(auth, fullname, company, email, password);
+      const uid = userCredential.user.uid;
 
-  try {
-    // 1️⃣ Create user in Firebase Auth
-    const userCredential = await createUserWithEmailAndPassword(auth, fullName, company, email, password,f,);
-    const uid = userCredential.user.uid;
+      // 2️⃣ Record user in Firestore with default subscription status
+      await setDoc(doc(db, "users", uid), {
+        fullName: fullName,
+        company: company,
+        email: email,
+        subscriptionStatus: "free",   // default tier
+        createdAt: serverTimestamp()
+      });
 
-    // 2️⃣ Record user in Firestore with new fields
-    await setDoc(doc(db, "Collection ID", uid), {
-      full_name: fullName,
-      company: company,
-      email: email,
-      subscriptionStatus: "free",
-      createdAt: serverTimestamp()
-    });
-
-    // 3️⃣ Redirect after signup
-    window.location.href = "dashboard.html";
-
-  } catch (error) {
-    authMessage.textContent = "❌ Error: " + error.message;
-    console.error("Signup error:", error);
-  }
-});
-
-
+      // 3️⃣ Redirect after signup
+      window.location.href = "dashboard.html";
+    } catch (error) {
+      authMessage.textContent = "❌ Error: " + error.message;
+      console.error("Signup error:", error);
+    }
+  });
 </script>
 
 
