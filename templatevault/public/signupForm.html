@@ -153,7 +153,7 @@ signupForm.addEventListener('submit', async (e) => {
     const uid = userCredential.user.uid;
 
     // 2️⃣ Record user in Firestore with new fields
-    await setDoc(doc(db, "users", uid), {
+    await setDoc(doc(db, "Collection ID", uid), {
       full_name: fullName,
       company: company,
       email: email,
