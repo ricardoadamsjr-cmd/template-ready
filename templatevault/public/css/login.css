@@ -282,9 +282,8 @@
 /* Input fields */
 .auth-container input[type="email"],
 .auth-container input[type="password"]
-.auth-container input[type="fullname"],
-auth-container input[type="company"]
- {
+.auth-container input[type="fullname"]
+.auth-container input[type="company"] {
   width: 100%;
   padding: 12px 15px;
   margin-bottom: 15px;
