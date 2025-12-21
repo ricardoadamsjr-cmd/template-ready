@@ -280,6 +280,8 @@
 }
 
 /* Input fields */
+.auth-container input[type="fullname"]
+.auth-container input[type="company"]
 .auth-container input[type="email"],
 .auth-container input[type="password"]
  {
