@@ -148,7 +148,7 @@
 
     try {
       // 1️⃣ Create user in Firebase Auth
-      const userCredential = await createUserWithEmailAndPassword(auth, fullName, company, email, password);
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const uid = userCredential.user.uid;
 
       // 2️⃣ Record user in Firestore with default subscription status
