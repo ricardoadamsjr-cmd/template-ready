@@ -100,12 +100,14 @@
             line-height: 0;         /* prevents extra space above image */
             }
 
-            .card-image-img {
-            width: 100%;            /* span full card width */
-            height: 200px;          /* fixed height for consistency */
-            object-fit: cover;      /* scales and crops to fill area */
-            display: block;         /* removes inline spacing */
+          .card-image-img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            object-position: top left; /* forces the top edge to align */
+            display: block;
             }
+
 
 
         * {
@@ -329,14 +331,16 @@
             box-shadow: 0 20px 40px rgba(255, 107, 53, 0.3);
         }
 
-        .card-image {
+        .card-image { /*this one controlls the size of the container with the image inside*/
             position: relative;
-            height: 200px;
+            width: 100%;
+            height: 280px;
             background: linear-gradient(135deg, #2a2a2a, #1a1a1a);
             display: flex;
-            align-items: center;
+            align-items:flex-start;
             justify-content: center;
             overflow: hidden;
+            
         }
 
         .card-image::before {
@@ -598,19 +602,20 @@
         const templates = [
              {
                 id: 1,
-                title: "Corporate Pro",
+                title: "Home builder",
                 description: "Professional business template with modern design and responsive layout",
                 category: "business",
-                tags: ["Corporate", "Professional", "Responsive"],
+                tags: ["Corporate", "Professional", "Responsive","construction"],
                 downloads: 1250,
                 rating: 4.8,
-                image: "images/card_image_homebuilder.png",   // path to your image
-                demoUrl: "https://demo.corporatepro.com" // link to demo site
+                image: "images/card_image_homebuilder2.png",   // path to your image
+                demoUrl: "https://demo.corporatepro.com", // link to demo site
+                purchaseUrl: "https://payhip.com/b/IOGdt"//link to produce page
             },
             {
                 id: 2,
-                title: "Creative Portfolio",
-                description: "Stunning portfolio template for designers and creative professionals",
+                title: "Fitness pro",
+                description: "A sleek, high‑energy fitness pro design that showcases programs, transformations, and coaching services with bold clarity.",
                 category: "portfolio",
                 tags: ["Creative", "Portfolio", "Modern"],
                 downloads: 890,
@@ -757,7 +762,8 @@ function generateTemplateCard(template) {
                     ${template.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
                 </div>
                 <div class="card-footer">
-                    <!-- Download button - hidden by default, shown only for subscribed users -->
+                    
+                    <!-- Download button - hidden by default -->
                     <a href="#" class="downloadbtn template-download-btn" 
                        data-template-id="${template.id}" 
                        onclick="handleTemplateDownload(${template.id})"
@@ -766,29 +772,85 @@ function generateTemplateCard(template) {
                         Download
                     </a>
                     
-                    <!-- Subscribe prompt - shown for non-subscribed users -->
-                    <a href="#" class="subscribebtn template-subscribe-btn" 
-                       onclick="showSubscriptionPrompt()"
+                    <!-- Purchase button -->
+                    <a href="${template.purchaseUrl}" class="subscribebtn template-subscribe-btn" 
+                       target="_blank" rel="noopener"
                        style="display: block;">
                         <i class="fas fa-lock"></i>
-                        Subscribe to Download
+                        Purchase
                     </a>
                     
                     <div class="card-stats">
-                        <div class="stat">
-                            <i class="fas fa-download"></i>
-                            <span>${template.downloads}</span>
-                        </div>
-                        <div class="stat">
-                            <i class="fas fa-star"></i>
-                            <span>${template.rating}</span>
-                        </div>
+                        ${
+                            template.id === 1
+                            ? `
+                                <!-- Pricing for CARD 1 -->
+                                <div class="stat">
+                                    <i class="fas fa-dollar-sign"></i>
+                                    <span>Setup: $300</span>
+                                </div>
+                                <div class="stat">
+                                    <i class="fas fa-calendar-alt"></i>
+                                    <span>Monthly: $100</span>
+                                </div>
+                              `
+                            : template.id === 2
+                            ? `
+                                <!-- Pricing for CARD 2 -->
+                                <div class="stat">
+                                    <i class="fas fa-dollar-sign"></i>
+                                    <span>Setup: $200</span>
+                                </div>
+                                <div class="stat">
+                                    <i class="fas fa-calendar-alt"></i>
+                                    <span>Monthly: $60</span>
+                                </div>
+                              `
+                              //start copy here code this code modifies the purchase button and pricing
+                              : template.id === 3
+                            ? `
+                                <!-- Pricing for CARD 3 -->
+                                <div class="stat">
+                                    <i class="fas fa-dollar-sign"></i>
+                                    <span>Setup: $200</span>
+                                </div>
+                                <div class="stat">
+                                    <i class="fas fa-calendar-alt"></i>
+                                    <span>Monthly: $60</span>
+                                </div> 
+                              `
+                              //end copy here code 
+                            : `
+                                <!-- Default stats for all other cards -->
+                                <div class="stat">
+                                    <i class="fas fa-download"></i>
+                                    <span>${template.downloads}</span>
+                                </div>
+                                <div class="stat">
+                                    <i class="fas fa-star"></i>
+                                    <span>${template.rating}</span>
+                                </div>
+                              `
+                        }
+
+                        <!-- 
+                            TO ADD PRICING FOR OTHER CARDS:
+                            Copy one of the pricing blocks above and change:
+                            template.id === X
+                            Setup: $___
+                            Monthly: $___
+                        -->
                     </div>
                 </div>
             </div>
         </div>
     `;
 }
+
+
+
+
+
 
 
 // Function to handle template download attempts
