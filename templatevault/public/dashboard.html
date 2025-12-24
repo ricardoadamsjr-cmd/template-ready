@@ -302,10 +302,14 @@
             background: rgba(20, 20, 20, 0.8);
             border-radius: 15px;
             overflow: hidden;
+            max-width: 450px;
             border: 1px solid rgba(255, 107, 53, 0.2);
             transition: all 0.4s ease;
             position: relative;
-            backdrop-filter: blur(10px);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%; /* ensures equal height cards */
         }
 
         .template-card::before {
@@ -499,6 +503,30 @@
             transform: translateY(-50%);
             color: #ff6b35;
         }
+
+        .template-subscribe-btn {
+    display: block;
+    background: #1a73e8;
+    color: white;
+    padding: 12px 18px;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: center;
+    width: 35%;
+    transition: background 0.25s ease;
+}
+
+.template-subscribe-btn i {
+    margin-right: 6px;
+}
+
+.template-subscribe-btn:hover {
+    background: #1664c4;
+}
+
 
         /* Responsive design */
         @media (max-width: 768px) {
@@ -773,12 +801,13 @@ function generateTemplateCard(template) {
                     </a>
                     
                     <!-- Purchase button -->
-                    <a href="${template.purchaseUrl}" class="subscribebtn template-subscribe-btn" 
-                       target="_blank" rel="noopener"
-                       style="display: block;">
-                        <i class="fas fa-lock"></i>
-                        Purchase
-                    </a>
+                    <button onclick="window.open('${template.purchaseUrl}', '_blank')" 
+                            class="subscribebtn template-subscribe-btn" 
+                            style="display: block;">
+                            <i class="fas fa-lock"></i>
+                            Purchase
+                    </button>
+
                     
                     <div class="card-stats">
                         ${
