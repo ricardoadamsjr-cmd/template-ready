@@ -12,34 +12,7 @@
     
     <!-- Add the integration script -->
    
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    // Grab the element where you want to show the user
-    const currentUserElement = document.getElementById("current-user");
 
-    // Global variable to hold the email
-    window.currentUserEmail = null;
-
-    // Watch auth state
-    firebase.auth().onAuthStateChanged(user => {
-      if (user) {
-        // Update the <p> element
-        if (currentUserElement) {
-          currentUserElement.textContent = `Logged in as: ${user.full_name || user.email}`;
-        }
-        // Save email in a variable for other code
-        window.currentUserEmail = user.email;
-        console.log("✅ Current user:", window.currentUserEmail);
-      } else {
-        if (currentUserElement) {
-          currentUserElement.textContent = "No user logged in";
-        }
-        window.currentUserEmail = null;
-        console.log("❌ No user logged in");
-      }
-    });
-  });
-</script>
 
 
 
@@ -48,27 +21,44 @@
     //HANDLERS THE PURCHASE BUTTON TO COLLECT USER'S EMAIL AND HANDLE SUBSCRIPTION
     const user = firebase.auth().currentUser;
 
-   document.addEventListener("click", function (e) {
-    if (e.target.classList.contains("purchase-btn")) {
+  // Wait for Firebase Auth to initialize and user to be ready
+firebase.auth().onAuthStateChanged(function(user) {
+  if (user) {
+    console.log('User is logged in:', user.email);
+  } else {
+    console.log('No user is logged in');
+  }
+});
 
-        const user = firebase.auth().currentUser;
+document.addEventListener("click", function (e) {
+  if (e.target.classList.contains("purchase-btn")) {
 
-        if (!user) {
-            alert("You must be logged in to purchase.");
-            return;
-        }
+    const user = firebase.auth().currentUser;
 
-        const email = user.email;
-        const baseUrl = e.target.getAttribute("data-url");
-
-        const finalUrl = `${baseUrl}?customer_email=${encodeURIComponent(email)}`;
-
-        // Optional: store for Pipedream or other flows
-        localStorage.setItem("userEmail", email);
-
-        // Redirect to Payhip checkout
-        window.location.href = finalUrl;
+    if (!user) {
+      alert("You must be logged in to purchase.");
+      return;
     }
+
+    const email = user.email;
+    const baseUrl = e.target.getAttribute("data-url");
+
+    if (!baseUrl) {
+      console.error('Purchase button missing data-url attribute');
+      alert('Purchase URL is missing. Please try again later.');
+      return;
+    }
+
+    const finalUrl = `${baseUrl}?customer_email=${encodeURIComponent(email)}`;
+
+    console.log('Redirecting to:', finalUrl);
+
+    // Optional: store for Pipedream or other flows
+    localStorage.setItem("userEmail", email);
+
+    // Redirect to Payhip checkout
+    window.location.href = finalUrl;
+  }
 });
 
 </script>
@@ -670,7 +660,6 @@
                 rating: 4.8,
                 image: "images/card_image_homebuilder2.png",   // path to your image
                 demoUrl: "https://demo.corporatepro.com", // link to demo site
-                purchaseUrl: "https://payhip.com/b/IOGdt"//link to produce page
             },
             {
                 id: 2,
@@ -832,12 +821,7 @@ function generateTemplateCard(template) {
                         Download
                     </a>
                     
-                    <!-- Purchase button -->
-                    <button
-                        class="purchase-btn template-subscribe-btn" 
-                        data-url="https://payhip.com/b/IOGdt">
-                        Purchase
-                    </button>
+                    
                     
 
                     <div class="card-stats">
@@ -845,6 +829,12 @@ function generateTemplateCard(template) {
                             template.id === 1
                             ? `
                                 <!-- Pricing for CARD 1 -->
+                                <!-- Purchase button -->
+                                    <button
+                                        class="purchase-btn template-subscribe-btn" 
+                                        data-url="https://payhip.com/b/IOGdt">
+                                        Purchase
+                                    </button>
                                 <div class="stat">
                                     <i class="fas fa-dollar-sign"></i>
                                     <span>Setup: $300</span>
@@ -1151,7 +1141,34 @@ await stripe.redirectToCheckout({ sessionId: session.id });
 <button id="loadbuttons" style="display: none;" disabled>Download Files</button>
 
 
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    // Grab the element where you want to show the user
+    const currentUserElement = document.getElementById("current-user");
 
+    // Global variable to hold the email
+    window.currentUserEmail = null;
+
+    // Watch auth state
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        // Update the <p> element
+        if (currentUserElement) {
+          currentUserElement.textContent = `Logged in as: ${user.full_name || user.email}`;
+        }
+        // Save email in a variable for other code
+        window.currentUserEmail = user.email;
+        console.log("✅ Current user:", window.currentUserEmail);
+      } else {
+        if (currentUserElement) {
+          currentUserElement.textContent = "No user logged in";
+        }
+        window.currentUserEmail = null;
+        console.log("❌ No user logged in");
+      }
+    });
+  });
+</script>
 
 
    <!-- Firebase v9 CDN -->
