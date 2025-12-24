@@ -8,7 +8,9 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <!-- Add Stripe SDK if not already included -->
     <script src="https://js.stripe.com/v3/"></script>
-
+    <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-firestore-compat.js"></script>
     
     <!-- Add the integration script -->
    
@@ -44,51 +46,7 @@
 
 
 
-<script>
-    //HANDLERS THE PURCHASE BUTTON TO COLLECT USER'S EMAIL AND HANDLE SUBSCRIPTION
-    const user = firebase.auth().currentUser;
 
-  // Wait for Firebase Auth to initialize and user to be ready
-firebase.auth().onAuthStateChanged(function(user) {
-  if (user) {
-    console.log('User is logged in:', user.email);
-  } else {
-    console.log('No user is logged in');
-  }
-});
-
-document.addEventListener("click", function (e) {
-  if (e.target.classList.contains("purchase-btn")) {
-
-    const user = firebase.auth().currentUser;
-
-    if (!user) {
-      alert("You must be logged in to purchase.");
-      return;
-    }
-
-    const email = user.email;
-    const baseUrl = e.target.getAttribute("data-url");
-
-    if (!baseUrl) {
-      console.error('Purchase button missing data-url attribute');
-      alert('Purchase URL is missing. Please try again later.');
-      return;
-    }
-
-    const finalUrl = `${baseUrl}?customer_email=${encodeURIComponent(email)}`;
-
-    console.log('Redirecting to:', finalUrl);
-
-    // Optional: store for Pipedream or other flows
-    localStorage.setItem("userEmail", email);
-
-    // Redirect to Payhip checkout
-    window.location.href = finalUrl;
-  }
-});
-
-</script>
 
 <script type="module">
     //this code is for firebase v9 and it is for getting the user's email and protecting the page
@@ -131,9 +89,26 @@ document.addEventListener("click", function (e) {
         });
 </script>
 
+
+
+
+
 <script>
+    
     //HANDLERS THE PURCHASE BUTTON TO COLLECT USER'S EMAIL AND HANDLE SUBSCRIPTION
-    const user = firebase.auth().currentUser;
+    const separator = baseUrl.includes("?") ? "&" : "?";
+const finalUrl = `${baseUrl}${separator}customer_email=${encodeURIComponent(email)}`;
+    let currentUser = null;
+
+firebase.auth().onAuthStateChanged(function(user) {
+  currentUser = user;
+  if (user) {
+    console.log('User is logged in:', user.email);
+  } else {
+    console.log('No user is logged in');
+  }
+});
+
 
   // Wait for Firebase Auth to initialize and user to be ready
 firebase.auth().onAuthStateChanged(function(user) {
@@ -147,7 +122,6 @@ firebase.auth().onAuthStateChanged(function(user) {
 document.addEventListener("click", function (e) {
   if (e.target.classList.contains("purchase-btn")) {
 
-    const user = firebase.auth().currentUser;
 
     if (!user) {
       alert("You must be logged in to purchase.");
@@ -173,6 +147,8 @@ document.addEventListener("click", function (e) {
     // Redirect to Payhip checkout
     window.location.href = finalUrl;
   }
+  document.body.classList.add("loading");
+
 });
 
 </script>
@@ -1118,22 +1094,8 @@ function closeSubscriptionModal() {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
   <!-- Firebase SDKs (compat builds for global `firebase`) -->
-  <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-auth-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-firestore-compat.js"></script>
+  
 
 
   <script>
@@ -1145,9 +1107,16 @@ function closeSubscriptionModal() {
   </script>
 
   
+<script>
+ 
 
 
+</script>
 
+
+document.addEventListener("click", (e) => {
+  console.log("CLICK DETECTED:", e.target);
+});
 
 
 
