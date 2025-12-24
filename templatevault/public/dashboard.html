@@ -12,7 +12,34 @@
     
     <!-- Add the integration script -->
    
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    // Grab the element where you want to show the user
+    const currentUserElement = document.getElementById("current-user");
 
+    // Global variable to hold the email
+    window.currentUserEmail = null;
+
+    // Watch auth state
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        // Update the <p> element
+        if (currentUserElement) {
+          currentUserElement.textContent = `Logged in as: ${user.full_name || user.email}`;
+        }
+        // Save email in a variable for other code
+        window.currentUserEmail = user.email;
+        console.log("✅ Current user:", window.currentUserEmail);
+      } else {
+        if (currentUserElement) {
+          currentUserElement.textContent = "No user logged in";
+        }
+        window.currentUserEmail = null;
+        console.log("❌ No user logged in");
+      }
+    });
+  });
+</script>
 
 
 
@@ -831,10 +858,10 @@ function generateTemplateCard(template) {
                                 <!-- Pricing for CARD 1 -->
                                 <!-- Purchase button -->
                                     <button
-                                        class="purchase-btn template-subscribe-btn" 
-                                        data-url="https://payhip.com/b/IOGdt">
+                                        class="purchase-btn template-subscribe-btn" data-url="https://payhip.com/b/IOGdt">
                                         Purchase
                                     </button>
+
                                 <div class="stat">
                                     <i class="fas fa-dollar-sign"></i>
                                     <span>Setup: $300</span>
@@ -1141,34 +1168,7 @@ await stripe.redirectToCheckout({ sessionId: session.id });
 <button id="loadbuttons" style="display: none;" disabled>Download Files</button>
 
 
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    // Grab the element where you want to show the user
-    const currentUserElement = document.getElementById("current-user");
 
-    // Global variable to hold the email
-    window.currentUserEmail = null;
-
-    // Watch auth state
-    firebase.auth().onAuthStateChanged(user => {
-      if (user) {
-        // Update the <p> element
-        if (currentUserElement) {
-          currentUserElement.textContent = `Logged in as: ${user.full_name || user.email}`;
-        }
-        // Save email in a variable for other code
-        window.currentUserEmail = user.email;
-        console.log("✅ Current user:", window.currentUserEmail);
-      } else {
-        if (currentUserElement) {
-          currentUserElement.textContent = "No user logged in";
-        }
-        window.currentUserEmail = null;
-        console.log("❌ No user logged in");
-      }
-    });
-  });
-</script>
 
 
    <!-- Firebase v9 CDN -->
