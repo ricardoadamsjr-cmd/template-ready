@@ -40,6 +40,34 @@
     });
   });
 </script>
+<script>
+    //HANDLERS THE PURCHASE BUTTON TO COLLECT USER'S EMAIL AND HANDLE SUBSCRIPTION
+    const user = firebase.auth().currentUser;
+
+    document.addEventListener("click", function (e) {
+    if (e.target.classList.contains("purchase-btn")) {
+
+        const user = firebase.auth().currentUser;
+
+        if (!user) {
+            alert("You must be logged in to purchase.");
+            return;
+        }
+
+        const email = user.email;
+        const baseUrl = e.target.getAttribute("data-url");
+
+        const finalUrl = `${baseUrl}?customer_email=${encodeURIComponent(email)}`;
+
+        // Optional: store for Pipedream or other flows
+        localStorage.setItem("userEmail", email);
+
+        // Redirect to Payhip checkout
+        window.location.href = finalUrl;
+    }
+});
+
+</script>
 
 <script type="module">
     //this code is for firebase v9 and it is for getting the user's email and protecting the page
@@ -807,8 +835,8 @@ function generateTemplateCard(template) {
                             <i class="fas fa-lock"></i>
                             Purchase
                     </button>
-
                     
+
                     <div class="card-stats">
                         ${
                             template.id === 1
