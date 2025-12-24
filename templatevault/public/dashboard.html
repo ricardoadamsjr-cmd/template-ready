@@ -40,11 +40,15 @@
     });
   });
 </script>
+
+
+
+
 <script>
     //HANDLERS THE PURCHASE BUTTON TO COLLECT USER'S EMAIL AND HANDLE SUBSCRIPTION
     const user = firebase.auth().currentUser;
 
-    document.addEventListener("click", function (e) {
+   document.addEventListener("click", function (e) {
     if (e.target.classList.contains("purchase-btn")) {
 
         const user = firebase.auth().currentUser;
@@ -829,11 +833,10 @@ function generateTemplateCard(template) {
                     </a>
                     
                     <!-- Purchase button -->
-                    <button onclick="window.open('${template.purchaseUrl}', '_blank')" 
-                            class="subscribebtn template-subscribe-btn" 
-                            style="display: block;">
-                            <i class="fas fa-lock"></i>
-                            Purchase
+                    <button
+                        class="purchase-btn template-subscribe-btn" 
+                        data-url="https://payhip.com/b/IOGdt">
+                        Purchase
                     </button>
                     
 
