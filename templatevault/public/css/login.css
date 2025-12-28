@@ -26,23 +26,7 @@
             border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
-        .logo {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .logo h1 {
-            color: #2d3748;
-            font-size: 28px;
-            font-weight: 700;
-            margin-bottom: 8px;
-        }
-
-        .logo p {
-            color: #718096;
-            font-size: 14px;
-            font-weight: 400;
-        }
+        
 
         .auth-tabs {
             display: flex;
@@ -221,9 +205,17 @@
                 margin: 10px;
             }
 
-            .logo h1 {
-                font-size: 24px;
-            }
+            .logo {
+                    font-family: 'Poppins', sans-serif;
+                    font-size: 1.8rem;
+                    font-weight: 800;
+                    background: var(--gradient-primary);
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                    background-clip: text;
+                    text-decoration: none;
+                    transition: var(--transition);
+                    }
 
             .tab-btn {
                 padding: 10px 16px;

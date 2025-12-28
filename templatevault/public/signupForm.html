@@ -3,25 +3,89 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login and Sign Up</title>
+
     <link rel="icon" href="images/TemplateVault Logo.png" type="image/x-icon">
+
     
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>Login and Sign Up</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/login.css">
-
-    <!-- Firebase App (compat) -->
-    <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-app-compat.js"></script>
-    <!-- Firebase Auth (compat) -->
-    <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-auth-compat.js"></script>
-    <!-- Firebase Firestore (compat) -->
-    <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-firestore-compat.js"></script>
+    <!-- Firebase App (core SDK) -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-app.js"></script>
+    <!-- Firebase Auth -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-auth.js"></script>
+    <!-- Firebase Firestore -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-firestore.js"></script>
 </head>
 
 <div id="react-auth-root"></div>
 
 <body>
+<div class="mobile-menu-overlay" id="mobileMenuOverlay">
+        <div class="mobile-menu-content">ShopVibe
 
+            <buttonbutton class="mobile-menu-close" onclick="closeMobileMenu()" title="Close mobile menu">
+                <i class="fas fa-times"></i>
+            </button>
+            <nav class="mobile-nav">
+                <a href="#home" class="mobile-nav-link" onclick="closeMobileMenu()">Home</a>
+                <a href="#templates" class="mobile-nav-link" onclick="closeMobileMenu()">Templates</a>
+                <a href="#features" class="mobile-nav-link" onclick="closeMobileMenu()">Features</a>
+                <a href="#pricing" class="mobile-nav-link" onclick="closeMobileMenu()">Pricing</a>
+                <a href="#contact" class="mobile-nav-link" onclick="closeMobileMenu()">Contact</a>
+                <a href="loginForm.html" class="mobile-nav-link" onclick="closeMobileMenu()">log-in</a>
+                <a href="signupForm.html" class="mobile-nav-link" onclick="closeMobileMenu()">Sign-up</a>
+                <a href="#pricing" id="dashboardBtn" class="mobile-cta-button" onclick="closeMobileMenu()">Dashboard</a>
+                <a href="#pricing" class="mobile-cta-button" onclick="closeMobileMenu()">Start Free Trial</a>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Animated Background -->
+    <div class="animated-bg"></div>
+    
+    <!-- Floating Elements -->
+    <div class="floating-elements">
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+    </div>
+
+    <!-- Header -->
+  <header class="header" id="header">
+  <div class="nav-container">
+    <a href="#home" class="logo">Airstadt SiteFlow</a>
+    <nav>
+      <ul class="nav-menu">
+          <li><a href="index.html#home" class="nav-link">Home</a></li>
+          <li><a href="index.html#templates" class="nav-link">Templates</a></li>
+          <li><a href="index.html#features" class="nav-link">Features</a></li>
+          <li><a href="index.html#pricing" class="nav-link">Pricing</a></li>
+          <li><a href="index.html#contact" class="nav-link">Contact</a></li>
+          <li><a href="loginForm.html" class="nav-link">Log-in</a></li>
+          <li><a href="signupForm.html" class="nav-link">Sign-up</a></li>
+      </ul>
+    </nav>
+
+    <!-- Call-to-action buttons -->
+    <a href="#pricing" class="cta-button pulse">Free Trial</a>
+    <a href="auth.html" id="dashboardBtn" class="cta-button pulse">Dashboard</a><!--change href back to auth-->
+
+
+    <!-- Mobile menu toggle -->
+    <button class="cta-button pulse" onclick="openMobileMenu()" title="Open mobile menu">
+      <i class="fas fa-bars"></i>
+    </button>
+  </div>
+</header>
+
+
+
+    
   <!-- Login / Sign Up container -->
   <div class="auth-container">
     <h2>Welcome</h2>
