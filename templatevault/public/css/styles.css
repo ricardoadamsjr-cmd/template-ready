@@ -721,25 +721,27 @@ section {
 
 .template-image {
     width: 100%;
-    height: 400px; /* This is your 'window' height */
+    height: 400px; /* This defines the visible 'window' */
     position: relative;
-    overflow: hidden;
+    overflow: hidden; /* This hides the bottom of the image */
+    display: block;
 }
 
-
-template-preview-img {
-    width: 100%;
-    height: 100%; /* Spans the full height of the 400px window */
-    object-fit: cover; /* Ensures the image fills the width/height without stretching */
-    object-position: top; /* This forces the TOP of the website image to be aligned with the top of the card */
+/* Note: Added the missing dot (.) for the class selector */
+.template-preview-img {
+    width: 100%;    /* This forces the image to span the full width of the card */
+    height: auto;   /* This maintains the natural aspect ratio so it doesn't look 'close' */
     display: block;
+    position: absolute;
+    top: 0;         /* Aligns the top of the site to the top of the card */
+    left: 0;
 }
 
 
 
 .template-preview-bg {
     width: 100%;
-    height: 100%;
+    height: auto;
     display: flex;
     align-items: center;
     justify-content: center;
