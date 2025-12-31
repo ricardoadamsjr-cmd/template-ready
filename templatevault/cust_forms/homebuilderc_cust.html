@@ -220,6 +220,20 @@
             </select>
         </div>
 
+
+        <div style="background: rgba(56, 189, 248, 0.1); border-left: 4px solid var(--primary); padding: 15px; margin-bottom: 25px; border-radius: 4px 12px 12px 4px;">
+    <p style="margin: 0; font-size: 0.9rem; color: #f8fafc;">
+        <strong>Don’t worry about perfect phrasing!</strong> Simply provide the 
+        details in your own words. We will have it refined and rewritten 
+        to ensure maximum impact and effectiveness. 
+    </p>
+    <p style="margin: 10px 0 0 0; font-size: 0.9rem; color: #e2e8f0;">
+        Additionally, we will supplement your specific info with professionally 
+        crafted text tailored to your industry to ensure the best possible delivery of your brand message.
+    </p>
+</div>
+
+
         <div class="form-section section-2">
     <h3>Branding & Style</h3>
 
@@ -236,6 +250,9 @@
         </div>
     </div>
 
+    
+
+    
     <input type="file" id="logo" name="logo" accept="image/*" required>
 
     <label for="brand_style">Brand Personality</label>
@@ -248,9 +265,65 @@
         <option>Playful & Colorful</option>
     </select>
 
+    
+
     <label for="brand_color">Primary Brand Color</label>
     <input type="color" id="brand_color" name="brand_color" value="#38bdf8">
 </div>
+
+<div class="form-section section-4">
+    <h3>Content & Copy Edits</h3>
+    <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 15px;">
+        Provide the text you would like for each section, or check "Leave as is" to keep the template wording.
+    </p>
+
+    <div class="input-group">
+        <label for="copy_section_1">Hero Section Text</label>
+        <div style="margin-bottom: 10px; display: flex; align-items: center; gap: 8px;">
+            <input type="checkbox" id="keep_copy1" name="keep_copy1" style="width: auto; margin-bottom: 0;" onchange="toggleInput('copy_section_1', this)">
+            <label for="keep_copy1" style="margin-bottom: 0; cursor: pointer;">Leave as is</label>
+        </div>
+        <textarea id="copy_section_1" name="copy_section_1" rows="3" placeholder="Enter your headline and subtext here..."></textarea>
+    </div>
+
+    <div class="input-group">
+        <label for="copy_section_2">About Us Section</label>
+        <div style="margin-bottom: 10px; display: flex; align-items: center; gap: 8px;">
+            <input type="checkbox" id="keep_copy2" name="keep_copy2" style="width: auto; margin-bottom: 0;" onchange="toggleInput('copy_section_2', this)">
+            <label for="keep_copy2" style="margin-bottom: 0; cursor: pointer;">Leave as is</label>
+        </div>
+        <textarea id="copy_section_2" name="copy_section_2" rows="3" placeholder="Tell us about your business history or mission..."></textarea>
+    </div>
+
+    <div class="input-group">
+        <label for="copy_section_3">Services Description</label>
+        <div style="margin-bottom: 10px; display: flex; align-items: center; gap: 8px;">
+            <input type="checkbox" id="keep_copy3" name="keep_copy3" style="width: auto; margin-bottom: 0;" onchange="toggleInput('copy_section_3', this)">
+            <label for="keep_copy3" style="margin-bottom: 0; cursor: pointer;">Leave as is</label>
+        </div>
+        <textarea id="copy_section_3" name="copy_section_3" rows="3" placeholder="List your key services or features..."></textarea>
+    </div>
+
+    <div class="input-group">
+        <label for="copy_section_4">Testimonials/Quotes</label>
+        <div style="margin-bottom: 10px; display: flex; align-items: center; gap: 8px;">
+            <input type="checkbox" id="keep_copy4" name="keep_copy4" style="width: auto; margin-bottom: 0;" onchange="toggleInput('copy_section_4', this)">
+            <label for="keep_copy4" style="margin-bottom: 0; cursor: pointer;">Leave as is</label>
+        </div>
+        <textarea id="copy_section_4" name="copy_section_4" rows="3" placeholder="Add specific client quotes or success stories..."></textarea>
+    </div>
+
+    <div class="input-group">
+        <label for="copy_section_5">Call to Action (CTA)</label>
+        <div style="margin-bottom: 10px; display: flex; align-items: center; gap: 8px;">
+            <input type="checkbox" id="keep_copy5" name="keep_copy5" style="width: auto; margin-bottom: 0;" onchange="toggleInput('copy_section_5', this)">
+            <label for="keep_copy5" style="margin-bottom: 0; cursor: pointer;">Leave as is</label>
+        </div>
+        <textarea id="copy_section_5" name="copy_section_5" rows="3" placeholder="e.g., 'Book your free consultation today!'"></textarea>
+    </div>
+</div>
+
+
 
        <div class="form-section section-3">
     <h3>Visual Assets</h3>
