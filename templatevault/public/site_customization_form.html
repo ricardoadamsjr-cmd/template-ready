@@ -1,12 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Website Setup Form | Professional</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-    </head>
     
     <style>
         :root {
@@ -16,6 +14,7 @@
             --glass-bg: rgba(255, 255, 255, 0.05);
             --glass-border: rgba(255, 255, 255, 0.1);
             --text-muted: #94a3b8;
+            --danger: #ff4d4d;
         }
 
         body {
@@ -27,160 +26,59 @@
             line-height: 1.6;
         }
 
-        .container {
-            max-width: 700px;
-            margin: 60px auto;
-            padding: 20px;
-        }
-
-        .form-header {
-            text-align: center;
-            margin-bottom: 40px;
-            animation: fadeInDown 0.8s ease;
-        }
-
+        .container { max-width: 700px; margin: 60px auto; padding: 20px; }
+        .form-header { text-align: center; margin-bottom: 40px; }
         .form-header h2 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
+            font-size: 2.5rem; margin-bottom: 10px;
             background: linear-gradient(to right, #fff, #38bdf8);
-            -webkit-background-clip: text;
-            background-clip: text;
+            -webkit-background-clip: text; background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
         .form-section {
             background: var(--glass-bg);
             border: 1px solid var(--glass-border);
-            -webkit-backdrop-filter: blur(16px);
             backdrop-filter: blur(16px);
-            padding: 30px;
-            border-radius: 20px;
+            padding: 30px; border-radius: 20px;
             margin-bottom: 25px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            animation: fadeInUp 0.6s ease backwards;
         }
 
-        /* Staggered animation for sections */
-        .section-1 { animation-delay: 0.1s; }
-        .section-2 { animation-delay: 0.2s; }
-        .section-3 { animation-delay: 0.3s; }
-        .section-4 { animation-delay: 0.4s; }
+        h3 { color: var(--primary); font-size: 1.25rem; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+        h3::after { content: ""; height: 1px; flex-grow: 1; background: var(--glass-border); }
 
-        h3 {
-            color: var(--primary);
-            font-size: 1.25rem;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        h3::after {
-            content: "";
-            height: 1px;
-            flex-grow: 1;
-            background: var(--glass-border);
-        }
-
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-size: 0.9rem;
-            font-weight: 500;
-            color: #e2e8f0;
-        }
-
+        label { display: block; margin-bottom: 8px; font-size: 0.9rem; font-weight: 500; color: #e2e8f0; }
         input, select, textarea {
-            width: 100%;
-            padding: 12px 16px;
-            border-radius: 10px;
-            border: 1px solid var(--glass-border);
-            background: rgba(15, 23, 42, 0.6);
-            color: #fff;
-            font-size: 1rem;
-            box-sizing: border-box;
-            transition: all 0.3s ease;
-            margin-bottom: 20px;
+            width: 100%; padding: 12px 16px; border-radius: 10px;
+            border: 1px solid var(--glass-border); background: rgba(15, 23, 42, 0.6);
+            color: #fff; font-size: 1rem; box-sizing: border-box; margin-bottom: 20px;
         }
 
-        input:focus, select:focus, textarea:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.15);
-            background: rgba(15, 23, 42, 0.8);
+        .secondary-btn {
+            background: rgba(56, 189, 248, 0.1); color: var(--primary);
+            border: 1px dashed var(--primary); padding: 12px;
+            border-radius: 10px; cursor: pointer; width: 100%;
+            font-weight: 600; transition: 0.3s; margin-bottom: 10px;
         }
+        .secondary-btn:hover { background: rgba(56, 189, 248, 0.2); }
 
-        /* Style for color picker and file inputs */
-        input[type="color"] {
-            height: 50px;
-            padding: 5px;
-            cursor: pointer;
+        .remove-btn {
+            background: transparent; color: var(--danger);
+            border: 1px solid var(--danger); padding: 5px 12px;
+            border-radius: 6px; cursor: pointer; font-size: 0.8rem;
+            font-weight: 600; transition: 0.3s;
         }
+        .remove-btn:hover { background: var(--danger); color: #fff; }
 
-        input[type="file"] {
-            padding: 10px;
-            font-size: 0.85rem;
-            cursor: pointer;
-        }
-
-        input[type="file"]::file-selector-button {
-            background: var(--primary);
-            border: none;
-            padding: 6px 12px;
-            border-radius: 6px;
-            color: #0f172a;
-            font-weight: 600;
-            margin-right: 15px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        input[type="file"]::file-selector-button:hover {
-            background: var(--primary-hover);
-        }
+        .flex-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
 
         .submit-btn {
-            width: 100%;
-            padding: 16px;
-            background: var(--primary);
-            color: #0f172a;
-            border: none;
-            border-radius: 12px;
-            font-size: 1.1rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            margin-top: 20px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            width: 100%; padding: 16px; background: var(--primary);
+            color: #0f172a; border: none; border-radius: 12px;
+            font-size: 1.1rem; font-weight: 700; cursor: pointer;
+            text-transform: uppercase; letter-spacing: 1px;
         }
-
-        .submit-btn:hover {
-            background: var(--primary-hover);
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(14, 165, 233, 0.3);
-        }
-
-        .submit-btn:active {
-            transform: translateY(0);
-        }
-
-        /* Animations */
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Responsive */
-        @media (max-width: 600px) {
-            .container { margin: 20px auto; padding: 15px; }
-            .form-section { padding: 20px; }
-        }
+        .submit-btn:disabled { background: #475569; cursor: not-allowed; }
     </style>
 </head>
 <body>
@@ -188,73 +86,215 @@
 <div class="container">
     <header class="form-header">
         <h2>Website Setup</h2>
-        <p style="color: var(--text-muted)">Let's gather the essentials to build your digital presence.</p>
+        <p style="color: var(--text-muted)">Finalize your project details and launch your presence.</p>
     </header>
 
     <form id="setupForm">
-        <div class="form-section section-1">
+        <div class="form-section">
             <h3>Business Identity</h3>
             <label for="email">Account Email Address</label>
-            <input type="email" id="email" name="email" placeholder="email@example.com" required>
+            <input type="email" id="email" placeholder="email@example.com" required>
 
             <label for="business_name">Business Name</label>
-            <input type="text" id="business_name" name="business_name" required>
-
-            <label for="tagline">Tagline (optional)</label>
-            <input type="text" id="tagline" name="tagline">
+            <input type="text" id="business_name" placeholder="e.g. Acme Corporation" required>
 
             <label for="industry">Industry</label>
-            <select id="industry" name="industry" required>
+            <select id="industry" required>
                 <option value="" disabled selected>Select your industry</option>
                 <option>Fitness</option>
                 <option>Construction</option>
                 <option>Real Estate</option>
                 <option>Healthcare</option>
-                <option>Legal</option>
                 <option>Other</option>
             </select>
         </div>
 
-        <div class="form-section section-2">
+        <div class="form-section">
             <h3>Branding & Style</h3>
             <label for="logo">Upload Logo</label>
             <input type="file" id="logo" accept="image/*">
-            
-            <label for="brand_style">Brand Personality</label>
-            <select id="brand_style">
-                <option>Modern & Clean</option>
-                <option>Bold & High Contrast</option>
-                <option>Minimal & Light</option>
-            </select>
 
             <label for="brand_color">Primary Brand Color</label>
             <input type="color" id="brand_color" value="#38bdf8">
         </div>
 
-        <div class="form-section section-3">
+        <div class="form-section">
             <h3>Visual Assets</h3>
             <div id="dynamic-images">
-                <div class="image-group">
+                <div class="image-group" style="margin-bottom: 20px;">
                     <label>Image 1</label>
                     <input type="file" class="gallery-img" accept="image/*">
                 </div>
             </div>
-            <button type="button" id="addImageBtn" class="secondary-btn">+ Add Image</button>
+            <button type="button" id="addImageBtn" class="secondary-btn">+ Add Another Image</button>
         </div>
 
-        <div class="form-section section-4">
-            <h3>Custom Requests</h3>
+        <div class="form-section">
+            <h3>Additional Customizations</h3>
             <div id="dynamic-fields"></div>
-            <button type="button" id="addRequestBtn" class="secondary-btn">+ Add Request</button>
+            <button type="button" id="addRequestBtn" class="secondary-btn">+ Add Custom Request</button>
         </div>
 
-        <button type="submit" class="submit-btn" id="submitBtn">Launch My Project</button>
+        <button type="submit" id="submitBtn" class="submit-btn">Launch My Project</button>
     </form>
 </div>
- 
-</div>
 
-<script type="module" src="js/firebase-config.js"></script>
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+    import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js";
+
+    // 1. YOUR FIREBASE CONFIGURATION
+    const firebaseConfig = {
+        apiKey: "YOUR_API_KEY",
+        authDomain: "YOUR_PROJECT.firebaseapp.com",
+        projectId: "YOUR_PROJECT_ID",
+        storageBucket: "YOUR_PROJECT.appspot.com",
+        messagingSenderId: "YOUR_ID",
+        appId: "YOUR_APP_ID"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const storage = getStorage(app);
+
+    // --- DYNAMIC UI LOGIC ---
+
+    // Add Image Logic with Delete
+    document.getElementById('addImageBtn').addEventListener('click', () => {
+        const container = document.getElementById('dynamic-images');
+        const div = document.createElement('div');
+        div.className = 'image-group';
+        div.style.marginBottom = "25px";
+        div.style.padding = "15px";
+        div.style.background = "rgba(255,255,255,0.02)";
+        div.style.borderRadius = "10px";
+        
+        div.innerHTML = `
+            <div class="flex-header">
+                <label style="margin-bottom:0">Additional Image</label>
+                <button type="button" class="remove-btn">Delete</button>
+            </div>
+            <input type="file" class="gallery-img" accept="image/*" style="margin-bottom:0">
+        `;
+        
+        div.querySelector('.remove-btn').addEventListener('click', () => div.remove());
+        container.appendChild(div);
+    });
+
+    // Add Request Logic with Delete
+    document.getElementById('addRequestBtn').addEventListener('click', () => {
+        const container = document.getElementById('dynamic-fields');
+        const div = document.createElement('div');
+        div.className = 'request-group';
+        div.style.marginBottom = "25px";
+        div.style.padding = "15px";
+        div.style.background = "rgba(255,255,255,0.03)";
+        div.style.borderRadius = "10px";
+        div.style.border = "1px solid var(--glass-border)";
+
+        div.innerHTML = `
+            <div class="flex-header">
+                <label style="margin-bottom:0">Custom Request</label>
+                <button type="button" class="remove-btn">Remove</button>
+            </div>
+            <input type="text" class="custom-title" placeholder="Request Title (e.g. Dark Mode)">
+            <textarea class="custom-desc" rows="2" placeholder="Explain what you need..." style="margin-bottom:0"></textarea>
+        `;
+
+        div.querySelector('.remove-btn').addEventListener('click', () => div.remove());
+        container.appendChild(div);
+    });
+
+    // --- FIREBASE STORAGE UPLOAD HELPER ---
+    async function uploadFile(file, folder) {
+        if (!file) return null;
+        const storageRef = ref(storage, `${folder}/${Date.now()}_${file.name}`);
+        const snapshot = await uploadBytes(storageRef, file);
+        return await getDownloadURL(snapshot.ref);
+    }
+
+    // --- FORM SUBMISSION ---
+    const form = document.getElementById('setupForm');
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const btn = document.getElementById('submitBtn');
+        btn.innerText = "UPLOADING ASSETS...";
+        btn.disabled = true;
+
+        try {
+            // Upload Logo
+            const logoFile = document.getElementById('logo').files[0];
+            const logoUrl = await uploadFile(logoFile, 'logos');
+
+            // Upload Gallery
+            const galleryInputs = document.querySelectorAll('.gallery-img');
+            const galleryUrls = [];
+            for (let input of galleryInputs) {
+                if (input.files[0]) {
+                    const url = await uploadFile(input.files[0], 'gallery');
+                    galleryUrls.push(url);
+                }
+            }
+
+            // Gather Custom Requests
+            const requests = [];
+            document.querySelectorAll('.request-group').forEach(group => {
+                const title = group.querySelector('.custom-title').value;
+                const desc = group.querySelector('.custom-desc').value;
+                if (title) requests.push({ title, desc });
+            });
+
+            // Save Final Data to Firestore
+            await addDoc(collection(db, "submissions"), {
+                email: document.getElementById('email').value,
+                businessName: document.getElementById('business_name').value,
+                industry: document.getElementById('industry').value,
+                brandColor: document.getElementById('brand_color').value,
+                logoUrl: logoUrl,
+                gallery: galleryUrls,
+                customRequests: requests,
+                submittedAt: new Date()
+            });
+
+            alert("Success! Your setup info has been sent.");
+            location.reload(); // Refresh to clear form
+        } catch (error) {
+            console.error(error);
+            alert("Error: " + error.message);
+            btn.innerText = "LAUNCH MY PROJECT";
+            btn.disabled = false;
+        }
+    });
+</script>
 
 </body>
 </html>
+    <p>We use cookies and similar tracking technologies to track the activity on our Services and hold certain information.</p>
+    <ul>
+      <li><strong>Cookies:</strong> Small data files stored on your device.</li>
+      <li><strong>Web Beacons:</strong> Invisible graphics used to monitor activity.</li>
+    </ul>
+    <p>You can manage your cookie preferences through your browser settings.</p>
+
+    <h2>4. Sharing your information</h2>
+    <p>We do not sell your personal information. We may share your information with:</p>
+    <ul>
+      <li>Service providers who perform services on our behalf</li>
+      <li>Legal authorities as required by law</li>
+      <li>Business transfers in case of mergers or acquisitions</li>
+    </ul>
+
+    <h2>5. Your choices</h2>
+    <p>You have choices regarding your information, including:</p>
+    <ul>
+      <li>Accessing and updating your account information</li>
+      <li>Opting out of marketing communications</li>
+      <li>Managing cookies through browser settings</li>
+    </ul>
+
+    <h2>6. Data security</h2>
+    <p>We implement reasonable security measures to protect your information but cannot guarantee absolute security.</p>
+
+    <h2>7. Children's privacy</h2>
+    <p>Our Services are not directed to individuals under 13. We do not knowingly collect personal information from children under 13.</p>
