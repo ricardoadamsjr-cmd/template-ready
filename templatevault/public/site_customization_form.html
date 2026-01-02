@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website Setup Form | Professional</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    </head>
+    
+    <style>
+        :root {
+            --primary: #38bdf8;
+            --primary-hover: #0ea5e9;
+            --bg-gradient: linear-gradient(135deg, #0f172a, #1e293b);
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --text-muted: #94a3b8;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-gradient);
+            background-attachment: fixed;
+            color: #f8fafc;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 60px auto;
+            padding: 20px;
+        }
+
+        .form-header {
+            text-align: center;
+            margin-bottom: 40px;
+            animation: fadeInDown 0.8s ease;
+        }
+
+        .form-header h2 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            background: linear-gradient(to right, #fff, #38bdf8);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .form-section {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            -webkit-backdrop-filter: blur(16px);
+            backdrop-filter: blur(16px);
+            padding: 30px;
+            border-radius: 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            animation: fadeInUp 0.6s ease backwards;
+        }
+
+        /* Staggered animation for sections */
+        .section-1 { animation-delay: 0.1s; }
+        .section-2 { animation-delay: 0.2s; }
+        .section-3 { animation-delay: 0.3s; }
+        .section-4 { animation-delay: 0.4s; }
+
+        h3 {
+            color: var(--primary);
+            font-size: 1.25rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        h3::after {
+            content: "";
+            height: 1px;
+            flex-grow: 1;
+            background: var(--glass-border);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #e2e8f0;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: 10px;
+            border: 1px solid var(--glass-border);
+            background: rgba(15, 23, 42, 0.6);
+            color: #fff;
+            font-size: 1rem;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+            margin-bottom: 20px;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.15);
+            background: rgba(15, 23, 42, 0.8);
+        }
+
+        /* Style for color picker and file inputs */
+        input[type="color"] {
+            height: 50px;
+            padding: 5px;
+            cursor: pointer;
+        }
+
+        input[type="file"] {
+            padding: 10px;
+            font-size: 0.85rem;
+            cursor: pointer;
+        }
+
+        input[type="file"]::file-selector-button {
+            background: var(--primary);
+            border: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            color: #0f172a;
+            font-weight: 600;
+            margin-right: 15px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        input[type="file"]::file-selector-button:hover {
+            background: var(--primary-hover);
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 16px;
+            background: var(--primary);
+            color: #0f172a;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            margin-top: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .submit-btn:hover {
+            background: var(--primary-hover);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(14, 165, 233, 0.3);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .container { margin: 20px auto; padding: 15px; }
+            .form-section { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header class="form-header">
+        <h2>Website Setup</h2>
+        <p style="color: var(--text-muted)">Let's gather the essentials to build your digital presence.</p>
+    </header>
+
+    <form id="setupForm">
+        <div class="form-section section-1">
+            <h3>Business Identity</h3>
+            <label for="email">Account Email Address</label>
+            <input type="email" id="email" name="email" placeholder="email@example.com" required>
+
+            <label for="business_name">Business Name</label>
+            <input type="text" id="business_name" name="business_name" required>
+
+            <label for="tagline">Tagline (optional)</label>
+            <input type="text" id="tagline" name="tagline">
+
+            <label for="industry">Industry</label>
+            <select id="industry" name="industry" required>
+                <option value="" disabled selected>Select your industry</option>
+                <option>Fitness</option>
+                <option>Construction</option>
+                <option>Real Estate</option>
+                <option>Healthcare</option>
+                <option>Legal</option>
+                <option>Other</option>
+            </select>
+        </div>
+
+        <div class="form-section section-2">
+            <h3>Branding & Style</h3>
+            <label for="logo">Upload Logo</label>
+            <input type="file" id="logo" accept="image/*">
+            
+            <label for="brand_style">Brand Personality</label>
+            <select id="brand_style">
+                <option>Modern & Clean</option>
+                <option>Bold & High Contrast</option>
+                <option>Minimal & Light</option>
+            </select>
+
+            <label for="brand_color">Primary Brand Color</label>
+            <input type="color" id="brand_color" value="#38bdf8">
+        </div>
+
+        <div class="form-section section-3">
+            <h3>Visual Assets</h3>
+            <div id="dynamic-images">
+                <div class="image-group">
+                    <label>Image 1</label>
+                    <input type="file" class="gallery-img" accept="image/*">
+                </div>
+            </div>
+            <button type="button" id="addImageBtn" class="secondary-btn">+ Add Image</button>
+        </div>
+
+        <div class="form-section section-4">
+            <h3>Custom Requests</h3>
+            <div id="dynamic-fields"></div>
+            <button type="button" id="addRequestBtn" class="secondary-btn">+ Add Request</button>
+        </div>
+
+        <button type="submit" class="submit-btn" id="submitBtn">Launch My Project</button>
+    </form>
+</div>
+ 
+</div>
+
+<script type="module" src="js/firebase-config.js"></script>
+
+</body>
+</html>
