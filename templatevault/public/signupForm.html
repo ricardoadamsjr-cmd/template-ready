@@ -155,6 +155,7 @@
       await setDoc(doc(db, "users", uid), {
         fullName: fullName,
         company: company || null,
+        uid: user.uid,
         email: email,
         subscriptionStatus: "free",
         createdAt: serverTimestamp()

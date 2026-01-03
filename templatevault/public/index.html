@@ -548,6 +548,7 @@
   // Import Firebase modules
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
   import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
   // Your Firebase config
   const firebaseConfig = {
@@ -562,6 +563,25 @@
   // Initialize Firebase
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
+  const auth = getAuth(app);
+
+//current user email 
+  let currentUserEmail = null;
+
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            currentUserEmail = user.email;
+            document.getElementById('email').value = user.email;
+            // Optional: Disable the email field so they can't change it to someone else's
+            document.getElementById('email').readOnly = true;
+        } else {
+            // If no user is logged in, send them back to login page
+            alert("Please log in first.");
+            window.location.href = "login.html"; 
+        }
+    });
+
+
 
   // Submit handler
   window.submitContactForm = async function (event) {
