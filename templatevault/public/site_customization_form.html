@@ -140,9 +140,11 @@
 </div>
 
 <script type="module">
-    // 1. Firebase Imports
+    // 1. Firebase Imports (Added Storage and Auth)
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
     import { getFirestore, collection, addDoc, query, where, getDocs, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+    import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
     // 2. Your Config
     const firebaseConfig = {
@@ -156,16 +158,22 @@
 
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
+    const storage = getStorage(app);
+    const auth = getAuth(app);
 
-    // --- BUTTON LOGIC ---
+    // Track user state for the Email Bridge
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            document.getElementById('email').value = user.email;
+        }
+    });
 
-    // Add Image Field
+    // --- BUTTON LOGIC (Remains unchanged as requested) ---
     document.getElementById('addImageBtn').addEventListener('click', () => {
         const container = document.getElementById('dynamic-images');
         const div = document.createElement('div');
         div.className = 'image-group';
         div.style = "margin-top: 15px; padding: 15px; background: rgba(255,255,255,0.02); border-radius: 10px;";
-        
         div.innerHTML = `
             <div class="flex-header">
                 <label style="margin:0">Additional Image</label>
@@ -173,18 +181,15 @@
             </div>
             <input type="file" class="gallery-img" accept="image/*" style="margin:0">
         `;
-        
         div.querySelector('.remove-btn').addEventListener('click', () => div.remove());
         container.appendChild(div);
     });
 
-    // Add Request Field (Title + Description)
     document.getElementById('addRequestBtn').addEventListener('click', () => {
         const container = document.getElementById('dynamic-fields');
         const div = document.createElement('div');
         div.className = 'request-group';
         div.style = "margin-top: 15px; padding: 15px; background: rgba(255,255,255,0.03); border-radius: 10px; border: 1px solid var(--glass-border);";
-
         div.innerHTML = `
             <div class="flex-header">
                 <label style="margin:0">Custom Request / Copy</label>
@@ -193,38 +198,72 @@
             <input type="text" class="custom-title" placeholder="Topic (e.g., About Us Text)">
             <textarea class="custom-desc" rows="3" placeholder="Paste your text or description here..." style="margin:0"></textarea>
         `;
-
         div.querySelector('.remove-btn').addEventListener('click', () => div.remove());
         container.appendChild(div);
     });
 
-    // --- FORM SUBMISSION (Customer Check) ---
+    // --- HELPER FUNCTION: Upload File ---
+    async function uploadFile(file, path) {
+        if (!file) return null;
+        const storageRef = ref(storage, path);
+        const snapshot = await uploadBytes(storageRef, file);
+        return await getDownloadURL(snapshot.ref);
+    }
+
+    // --- FORM SUBMISSION ---
     const form = document.getElementById('setupForm');
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
         
         const emailInput = document.getElementById('email').value.trim();
         const btn = document.getElementById('submitBtn');
-        btn.innerText = "VERIFYING...";
+        btn.innerText = "UPLOADING ASSETS...";
         btn.disabled = true;
 
         try {
-            // Check if customer exists in "customers" collection
             const q = query(collection(db, "customers"), where("email", "==", emailInput));
             const querySnapshot = await getDocs(q);
 
             if (!querySnapshot.empty) {
-                // Success - Found them
-                alert("Customer found! Saving your project data...");
+                const uid = auth.currentUser ? auth.currentUser.uid : "anonymous";
                 
+                // 1. Collect Custom Requests (Text data)
+                const customRequests = [];
+                document.querySelectorAll('.request-group').forEach(group => {
+                    customRequests.push({
+                        title: group.querySelector('.custom-title').value,
+                        description: group.querySelector('.custom-desc').value
+                    });
+                });
+
+                // 2. Handle Logo Upload
+                const logoFile = document.getElementById('logo').files[0];
+                const logoUrl = await uploadFile(logoFile, `projects/${uid}/logo_${Date.now()}`);
+
+                // 3. Collect & Upload Gallery Images
+                const galleryUrls = [];
+                const galleryFiles = document.querySelectorAll('.gallery-img');
+                for (let input of galleryFiles) {
+                    if (input.files[0]) {
+                        const url = await uploadFile(input.files[0], `projects/${uid}/gallery_${Date.now()}_${Math.random().toString(36).substring(7)}`);
+                        galleryUrls.push(url);
+                    }
+                }
+
+                // 4. Save everything to Firestore
                 await addDoc(collection(db, "form_submissions"), {
+                    userId: uid,
                     email: emailInput,
                     businessName: document.getElementById('business_name').value,
                     industry: document.getElementById('industry').value,
+                    brandColor: document.getElementById('brand_color').value,
+                    logoUrl: logoUrl,
+                    galleryImages: galleryUrls,
+                    customRequests: customRequests,
                     submittedAt: serverTimestamp()
                 });
 
-                alert("Project Launched! We will contact you shortly.");
+                alert("Project Launched Successfully!");
                 form.reset();
             } else {
                 alert("Email not found. Please use the email associated with your account.");
@@ -238,7 +277,6 @@
         }
     });
 </script>
-
 </body>
 </html>
 
