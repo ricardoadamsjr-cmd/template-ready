@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | Access Form</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #38bdf8;
+            --bg: #0f172a;
+            --glass: rgba(255, 255, 255, 0.05);
+            --border: rgba(255, 255, 255, 0.1);
+        }
+        body { 
+            background: var(--bg); color: white; font-family: 'Inter', sans-serif; 
+            display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; 
+        }
+        .login-card { 
+            background: var(--glass); padding: 40px; border-radius: 20px; 
+            border: 1px solid var(--border); width: 100%; max-width: 400px; backdrop-filter: blur(10px);
+        }
+        h2 { margin-bottom: 20px; text-align: center; color: var(--primary); }
+        input { 
+            width: 100%; padding: 12px; margin-bottom: 15px; border-radius: 8px; 
+            border: 1px solid var(--border); background: rgba(0,0,0,0.2); color: white; box-sizing: border-box;
+        }
+        button { 
+            width: 100%; padding: 12px; border-radius: 8px; border: none; 
+            font-weight: bold; cursor: pointer; transition: 0.3s; margin-bottom: 10px;
+        }
+        .primary-btn { background: var(--primary); color: #0f172a; }
+        .secondary-btn { background: transparent; color: white; border: 1px solid var(--border); }
+        .error-msg { color: #ff4d4d; font-size: 0.85rem; text-align: center; margin-bottom: 10px; display: none; }
+    </style>
+</head>
+<body>
+    <div class="login-card">
+        <h2>Partner Portal</h2>
+        <div id="errorMsg" class="error-msg"></div>
+        <input type="email" id="loginEmail" placeholder="Email Address">
+        <input type="password" id="loginPass" placeholder="Password">
+        
+        <button id="signInBtn" class="primary-btn">Sign In</button>
+        <button id="signUpBtn" class="secondary-btn">Create Account</button>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBhsMRHyuWF-R9MyRKKjzGQC0p-eznYILE",
+            authDomain: "uplift-local.firebaseapp.com",
+            projectId: "uplift-local",
+            storageBucket: "uplift-local.firebasestorage.app",
+            messagingSenderId: "615612260052",
+            appId: "1:615612260052:web:c7cac371c0698314e36541"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const errorDiv = document.getElementById('errorMsg');
+
+        // Sign In Logic
+        document.getElementById('signInBtn').addEventListener('click', async () => {
+            const email = document.getElementById('loginEmail').value;
+            const pass = document.getElementById('loginPass').value;
+            try {
+                await signInWithEmailAndPassword(auth, email, pass);
+                window.location.href = "site_customization_form.html"; 
+            } catch (err) {
+                errorDiv.innerText = "Invalid login credentials.";
+                errorDiv.style.display = "block";
+            }
+        });
+
+        // Sign Up Logic
+        document.getElementById('signUpBtn').addEventListener('click', async () => {
+            const email = document.getElementById('loginEmail').value;
+            const pass = document.getElementById('loginPass').value;
+            try {
+                await createUserWithEmailAndPassword(auth, email, pass);
+                alert("Account created! Redirecting...");
+                window.location.href = "site_customization_form.html";
+            } catch (err) {
+                errorDiv.innerText = err.message;
+                errorDiv.style.display = "block";
+            }
+        });
+    </script>
+</body>
+</html>
