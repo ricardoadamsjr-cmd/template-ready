@@ -140,13 +140,13 @@
 </div>
 
 <script type="module">
-    // 1. Firebase Imports (Added Storage and Auth)
+    // 1. Firebase Imports
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
     import { getFirestore, collection, addDoc, query, where, getDocs, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
     import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js";
     import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
-    // 2. Your Config
+    // 2. Firebase Configuration
     const firebaseConfig = {
         apiKey: "AIzaSyBhsMRHyuWF-R9MyRKKjzGQC0p-eznYILE",
         authDomain: "uplift-local.firebaseapp.com",
@@ -161,14 +161,16 @@
     const storage = getStorage(app);
     const auth = getAuth(app);
 
-    // Track user state for the Email Bridge
+    // Auto-fill email field if user is logged in
     onAuthStateChanged(auth, (user) => {
         if (user) {
             document.getElementById('email').value = user.email;
         }
     });
 
-    // --- BUTTON LOGIC (Remains unchanged as requested) ---
+    // --- DYNAMIC UI LOGIC ---
+    
+    // Add more image upload slots
     document.getElementById('addImageBtn').addEventListener('click', () => {
         const container = document.getElementById('dynamic-images');
         const div = document.createElement('div');
@@ -185,6 +187,7 @@
         container.appendChild(div);
     });
 
+    // Add more text request fields
     document.getElementById('addRequestBtn').addEventListener('click', () => {
         const container = document.getElementById('dynamic-fields');
         const div = document.createElement('div');
@@ -202,10 +205,10 @@
         container.appendChild(div);
     });
 
-    // --- HELPER FUNCTION: Upload File ---
-    async function uploadFile(file, path) {
+    // --- HELPER: Upload to Firebase Storage ---
+    async function uploadFile(file, folderPath) {
         if (!file) return null;
-        const storageRef = ref(storage, path);
+        const storageRef = ref(storage, folderPath);
         const snapshot = await uploadBytes(storageRef, file);
         return await getDownloadURL(snapshot.ref);
     }
@@ -221,13 +224,38 @@
         btn.disabled = true;
 
         try {
+            // Check if user exists in the customers collection
             const q = query(collection(db, "customers"), where("email", "==", emailInput));
             const querySnapshot = await getDocs(q);
 
             if (!querySnapshot.empty) {
-                const uid = auth.currentUser ? auth.currentUser.uid : "anonymous";
-                
-                // 1. Collect Custom Requests (Text data)
+                // Using Email as the Directory ID in storage for organization
+                const folderId = emailInput.replace(/[@.]/g, '_'); 
+
+                // 1. Capture additional details automatically
+                // This grabs values from any standard input fields you have in the form
+                const extraDetails = {
+                    businessName: document.getElementById('business_name')?.value || "",
+                    industry: document.getElementById('industry')?.value || "",
+                    brandColor: document.getElementById('brand_color')?.value || "",
+                    // Add any other specific fields here
+                };
+
+                // 2. Handle Logo Upload
+                const logoFile = document.getElementById('logo').files[0];
+                const logoUrl = await uploadFile(logoFile, `projects/${folderId}/logo_${Date.now()}`);
+
+                // 3. Handle Dynamic Gallery Images
+                const galleryUrls = [];
+                const galleryFiles = document.querySelectorAll('.gallery-img');
+                for (let input of galleryFiles) {
+                    if (input.files[0]) {
+                        const url = await uploadFile(input.files[0], `projects/${folderId}/gallery_${Date.now()}_${Math.random().toString(36).substring(7)}`);
+                        galleryUrls.push(url);
+                    }
+                }
+
+                // 4. Collect Custom Text Requests
                 const customRequests = [];
                 document.querySelectorAll('.request-group').forEach(group => {
                     customRequests.push({
@@ -236,27 +264,11 @@
                     });
                 });
 
-                // 2. Handle Logo Upload
-                const logoFile = document.getElementById('logo').files[0];
-                const logoUrl = await uploadFile(logoFile, `projects/${uid}/logo_${Date.now()}`);
-
-                // 3. Collect & Upload Gallery Images
-                const galleryUrls = [];
-                const galleryFiles = document.querySelectorAll('.gallery-img');
-                for (let input of galleryFiles) {
-                    if (input.files[0]) {
-                        const url = await uploadFile(input.files[0], `projects/${uid}/gallery_${Date.now()}_${Math.random().toString(36).substring(7)}`);
-                        galleryUrls.push(url);
-                    }
-                }
-
-                // 4. Save everything to Firestore
+                // 5. Save to Firestore
                 await addDoc(collection(db, "form_submissions"), {
-                    userId: uid,
+                    userId: emailInput, // Modified: Email is now the User ID
                     email: emailInput,
-                    businessName: document.getElementById('business_name').value,
-                    industry: document.getElementById('industry').value,
-                    brandColor: document.getElementById('brand_color').value,
+                    ...extraDetails,     // Spread operator adds all extra details
                     logoUrl: logoUrl,
                     galleryImages: galleryUrls,
                     customRequests: customRequests,
@@ -269,7 +281,7 @@
                 alert("Email not found. Please use the email associated with your account.");
             }
         } catch (error) {
-            console.error(error);
+            console.error("Submission Error:", error);
             alert("Error: " + error.message);
         } finally {
             btn.innerText = "LAUNCH MY PROJECT";

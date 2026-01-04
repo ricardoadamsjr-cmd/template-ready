@@ -545,19 +545,19 @@
 <!-- Loading Screen -->
 <!--contact form to database-->
 <script type="module">
-  // Import Firebase modules
+  // 1. Improved Firebase Imports
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-  import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+  import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
   import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
-  // Your Firebase config
+  // 2. YOUR REAL CONFIG (Copy this exactly from your Firebase Console)
   const firebaseConfig = {
-    apiKey: "YOUR_API_KEY",
-    authDomain: "YOUR_AUTH_DOMAIN",
-    projectId: "YOUR_PROJECT_ID",
-    storageBucket: "YOUR_STORAGE_BUCKET",
-    messagingSenderId: "YOUR_SENDER_ID",
-    appId: "YOUR_APP_ID"
+    apiKey: "AIzaSyBhsMRHyuWF-R9MyRKKjzGQC0p-eznYILE",
+    authDomain: "uplift-local.firebaseapp.com",
+    projectId: "uplift-local",
+    storageBucket: "uplift-local.firebasestorage.app",
+    messagingSenderId: "615612260052",
+    appId: "1:615612260052:web:c7cac371c0698314e36541"
   };
 
   // Initialize Firebase
@@ -565,47 +565,54 @@
   const db = getFirestore(app);
   const auth = getAuth(app);
 
-//current user email 
-  let currentUserEmail = null;
+  // Track the logged-in user
+  onAuthStateChanged(auth, (user) => {
+    const emailField = document.getElementById('email');
+    if (user && emailField) {
+      emailField.value = user.email;
+      emailField.readOnly = true; // Prevent users from spoofing IDs
+    }
+  });
 
-    onAuthStateChanged(auth, (user) => {
-        if (user) {
-            currentUserEmail = user.email;
-            document.getElementById('email').value = user.email;
-            // Optional: Disable the email field so they can't change it to someone else's
-            document.getElementById('email').readOnly = true;
-        } else {
-            // If no user is logged in, send them back to login page
-            alert("Please log in first.");
-            window.location.href = "login.html"; 
-        }
-    });
-
-
-
-  // Submit handler
+  /**
+   * FORM SUBMISSION LOGIC
+   * We attach it to 'window' so the HTML 'onsubmit' attribute can find it.
+   */
   window.submitContactForm = async function (event) {
     event.preventDefault();
 
-    const name = document.getElementById("name").value.trim();
-    const email = document.getElementById("email").value.trim();
-    const subject = document.getElementById("subject").value.trim();
-    const message = document.getElementById("message").value.trim();
+    // Select the button to show loading state
+    const submitBtn = event.target.querySelector('button');
+    const originalBtnText = submitBtn.innerHTML;
+    
+    // 1. Collect all details (Using Email as the Primary ID)
+    const emailInput = document.getElementById("email").value.trim();
+    const formData = {
+      userId: emailInput,           // REQUIREMENT: Email as User ID
+      name: document.getElementById("name").value.trim(),
+      email: emailInput,
+      subject: document.getElementById("subject").value,
+      message: document.getElementById("message").value.trim(),
+      submittedAt: serverTimestamp() // Better than 'new Date()' for database consistency
+    };
 
     try {
-      await addDoc(collection(db, "contactMessages"), {
-        name,
-        email,
-        subject,
-        message,
-        createdAt: new Date()
-      });
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> SENDING...';
 
-      alert("Message sent successfully!");
-      event.target.reset();
+      // 2. Record to Firestore
+      // Ensure your Firestore Rules allow writes to 'contactMessages'
+      await addDoc(collection(db, "contactMessages"), formData);
+
+      alert("Message recorded successfully!");
+      event.target.reset(); // Clear form
+
     } catch (error) {
-      console.error("Error saving message:", error);
-      alert("There was an error sending your message.");
+      console.error("Firestore Error:", error);
+      alert("Error saving to database: " + error.message);
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = originalBtnText;
     }
   };
 </script>
