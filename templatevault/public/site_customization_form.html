@@ -3,20 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="images/AirStadt_logo.png" type="image/x-icon">
     <title>Website Strategy Form | Professional</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --primary: #38bdf8;
-            --primary-hover: #0ea5e9;
-            --bg-gradient: linear-gradient(135deg, #0f172a, #1e293b);
-            --glass-bg: rgba(255, 255, 255, 0.05);
-            --glass-border: rgba(255, 255, 255, 0.1);
+            --primary: #da781d; /* Warm Amber/Orange */
+            --primary-hover: #f59e0b;
+            --accent: #f97316; /* Deeper Orange */
+            --bg-gradient: linear-gradient(135deg, #0f172a, #1c1917); /* Slate to deep stone */
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(251, 191, 36, 0.15); /* Orange-tinted border */
             --text-muted: #94a3b8;
-            --danger: #ff4d4d;
-            --info: #0ea5e9;
+            --danger: #ef4444;
+            --info: #fbbf24;
         }
 
         body {
@@ -29,81 +29,96 @@
         .form-header { text-align: center; margin-bottom: 20px; }
         .form-header h2 {
             font-size: 2.2rem; margin-bottom: 10px;
-            background: linear-gradient(to right, #fff, #38bdf8);
+            background: linear-gradient(to right, #fff, var(--primary));
             -webkit-background-clip: text; background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        /* Auth Notice Style */
+        /* Auth Notice Style - Warm & Inviting */
         .auth-notice {
-            background: rgba(14, 165, 233, 0.1);
-            border: 1px solid var(--info);
-            padding: 15px 20px;
+            background: rgba(251, 191, 36, 0.08);
+            border: 1px solid rgba(251, 191, 36, 0.3);
+            padding: 20px;
             border-radius: 12px;
             margin-bottom: 30px;
             text-align: center;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            color: #fde68a;
         }
         .auth-link {
+            display: inline-block;
+            margin-top: 10px;
             color: var(--primary);
-            text-decoration: underline;
+            text-decoration: none;
             font-weight: 600;
+            border-bottom: 1px dashed var(--primary);
+            transition: 0.2s;
         }
+        .auth-link:hover { color: #fff; border-bottom-color: #fff; }
 
         .form-section {
             background: var(--glass-bg); border: 1px solid var(--glass-border);
             backdrop-filter: blur(16px); padding: 30px; border-radius: 20px;
-            margin-bottom: 25px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            margin-bottom: 25px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
         }
 
         h3 { color: var(--primary); font-size: 1.25rem; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
         h3::after { content: ""; height: 1px; flex-grow: 1; background: var(--glass-border); }
 
-        label { display: block; margin-bottom: 8px; font-size: 0.95rem; font-weight: 500; color: #e2e8f0; }
+        label { display: block; margin-bottom: 8px; font-size: 0.95rem; font-weight: 500; color: #f1f5f9; }
         .hint { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 12px; display: block; }
 
         input[type="text"], input[type="email"], select, textarea {
             width: 100%; padding: 12px 16px; border-radius: 10px;
             border: 1px solid var(--glass-border); background: rgba(15, 23, 42, 0.6);
             color: #fff; font-size: 1rem; box-sizing: border-box; margin-bottom: 20px;
+            transition: border-color 0.3s;
         }
         
-        input:disabled, select:disabled { opacity: 0.4; cursor: not-allowed; }
+        input:focus, select:focus, textarea:focus {
+            outline: none; border-color: var(--primary);
+        }
+        
+        input:disabled, select:disabled { opacity: 0.3; cursor: not-allowed; }
 
         .checkbox-row {
-            display: flex; align-items: center; gap: 8px; margin-bottom: 20px; margin-top: -10px;
+            display: flex; align-items: center; gap: 10px; margin-bottom: 25px; margin-top: -10px;
         }
-        .checkbox-row input { width: auto; margin: 0; }
-        .checkbox-row label { margin-bottom: 0; font-size: 0.85rem; color: var(--primary); cursor: pointer; }
+        .checkbox-row input[type="checkbox"] { 
+            width: 18px; height: 18px; cursor: pointer; accent-color: var(--accent); 
+        }
+        .checkbox-row label { margin-bottom: 0; font-size: 0.85rem; color: var(--primary); cursor: pointer; opacity: 0.9; }
 
         .option-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-bottom: 20px; }
-        .option-grid.disabled { pointer-events: none; opacity: 0.4; }
+        .option-grid.disabled { pointer-events: none; opacity: 0.3; }
+        
         .option-card {
             background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border);
             padding: 12px; border-radius: 10px; text-align: center; cursor: pointer;
             transition: 0.2s; font-size: 0.9rem; font-weight: 500;
         }
-        .option-card:hover { background: rgba(255,255,255,0.1); }
-        .option-card.selected { background: var(--primary); color: #0f172a; border-color: var(--primary); }
+        .option-card:hover { background: rgba(251, 191, 36, 0.1); border-color: var(--primary); }
+        .option-card.selected { background: var(--primary); color: #1c1917; border-color: var(--primary); font-weight: 700; }
 
         .upload-container {
             border: 2px dashed var(--glass-border);
             padding: 30px; border-radius: 15px; text-align: center;
             background: rgba(15, 23, 42, 0.3); transition: 0.3s;
         }
-        .upload-container:hover { border-color: var(--primary); }
+        .upload-container:hover { border-color: var(--primary); background: rgba(251, 191, 36, 0.03); }
         #file-list { margin-top: 15px; font-size: 0.85rem; color: var(--text-muted); text-align: left; }
         .progress-container { width: 100%; height: 6px; background: rgba(255,255,255,0.1); border-radius: 10px; margin-top: 15px; display: none; }
         #progress-bar { width: 0%; height: 100%; background: var(--primary); border-radius: 10px; transition: width 0.3s; }
 
-        .service-row, .inspiration-row { display: flex; gap: 10px; align-items: flex-start; margin-bottom: 5px; }
+        .service-row, .inspiration-row { display: flex; gap: 10px; align-items: flex-start; margin-bottom: 10px; }
         .secondary-btn {
-            background: rgba(56, 189, 248, 0.1); color: var(--primary);
+            background: rgba(251, 191, 36, 0.05); color: var(--primary);
             border: 1px dashed var(--primary); padding: 12px;
             border-radius: 10px; cursor: pointer; width: 100%;
             font-weight: 600; transition: 0.3s; margin-bottom: 20px;
         }
-        .secondary-btn:hover { background: rgba(56, 189, 248, 0.2); }
+        .secondary-btn:hover { background: rgba(251, 191, 36, 0.15); }
         
         .remove-btn {
             background: transparent; color: var(--danger);
@@ -114,12 +129,13 @@
 
         .submit-btn {
             width: 100%; padding: 18px; background: var(--primary);
-            color: #0f172a; border: none; border-radius: 12px;
+            color: #1c1917; border: none; border-radius: 12px;
             font-size: 1.1rem; font-weight: 700; cursor: pointer;
             text-transform: uppercase; letter-spacing: 1px; transition: 0.3s;
+            box-shadow: 0 4px 15px rgba(251, 191, 36, 0.2);
         }
-        .submit-btn:hover { background: var(--primary-hover); transform: translateY(-2px); }
-        .submit-btn:disabled { background: #475569; cursor: not-allowed; }
+        .submit-btn:hover { background: var(--primary-hover); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(251, 191, 36, 0.3); }
+        .submit-btn:disabled { background: #475569; cursor: not-allowed; box-shadow: none; }
     </style>
 </head>
 <body>
@@ -127,16 +143,15 @@
 <div class="container">
     <header class="form-header">
         <h2>Website Strategy & Design</h2>
-        <p style="color: var(--text-muted)">Help us understand the soul of your business.</p>
+        <p style="color: var(--text-muted)">Let's craft the visual soul of your brand.</p>
     </header>
 
     <div class="auth-notice">
         <p>
             Please ensure you are <strong>signed in</strong> with the email address where you received your invitation. 
-            This ensures your strategy is correctly linked to your account.
-            <br><br>
-            <a href="https://template-ready-bwa6.onrender.com/loginForm.html" target="_blank" class="auth-link">Switch Account or Sign In &rarr;</a>
+            This ensures your strategy is correctly linked to your project files.
         </p>
+        <a href="https://template-ready-bwa6.onrender.com/loginForm.html" target="_blank" rel="noopener noreferrer" class="auth-link">Switch Account or Sign In &rarr;</a>
     </div>
 
     <form id="strategyForm">
@@ -144,7 +159,7 @@
             <h3>1. Business Identity</h3>
             <label for="email">Account Email Address</label>
             <input type="email" id="email" placeholder="email@example.com" required readonly>
-            <span class="hint">Your account email is automatically linked.</span>
+            <span class="hint">The account currently logged in.</span>
 
             <label for="business_name">Business Name</label>
             <input type="text" id="business_name" placeholder="e.g. Acme Corporation" required>
@@ -174,7 +189,7 @@
             </div>
             <div class="checkbox-row">
                 <input type="checkbox" id="decide_personality">
-                <label for="decide_personality">Let us decide for you</label>
+                <label for="decide_personality">Let us decide what fits your brand best</label>
             </div>
 
             <label>Color Direction</label>
@@ -189,7 +204,7 @@
             </select>
             <div class="checkbox-row">
                 <input type="checkbox" id="decide_color">
-                <label for="decide_color">Let us decide for you</label>
+                <label for="decide_color">Let us choose the color palette</label>
             </div>
 
             <label>Typography Feel</label>
@@ -203,13 +218,12 @@
             </select>
             <div class="checkbox-row">
                 <input type="checkbox" id="decide_typography">
-                <label for="decide_typography">Let us decide for you</label>
+                <label for="decide_typography">Let us handle the font selection</label>
             </div>
         </div>
 
         <div class="form-section">
             <h3>3. Strategy & Tone</h3>
-
             <label>Marketing Style</label>
             <select id="marketing_style" required>
                 <option value="" disabled selected>Choose persuasion style</option>
@@ -243,7 +257,6 @@
 
         <div class="form-section">
             <h3>4. Services & Focus</h3>
-            <label>List your services <span class="hint">(Short phrases only)</span></label>
             <div id="services-container">
                 <div class="service-row">
                     <input type="text" class="service-name" placeholder="e.g. Personal Training" required>
@@ -252,13 +265,13 @@
             <button type="button" id="addServiceBtn" class="secondary-btn">+ Add Additional Service</button>
 
             <label>Which service is your primary focus?</label>
-            <select id="primary_focus" required><option value="" disabled selected>Add services above...</option></select>
+            <select id="primary_focus" required><option value="" disabled selected>Add services...</option></select>
 
             <label>Which service is most profitable?</label>
-            <select id="profitable_service" required><option value="" disabled selected>Add services above...</option></select>
+            <select id="profitable_service" required><option value="" disabled selected>Add services...</option></select>
 
             <label>Which service do you want more customers for?</label>
-            <select id="growth_service" required><option value="" disabled selected>Add services above...</option></select>
+            <select id="growth_service" required><option value="" disabled selected>Add services...</option></select>
         </div>
 
         <div class="form-section">
@@ -266,23 +279,20 @@
             <label for="inspiration">Tell us about your business?</label>
             <textarea id="inspiration" rows="3" placeholder="Describe what drives you or your business..."></textarea>
             
-            <label>Additional Inspiration Links or References</label>
+            <label>Additional Inspiration</label>
+            <span class="hint">Links to websites you like or brands you admire.</span>
             <div id="additional-inspiration-container"></div>
             <button type="button" id="addInspirationBtn" class="secondary-btn">+ Add Additional Inspiration</button>
         </div>
 
         <div class="form-section">
             <h3>6. Brand Assets</h3>
-            <label>Upload Logos or Style Inspiration</label>
-            <span class="hint">Upload up to 5 images (PNG, JPG, or SVG) that represent your brand.</span>
-            
             <div class="upload-container">
                 <input type="file" id="imageUpload" accept="image/*" multiple style="display: none;">
                 <button type="button" class="secondary-btn" onclick="document.getElementById('imageUpload').click()">
                     Choose Files
                 </button>
-                <div id="file-list">No files selected</div>
-                
+                <div id="file-list">No files selected (Max 5)</div>
                 <div class="progress-container" id="prog-container">
                     <div id="progress-bar"></div>
                 </div>
@@ -344,34 +354,6 @@
     setupDecideLogic('decide_color', 'color_direction');
     setupDecideLogic('decide_typography', 'typography');
 
-    const fileInput = document.getElementById('imageUpload');
-    const fileListDisplay = document.getElementById('file-list');
-
-    fileInput.addEventListener('change', () => {
-        const files = Array.from(fileInput.files);
-        if (files.length > 5) {
-            alert("Please select a maximum of 5 images.");
-            fileInput.value = "";
-            fileListDisplay.innerHTML = "No files selected";
-            return;
-        }
-        fileListDisplay.innerHTML = files.map(f => `• ${f.name}`).join('<br>');
-    });
-
-    document.querySelectorAll('.option-card').forEach(card => {
-        card.addEventListener('click', () => {
-            const parent = card.parentElement;
-            if (parent.classList.contains('disabled')) return;
-            const max = parseInt(parent.dataset.max || 1);
-            const selected = parent.querySelectorAll('.selected');
-            if (card.classList.contains('selected')) {
-                card.classList.remove('selected');
-            } else if (selected.length < max) {
-                card.classList.add('selected');
-            }
-        });
-    });
-
     const servicesContainer = document.getElementById('services-container');
     const syncDropdowns = () => {
         const names = Array.from(document.querySelectorAll('.service-name'))
@@ -408,6 +390,31 @@
         div.innerHTML = `<input type="text" class="inspiration-extra" placeholder="Link or brand name..."><button type="button" class="remove-btn">✕</button>`;
         div.querySelector('.remove-btn').addEventListener('click', () => div.remove());
         inspoContainer.appendChild(div);
+    });
+
+    document.querySelectorAll('.option-card').forEach(card => {
+        card.addEventListener('click', () => {
+            const parent = card.parentElement;
+            if (parent.classList.contains('disabled')) return;
+            const max = parseInt(parent.dataset.max || 1);
+            const selected = parent.querySelectorAll('.selected');
+            if (card.classList.contains('selected')) {
+                card.classList.remove('selected');
+            } else if (selected.length < max) {
+                card.classList.add('selected');
+            }
+        });
+    });
+
+    const fileInput = document.getElementById('imageUpload');
+    fileInput.addEventListener('change', () => {
+        const files = Array.from(fileInput.files);
+        if (files.length > 5) {
+            alert("Please select a maximum of 5 images.");
+            fileInput.value = "";
+            return;
+        }
+        document.getElementById('file-list').innerHTML = files.map(f => `• ${f.name}`).join('<br>');
     });
 
     document.getElementById('strategyForm').addEventListener('submit', async (e) => {
@@ -468,9 +475,8 @@
 
         } catch (err) {
             alert("Error: " + err.message);
-        } finally {
-            btn.innerText = "COMPLETE SETUP";
             btn.disabled = false;
+            btn.innerText = "COMPLETE SETUP";
         }
     });
 </script>
