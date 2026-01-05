@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Website Setup Form | Professional</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <title>Website Strategy Form | Professional</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
         :root {
@@ -18,66 +18,71 @@
         }
 
         body {
-            margin: 0;
-            font-family: 'Inter', sans-serif;
-            background: var(--bg-gradient);
-            background-attachment: fixed;
-            color: #f8fafc;
-            line-height: 1.6;
+            margin: 0; font-family: 'Inter', sans-serif;
+            background: var(--bg-gradient); background-attachment: fixed;
+            color: #f8fafc; line-height: 1.6;
         }
 
-        .container { max-width: 700px; margin: 60px auto; padding: 20px; }
+        .container { max-width: 800px; margin: 40px auto; padding: 20px; }
         .form-header { text-align: center; margin-bottom: 40px; }
         .form-header h2 {
-            font-size: 2.5rem; margin-bottom: 10px;
+            font-size: 2.2rem; margin-bottom: 10px;
             background: linear-gradient(to right, #fff, #38bdf8);
             -webkit-background-clip: text; background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
         .form-section {
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            backdrop-filter: blur(16px);
-            padding: 30px; border-radius: 20px;
-            margin-bottom: 25px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            background: var(--glass-bg); border: 1px solid var(--glass-border);
+            backdrop-filter: blur(16px); padding: 30px; border-radius: 20px;
+            margin-bottom: 25px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
         }
 
         h3 { color: var(--primary); font-size: 1.25rem; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
         h3::after { content: ""; height: 1px; flex-grow: 1; background: var(--glass-border); }
 
-        label { display: block; margin-bottom: 8px; font-size: 0.9rem; font-weight: 500; color: #e2e8f0; }
+        label { display: block; margin-bottom: 8px; font-size: 0.95rem; font-weight: 500; color: #e2e8f0; }
+        .hint { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 12px; display: block; }
+
         input, select, textarea {
             width: 100%; padding: 12px 16px; border-radius: 10px;
             border: 1px solid var(--glass-border); background: rgba(15, 23, 42, 0.6);
             color: #fff; font-size: 1rem; box-sizing: border-box; margin-bottom: 20px;
         }
 
+        .option-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-bottom: 20px; }
+        .option-card {
+            background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border);
+            padding: 12px; border-radius: 10px; text-align: center; cursor: pointer;
+            transition: 0.2s; font-size: 0.9rem; font-weight: 500;
+        }
+        .option-card:hover { background: rgba(255,255,255,0.1); }
+        .option-card.selected { background: var(--primary); color: #0f172a; border-color: var(--primary); }
+
+        /* Dynamic Service Styles */
+        .service-row { display: flex; gap: 10px; align-items: flex-start; margin-bottom: 5px; }
         .secondary-btn {
             background: rgba(56, 189, 248, 0.1); color: var(--primary);
             border: 1px dashed var(--primary); padding: 12px;
             border-radius: 10px; cursor: pointer; width: 100%;
-            font-weight: 600; transition: 0.3s; margin-bottom: 10px;
+            font-weight: 600; transition: 0.3s; margin-bottom: 20px;
         }
         .secondary-btn:hover { background: rgba(56, 189, 248, 0.2); }
-
+        
         .remove-btn {
             background: transparent; color: var(--danger);
-            border: 1px solid var(--danger); padding: 5px 12px;
-            border-radius: 6px; cursor: pointer; font-size: 0.8rem;
-            font-weight: 600; transition: 0.3s;
+            border: 1px solid var(--danger); height: 46px; padding: 0 15px;
+            border-radius: 10px; cursor: pointer; font-weight: 600; transition: 0.3s;
         }
         .remove-btn:hover { background: var(--danger); color: #fff; }
 
-        .flex-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
-
         .submit-btn {
-            width: 100%; padding: 16px; background: var(--primary);
+            width: 100%; padding: 18px; background: var(--primary);
             color: #0f172a; border: none; border-radius: 12px;
             font-size: 1.1rem; font-weight: 700; cursor: pointer;
-            text-transform: uppercase; letter-spacing: 1px;
+            text-transform: uppercase; letter-spacing: 1px; transition: 0.3s;
         }
+        .submit-btn:hover { background: var(--primary-hover); transform: translateY(-2px); }
         .submit-btn:disabled { background: #475569; cursor: not-allowed; }
     </style>
 </head>
@@ -85,13 +90,13 @@
 
 <div class="container">
     <header class="form-header">
-        <h2>Website Setup</h2>
-        <p style="color: var(--text-muted)">Finalize your project details and launch your presence.</p>
+        <h2>Website Strategy & Design</h2>
+        <p style="color: var(--text-muted)">Help us understand the soul of your business.</p>
     </header>
 
-    <form id="setupForm">
+    <form id="strategyForm">
         <div class="form-section">
-            <h3>Business Identity</h3>
+            <h3>1. Business Identity</h3>
             <label for="email">Account Email Address</label>
             <input type="email" id="email" placeholder="email@example.com" required>
 
@@ -110,43 +115,115 @@
         </div>
 
         <div class="form-section">
-            <h3>Branding & Style</h3>
-            <label for="logo">Upload Logo</label>
-            <input type="file" id="logo" accept="image/*">
+            <h3>2. Visual Identity</h3>
+            <label>Brand Personality <span class="hint">(Select up to 2)</span></label>
+            <div class="option-grid" data-max="2" id="personality-grid">
+                <div class="option-card" data-value="Professional">Professional & Trustworthy</div>
+                <div class="option-card" data-value="Friendly">Friendly & Approachable</div>
+                <div class="option-card" data-value="Bold">Bold & Energetic</div>
+                <div class="option-card" data-value="Calm">Calm & Minimal</div>
+                <div class="option-card" data-value="Luxury">Luxury & Premium</div>
+                <div class="option-card" data-value="Creative">Creative & Expressive</div>
+            </div>
 
-            <label for="brand_color">Primary Brand Color</label>
-            <input type="color" id="brand_color" value="#38bdf8">
+            <label>Color Direction</label>
+            <select id="color_direction" required>
+                <option value="" disabled selected>Select a direction</option>
+                <option>Light & Airy</option>
+                <option>Dark & Bold</option>
+                <option>Earthy & Natural</option>
+                <option>Bright & Vibrant</option>
+                <option>Neutral & Minimal</option>
+                <option>I’m open</option>
+            </select>
+
+            <label>Typography Feel</label>
+            <select id="typography" required>
+                <option value="" disabled selected>Select text style</option>
+                <option>Modern & Clean (Sans-serif)</option>
+                <option>Classic & Trustworthy (Serif)</option>
+                <option>Friendly & Soft (Rounded)</option>
+                <option>Bold & Strong (Condensed)</option>
+                <option>Artistic & Unique (Handwritten)</option>
+            </select>
         </div>
 
         <div class="form-section">
-            <h3>Visual Assets</h3>
-            <div id="dynamic-images">
-                <div class="image-group" style="margin-bottom: 20px;">
-                    <label>Image 1</label>
-                    <input type="file" class="gallery-img" accept="image/*">
+            <h3>3. Layout & Strategy</h3>
+            <label>Layout Style</label>
+            <select id="layout_style" required>
+                <option value="" disabled selected>Choose a feel</option>
+                <option>Very Clean & Minimal</option>
+                <option>Balanced & Modern</option>
+                <option>Information-rich & Detailed</option>
+            </select>
+
+            <label>Marketing Style</label>
+            <select id="marketing_style" required>
+                <option value="" disabled selected>Choose persuasion style</option>
+                <option>Soft & Trust-building (Pull)</option>
+                <option>Direct & Action-focused (Push)</option>
+                <option>A Mix of Both</option>
+            </select>
+
+            <label>Imagery Style</label>
+            <select id="imagery_style" required>
+                <option value="" disabled selected>Select preference</option>
+                <option>Real photos of people</option>
+                <option>Real photos of your work</option>
+                <option>High-end stock photography</option>
+                <option>Illustrations</option>
+                <option>Icons & simple graphics</option>
+                <option>I’m open</option>
+            </select>
+
+            <label>Tone of Voice</label>
+            <select id="tone_of_voice" required>
+                <option value="" disabled selected>Select tone</option>
+                <option>Professional</option>
+                <option>Friendly</option>
+                <option>Bold</option>
+                <option>Inspirational</option>
+                <option>Calm</option>
+                <option>Playful</option>
+            </select>
+        </div>
+
+        <div class="form-section">
+            <h3>4. Services & Focus</h3>
+            <label>List your services <span class="hint">(Short phrases only)</span></label>
+            <div id="services-container">
+                <div class="service-row">
+                    <input type="text" class="service-name" placeholder="e.g. Personal Training" required>
                 </div>
             </div>
-            <button type="button" id="addImageBtn" class="secondary-btn">+ Add Another Image</button>
+            <button type="button" id="addServiceBtn" class="secondary-btn">+ Add Additional Service</button>
+
+            <label>Which service is your primary focus?</label>
+            <select id="primary_focus" required><option value="" disabled selected>Add services above...</option></select>
+
+            <label>Which service is most profitable?</label>
+            <select id="profitable_service" required><option value="" disabled selected>Add services above...</option></select>
+
+            <label>Which service do you want more customers for?</label>
+            <select id="growth_service" required><option value="" disabled selected>Add services above...</option></select>
         </div>
 
         <div class="form-section">
-            <h3>Additional Customizations</h3>
-            <div id="dynamic-fields"></div>
-            <button type="button" id="addRequestBtn" class="secondary-btn">+ Add Custom Request</button>
+            <h3>5. Inspiration Signals</h3>
+            <label for="inspiration">Tell us about or you business ?</label>
+            <textarea id="inspiration" rows="3" placeholder="Discribe what drives you or your business..."></textarea>
         </div>
 
-        <button type="submit" id="submitBtn" class="submit-btn">Launch My Project</button>
+        <button type="submit" id="submitBtn" class="submit-btn">Complete Setup</button>
     </form>
 </div>
 
 <script type="module">
-    // 1. Firebase Imports
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
     import { getFirestore, collection, addDoc, query, where, getDocs, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-    import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js";
     import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
-    // 2. Firebase Configuration
     const firebaseConfig = {
         apiKey: "AIzaSyBhsMRHyuWF-R9MyRKKjzGQC0p-eznYILE",
         authDomain: "uplift-local.firebaseapp.com",
@@ -158,172 +235,118 @@
 
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
-    const storage = getStorage(app);
     const auth = getAuth(app);
 
-    // Auto-fill email field if user is logged in
     onAuthStateChanged(auth, (user) => {
-        if (user) {
-            document.getElementById('email').value = user.email;
-        }
+        if (user) { document.getElementById('email').value = user.email; }
     });
 
-    // --- DYNAMIC UI LOGIC ---
-    
-    // Add more image upload slots
-    document.getElementById('addImageBtn').addEventListener('click', () => {
-        const container = document.getElementById('dynamic-images');
+    // --- MULTI-SELECT LOGIC ---
+    document.querySelectorAll('.option-card').forEach(card => {
+        card.addEventListener('click', () => {
+            const parent = card.parentElement;
+            const max = parseInt(parent.dataset.max || 1);
+            const selected = parent.querySelectorAll('.selected');
+            if (card.classList.contains('selected')) {
+                card.classList.remove('selected');
+            } else if (selected.length < max) {
+                card.classList.add('selected');
+            }
+        });
+    });
+
+    // --- DYNAMIC SERVICES LOGIC ---
+    const servicesContainer = document.getElementById('services-container');
+    const addServiceBtn = document.getElementById('addServiceBtn');
+
+    // Function to sync dropdowns with whatever is in the text fields
+    const syncDropdowns = () => {
+        const names = Array.from(document.querySelectorAll('.service-name'))
+            .map(i => i.value.trim())
+            .filter(v => v !== "");
+
+        const selects = ['primary_focus', 'profitable_service', 'growth_service'];
+        selects.forEach(id => {
+            const select = document.getElementById(id);
+            const savedVal = select.value;
+            select.innerHTML = '<option value="" disabled selected>Select a service</option>';
+            names.forEach(name => {
+                const opt = document.createElement('option');
+                opt.value = name;
+                opt.textContent = name;
+                if(name === savedVal) opt.selected = true;
+                select.appendChild(opt);
+            });
+        });
+    };
+
+    // Event Delegation for typing in service fields
+    servicesContainer.addEventListener('input', (e) => {
+        if(e.target.classList.contains('service-name')) syncDropdowns();
+    });
+
+    // Add new service field
+    addServiceBtn.addEventListener('click', () => {
         const div = document.createElement('div');
-        div.className = 'image-group';
-        div.style = "margin-top: 15px; padding: 15px; background: rgba(255,255,255,0.02); border-radius: 10px;";
+        div.className = 'service-row';
         div.innerHTML = `
-            <div class="flex-header">
-                <label style="margin:0">Additional Image</label>
-                <button type="button" class="remove-btn">Delete</button>
-            </div>
-            <input type="file" class="gallery-img" accept="image/*" style="margin:0">
+            <input type="text" class="service-name" placeholder="e.g. New Service">
+            <button type="button" class="remove-btn">✕</button>
         `;
-        div.querySelector('.remove-btn').addEventListener('click', () => div.remove());
-        container.appendChild(div);
+        div.querySelector('.remove-btn').addEventListener('click', () => {
+            div.remove();
+            syncDropdowns();
+        });
+        servicesContainer.appendChild(div);
     });
 
-    // Add more text request fields
-    document.getElementById('addRequestBtn').addEventListener('click', () => {
-        const container = document.getElementById('dynamic-fields');
-        const div = document.createElement('div');
-        div.className = 'request-group';
-        div.style = "margin-top: 15px; padding: 15px; background: rgba(255,255,255,0.03); border-radius: 10px; border: 1px solid var(--glass-border);";
-        div.innerHTML = `
-            <div class="flex-header">
-                <label style="margin:0">Custom Request / Copy</label>
-                <button type="button" class="remove-btn">Remove</button>
-            </div>
-            <input type="text" class="custom-title" placeholder="Topic (e.g., About Us Text)">
-            <textarea class="custom-desc" rows="3" placeholder="Paste your text or description here..." style="margin:0"></textarea>
-        `;
-        div.querySelector('.remove-btn').addEventListener('click', () => div.remove());
-        container.appendChild(div);
-    });
-
-    // --- HELPER: Upload to Firebase Storage ---
-    async function uploadFile(file, folderPath) {
-        if (!file) return null;
-        const storageRef = ref(storage, folderPath);
-        const snapshot = await uploadBytes(storageRef, file);
-        return await getDownloadURL(snapshot.ref);
-    }
-
-    // --- FORM SUBMISSION ---
-    const form = document.getElementById('setupForm');
-    form.addEventListener('submit', async (e) => {
+    // --- SUBMISSION ---
+    document.getElementById('strategyForm').addEventListener('submit', async (e) => {
         e.preventDefault();
-        
-        const emailInput = document.getElementById('email').value.trim();
         const btn = document.getElementById('submitBtn');
-        btn.innerText = "UPLOADING ASSETS...";
+        const email = document.getElementById('email').value.trim();
+        
+        btn.innerText = "SAVING...";
         btn.disabled = true;
 
+        const personality = Array.from(document.querySelectorAll('#personality-grid .selected')).map(el => el.dataset.value);
+        const services = Array.from(document.querySelectorAll('.service-name')).map(el => el.value.trim()).filter(v => v !== "");
+
         try {
-            // Check if user exists in the customers collection
-            const q = query(collection(db, "customers"), where("email", "==", emailInput));
-            const querySnapshot = await getDocs(q);
+            const q = query(collection(db, "customers"), where("email", "==", email));
+            const snap = await getDocs(q);
 
-            if (!querySnapshot.empty) {
-                // Using Email as the Directory ID in storage for organization
-                const folderId = emailInput.replace(/[@.]/g, '_'); 
-
-                // 1. Capture additional details automatically
-                // This grabs values from any standard input fields you have in the form
-                const extraDetails = {
-                    businessName: document.getElementById('business_name')?.value || "",
-                    industry: document.getElementById('industry')?.value || "",
-                    brandColor: document.getElementById('brand_color')?.value || "",
-                    // Add any other specific fields here
-                };
-
-                // 2. Handle Logo Upload
-                const logoFile = document.getElementById('logo').files[0];
-                const logoUrl = await uploadFile(logoFile, `projects/${folderId}/logo_${Date.now()}`);
-
-                // 3. Handle Dynamic Gallery Images
-                const galleryUrls = [];
-                const galleryFiles = document.querySelectorAll('.gallery-img');
-                for (let input of galleryFiles) {
-                    if (input.files[0]) {
-                        const url = await uploadFile(input.files[0], `projects/${folderId}/gallery_${Date.now()}_${Math.random().toString(36).substring(7)}`);
-                        galleryUrls.push(url);
-                    }
-                }
-
-                // 4. Collect Custom Text Requests
-                const customRequests = [];
-                document.querySelectorAll('.request-group').forEach(group => {
-                    customRequests.push({
-                        title: group.querySelector('.custom-title').value,
-                        description: group.querySelector('.custom-desc').value
-                    });
-                });
-
-                // 5. Save to Firestore
+            if (!snap.empty) {
                 await addDoc(collection(db, "form_submissions"), {
-                    userId: emailInput, // Modified: Email is now the User ID
-                    email: emailInput,
-                    ...extraDetails,     // Spread operator adds all extra details
-                    logoUrl: logoUrl,
-                    galleryImages: galleryUrls,
-                    customRequests: customRequests,
+                    email: email,
+                    businessName: document.getElementById('business_name').value,
+                    industry: document.getElementById('industry').value,
+                    brandPersonality: personality,
+                    colorDirection: document.getElementById('color_direction').value,
+                    typography: document.getElementById('typography').value,
+                    layoutStyle: document.getElementById('layout_style').value,
+                    marketingStyle: document.getElementById('marketing_style').value,
+                    imageryStyle: document.getElementById('imagery_style').value,
+                    toneOfVoice: document.getElementById('tone_of_voice').value,
+                    servicesList: services, // Array of all added services
+                    primaryFocus: document.getElementById('primary_focus').value,
+                    mostProfitable: document.getElementById('profitable_service').value,
+                    growthTarget: document.getElementById('growth_service').value,
+                    inspirationNote: document.getElementById('inspiration').value,
                     submittedAt: serverTimestamp()
                 });
-
-                alert("Project Launched Successfully!");
-                form.reset();
+                alert("Success!");
+                location.reload(); 
             } else {
-                alert("Email not found. Please use the email associated with your account.");
+                alert("Email not recognized.");
             }
-        } catch (error) {
-            console.error("Submission Error:", error);
-            alert("Error: " + error.message);
+        } catch (err) {
+            alert("Error: " + err.message);
         } finally {
-            btn.innerText = "LAUNCH MY PROJECT";
+            btn.innerText = "COMPLETE SETUP";
             btn.disabled = false;
         }
     });
 </script>
 </body>
 </html>
-
-
-
-
-
-
-
-</html>
-    <p>We use cookies and similar tracking technologies to track the activity on our Services and hold certain information.</p>
-    <ul>
-      <li><strong>Cookies:</strong> Small data files stored on your device.</li>
-      <li><strong>Web Beacons:</strong> Invisible graphics used to monitor activity.</li>
-    </ul>
-    <p>You can manage your cookie preferences through your browser settings.</p>
-
-    <h2>4. Sharing your information</h2>
-    <p>We do not sell your personal information. We may share your information with:</p>
-    <ul>
-      <li>Service providers who perform services on our behalf</li>
-      <li>Legal authorities as required by law</li>
-      <li>Business transfers in case of mergers or acquisitions</li>
-    </ul>
-
-    <h2>5. Your choices</h2>
-    <p>You have choices regarding your information, including:</p>
-    <ul>
-      <li>Accessing and updating your account information</li>
-      <li>Opting out of marketing communications</li>
-      <li>Managing cookies through browser settings</li>
-    </ul>
-
-    <h2>6. Data security</h2>
-    <p>We implement reasonable security measures to protect your information but cannot guarantee absolute security.</p>
-
-    <h2>7. Children's privacy</h2>
-    <p>Our Services are not directed to individuals under 13. We do not knowingly collect personal information from children under 13.</p>
