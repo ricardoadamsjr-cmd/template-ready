@@ -59,7 +59,17 @@
         .option-card:hover { background: rgba(255,255,255,0.1); }
         .option-card.selected { background: var(--primary); color: #0f172a; border-color: var(--primary); }
 
-        /* Dynamic Service Styles */
+        /* Custom Upload Styles */
+        .upload-container {
+            border: 2px dashed var(--glass-border);
+            padding: 30px; border-radius: 15px; text-align: center;
+            background: rgba(15, 23, 42, 0.3); transition: 0.3s;
+        }
+        .upload-container:hover { border-color: var(--primary); }
+        #file-list { margin-top: 15px; font-size: 0.85rem; color: var(--text-muted); text-align: left; }
+        .progress-container { width: 100%; height: 6px; background: rgba(255,255,255,0.1); border-radius: 10px; margin-top: 15px; display: none; }
+        #progress-bar { width: 0%; height: 100%; background: var(--primary); border-radius: 10px; transition: width 0.3s; }
+
         .service-row { display: flex; gap: 10px; align-items: flex-start; margin-bottom: 5px; }
         .secondary-btn {
             background: rgba(56, 189, 248, 0.1); color: var(--primary);
@@ -211,18 +221,39 @@
 
         <div class="form-section">
             <h3>5. Inspiration Signals</h3>
-            <label for="inspiration">Tell us about or you business ?</label>
-            <textarea id="inspiration" rows="3" placeholder="Discribe what drives you or your business..."></textarea>
+            <label for="inspiration">Tell us about your business?</label>
+            <textarea id="inspiration" rows="3" placeholder="Describe what drives you or your business..."></textarea>
+        </div>
+
+        <div class="form-section">
+            <h3>6. Brand Assets</h3>
+            <label>Upload Logos or Style Inspiration</label>
+            <span class="hint">Upload up to 5 images (PNG, JPG, or SVG) that represent your brand.</span>
+            
+            <div class="upload-container">
+                <input type="file" id="imageUpload" accept="image/*" multiple style="display: none;">
+                <button type="button" class="secondary-btn" onclick="document.getElementById('imageUpload').click()">
+                    Choose Files
+                </button>
+                <div id="file-list">No files selected</div>
+                
+                <div class="progress-container" id="prog-container">
+                    <div id="progress-bar"></div>
+                </div>
+            </div>
         </div>
 
         <button type="submit" id="submitBtn" class="submit-btn">Complete Setup</button>
     </form>
 </div>
 
+
+
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
     import { getFirestore, collection, addDoc, query, where, getDocs, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
     import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+    import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js";
 
     const firebaseConfig = {
         apiKey: "AIzaSyBhsMRHyuWF-R9MyRKKjzGQC0p-eznYILE",
@@ -236,12 +267,29 @@
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
     const auth = getAuth(app);
+    const storage = getStorage(app);
 
+    // --- AUTH STATE ---
     onAuthStateChanged(auth, (user) => {
         if (user) { document.getElementById('email').value = user.email; }
     });
 
-    // --- MULTI-SELECT LOGIC ---
+    // --- FILE SELECTION UI ---
+    const fileInput = document.getElementById('imageUpload');
+    const fileListDisplay = document.getElementById('file-list');
+
+    fileInput.addEventListener('change', () => {
+        const files = Array.from(fileInput.files);
+        if (files.length > 5) {
+            alert("Please select a maximum of 5 images.");
+            fileInput.value = "";
+            fileListDisplay.innerHTML = "No files selected";
+            return;
+        }
+        fileListDisplay.innerHTML = files.map(f => `• ${f.name}`).join('<br>');
+    });
+
+    // --- MULTI-SELECT PERSONALITY ---
     document.querySelectorAll('.option-card').forEach(card => {
         card.addEventListener('click', () => {
             const parent = card.parentElement;
@@ -255,91 +303,95 @@
         });
     });
 
-    // --- DYNAMIC SERVICES LOGIC ---
+    // --- DYNAMIC SERVICES ---
     const servicesContainer = document.getElementById('services-container');
-    const addServiceBtn = document.getElementById('addServiceBtn');
-
-    // Function to sync dropdowns with whatever is in the text fields
     const syncDropdowns = () => {
         const names = Array.from(document.querySelectorAll('.service-name'))
-            .map(i => i.value.trim())
-            .filter(v => v !== "");
-
-        const selects = ['primary_focus', 'profitable_service', 'growth_service'];
-        selects.forEach(id => {
+            .map(i => i.value.trim()).filter(v => v !== "");
+        ['primary_focus', 'profitable_service', 'growth_service'].forEach(id => {
             const select = document.getElementById(id);
             const savedVal = select.value;
             select.innerHTML = '<option value="" disabled selected>Select a service</option>';
             names.forEach(name => {
                 const opt = document.createElement('option');
-                opt.value = name;
-                opt.textContent = name;
+                opt.value = name; opt.textContent = name;
                 if(name === savedVal) opt.selected = true;
                 select.appendChild(opt);
             });
         });
     };
 
-    // Event Delegation for typing in service fields
     servicesContainer.addEventListener('input', (e) => {
         if(e.target.classList.contains('service-name')) syncDropdowns();
     });
 
-    // Add new service field
-    addServiceBtn.addEventListener('click', () => {
+    document.getElementById('addServiceBtn').addEventListener('click', () => {
         const div = document.createElement('div');
         div.className = 'service-row';
-        div.innerHTML = `
-            <input type="text" class="service-name" placeholder="e.g. New Service">
-            <button type="button" class="remove-btn">✕</button>
-        `;
-        div.querySelector('.remove-btn').addEventListener('click', () => {
-            div.remove();
-            syncDropdowns();
-        });
+        div.innerHTML = `<input type="text" class="service-name" placeholder="e.g. New Service"><button type="button" class="remove-btn">✕</button>`;
+        div.querySelector('.remove-btn').addEventListener('click', () => { div.remove(); syncDropdowns(); });
         servicesContainer.appendChild(div);
     });
 
-    // --- SUBMISSION ---
+    // --- SUBMISSION LOGIC ---
     document.getElementById('strategyForm').addEventListener('submit', async (e) => {
         e.preventDefault();
         const btn = document.getElementById('submitBtn');
-        const email = document.getElementById('email').value.trim();
+        const user = auth.currentUser;
         
-        btn.innerText = "SAVING...";
+        if (!user) { alert("Please log in to save your progress."); return; }
+
+        btn.innerText = "UPLOADING...";
         btn.disabled = true;
 
-        const personality = Array.from(document.querySelectorAll('#personality-grid .selected')).map(el => el.dataset.value);
-        const services = Array.from(document.querySelectorAll('.service-name')).map(el => el.value.trim()).filter(v => v !== "");
+        const files = fileInput.files;
+        const uploadedUrls = [];
+        const progContainer = document.getElementById('prog-container');
+        const progBar = document.getElementById('progress-bar');
 
         try {
-            const q = query(collection(db, "customers"), where("email", "==", email));
-            const snap = await getDocs(q);
-
-            if (!snap.empty) {
-                await addDoc(collection(db, "form_submissions"), {
-                    email: email,
-                    businessName: document.getElementById('business_name').value,
-                    industry: document.getElementById('industry').value,
-                    brandPersonality: personality,
-                    colorDirection: document.getElementById('color_direction').value,
-                    typography: document.getElementById('typography').value,
-                    layoutStyle: document.getElementById('layout_style').value,
-                    marketingStyle: document.getElementById('marketing_style').value,
-                    imageryStyle: document.getElementById('imagery_style').value,
-                    toneOfVoice: document.getElementById('tone_of_voice').value,
-                    servicesList: services, // Array of all added services
-                    primaryFocus: document.getElementById('primary_focus').value,
-                    mostProfitable: document.getElementById('profitable_service').value,
-                    growthTarget: document.getElementById('growth_service').value,
-                    inspirationNote: document.getElementById('inspiration').value,
-                    submittedAt: serverTimestamp()
-                });
-                alert("Success!");
-                location.reload(); 
-            } else {
-                alert("Email not recognized.");
+            // 1. Upload Images
+            if (files.length > 0) {
+                progContainer.style.display = 'block';
+                for (let i = 0; i < files.length; i++) {
+                    const file = files[i];
+                    const storageRef = ref(storage, `users/${user.uid}/assets/${Date.now()}_${file.name}`);
+                    const snapshot = await uploadBytes(storageRef, file);
+                    const url = await getDownloadURL(snapshot.ref);
+                    uploadedUrls.push(url);
+                    progBar.style.width = `${((i + 1) / files.length) * 100}%`;
+                }
             }
+
+            // 2. Collect Form Data
+            const personality = Array.from(document.querySelectorAll('#personality-grid .selected')).map(el => el.dataset.value);
+            const services = Array.from(document.querySelectorAll('.service-name')).map(el => el.value.trim()).filter(v => v !== "");
+
+            // 3. Save to Firestore
+            await addDoc(collection(db, "form_submissions"), {
+                uid: user.uid,
+                email: document.getElementById('email').value.trim(),
+                businessName: document.getElementById('business_name').value,
+                industry: document.getElementById('industry').value,
+                brandPersonality: personality,
+                colorDirection: document.getElementById('color_direction').value,
+                typography: document.getElementById('typography').value,
+                layoutStyle: document.getElementById('layout_style').value,
+                marketingStyle: document.getElementById('marketing_style').value,
+                imageryStyle: document.getElementById('imagery_style').value,
+                toneOfVoice: document.getElementById('tone_of_voice').value,
+                servicesList: services,
+                primaryFocus: document.getElementById('primary_focus').value,
+                mostProfitable: document.getElementById('profitable_service').value,
+                growthTarget: document.getElementById('growth_service').value,
+                inspirationNote: document.getElementById('inspiration').value,
+                assetUrls: uploadedUrls,
+                submittedAt: serverTimestamp()
+            });
+
+            alert("Strategy saved successfully!");
+            location.reload(); 
+
         } catch (err) {
             alert("Error: " + err.message);
         } finally {
