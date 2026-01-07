@@ -598,7 +598,7 @@
    * FORM SUBMISSION LOGIC
    * We attach it to 'window' so the HTML 'onsubmit' attribute can find it.
    */
-  window.submitContactForm = async function(event) {
+ window.submitContactForm = async function(event) {
     event.preventDefault();
 
     const formData = {
@@ -614,19 +614,15 @@
       submitBtn.disabled = true;
       submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> SENDING...';
 
-      // Send to webhook
+      // Send to webhook ONLY
       await fetch("https://eoh48vww5h1tcsh.m.pipedream.net", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(formData)
       });
 
-      // Record to Firestore
-      // Ensure your Firestore Rules allow writes to 'contactMessages'
-      await addDoc(collection(db, "contactMessages"), formData);
-
       alert("Message sent successfully!");
-      event.target.reset(); // Clear form
+      event.target.reset();
 
     } catch (error) {
       console.error("Error:", error);
@@ -636,7 +632,8 @@
       submitBtn.disabled = false;
       submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Send Message';
     }
-  };
+};
+
 </script>
 
 
