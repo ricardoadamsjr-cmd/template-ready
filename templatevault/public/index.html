@@ -426,9 +426,7 @@
                     -->
                     
             <div class="contact-item">
-                <form class="contact-form" 
-                    action="https://eoh48vww5h1tcsh.m.pipedream.net" 
-                    method="POST">
+                <form class="contact-form" action="https://eoh2tas57la7ws2.m.pipedream.net" method="POST">
 
                         <div class="form-group">
                             <input type="text" name="name" placeholder="Your Name" required>
@@ -436,26 +434,23 @@
 
                         <div class="form-group">
                             <input type="email" name="email" placeholder="Your Email" required>
+                                </div>
+                        <div class="form-group">
+                                <select name="subject" required title="Select a subject for your inquiry">
+                                    <option value="">Select Subject</option>
+                                    <option value="general">General Inquiry</option>
+                                    <option value="support">Technical Support</option>
+                                    <option value="billing">Billing Question</option>
+                                    <option value="partnership">Partnership</option>
+                                </select>
                         </div>
-
                 <div class="form-group">
-                        <select name="subject" required>
-                            <option value="">Select Subject</option>
-                            <option value="general">General Inquiry</option>
-                            <option value="support">Technical Support</option>
-                            <option value="billing">Billing Question</option>
-                            <option value="partnership">Partnership</option>
-                        </select>
+                    <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
                 </div>
-
-    <div class="form-group">
-        <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
-    </div>
-
-    <button type="submit" class="form-submit">
-        <i class="fas fa-paper-plane"></i> Send Message
-    </button>
-</form>
+                <button type="submit" class="form-submit">
+                    <i class="fas fa-paper-plane"></i> Send Message
+                </button>
+            </form>
 
 
             </div>
@@ -574,40 +569,70 @@
 <!--contact form to database-->
 <script type="module">
   // 1. Improved Firebase Imports
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-  import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-
+  import { initializeApp } from "firebase/app";
+import { getFirestore, collection, addDoc, serverTimestamp } from "firebase/firestore";
+import 'dotenv/config'; // Loads your keys from a .env file
+import cors from 'cors';
   // 2. YOUR REAL CONFIG (Copy this exactly from your Firebase Console)
   const firebaseConfig = {
-    apiKey: "AIzaSyBhsMRHyuWF-R9MyRKKjzGQC0p-eznYILE",
-    authDomain: "uplift-local.firebaseapp.com",
-    projectId: "uplift-local",
-    storageBucket: "uplift-local.firebasestorage.app",
-    messagingSenderId: "615612260052",
-    appId: "1:615612260052:web:c7cac371c0698314e36541"
+    apiKey: prcess.env.VITE_FIREBASE_API_KEY,
+    authDomain: process.env.VITE_FIREBASE_AUTH_DOMAIN,
+    projectId: prcess.env.VITE_FIREBASE_PROJECT_ID,
+    storageBucket: process.env.VITE_FIREBASE_STORAGE_BUCKET,
+    messagingSenderId: process.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+    appId: process.env.VITE_FIREBASE_APP_ID
   };
+
+
 
   // Initialize Firebase
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
   const auth = getAuth(app);
 
-  // Track the logged-in user
-  onAuthStateChanged(auth, (user) => {
+
+  ///////////handles for data from via server.js////////////////
+const contactForm = document.getElementById('contactForm');
+
+contactForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    // Collect data from the form
+    const formData = {
+        name: document.getElementById('contactName').value,
+        email: document.getElementById('contactEmail').value,
+        subject: document.getElementById('contactSubject').value,
+        message: document.getElementById('contactMessage').value
+    };
+
+    try {
+        // Send data to your Node.js server instead of directly to Firebase
+        const response = await fetch("http://localhost:3000/api/contact", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(formData)
+        });
+
+        if (response.ok) {
+            alert("Message sent via Node.js server!");
+            contactForm.reset();
+        } else {
+            throw new Error("Server responded with an error");
+        }
+    } catch (err) {
+        console.error("Frontend Error:", err);
+        alert("Failed to connect to the server.");
+    }
+});
+
+// Track the logged-in user
+onAuthStateChanged(auth, (user) => {
     const emailField = document.getElementById('email');
     if (user && emailField) {
-      emailField.value = user.email;
-      emailField.readOnly = true; // Prevent users from spoofing IDs
+        emailField.value = user.email;
+        emailField.readOnly = true; // Prevent users from spoofing IDs
     }
-  });
-
-  /**
-   * FORM SUBMISSION LOGIC
-   * We attach it to 'window' so the HTML 'onsubmit' attribute can find it.
-   */
- 
-
+});
 </script>
 
 
