@@ -426,7 +426,7 @@
                     -->
                     
             <div class="contact-item">
-                <form class="contact-form" action="https://eoh2tas57la7ws2.m.pipedream.net" method="POST">
+                <form class="contactform" action="https://eoh2tas57la7ws2.m.pipedream.net" method="POST">
 
                         <div class="form-group">
                             <input type="text" name="name" placeholder="Your Name" required>
@@ -569,7 +569,7 @@
 <!--contact form to database-->
 <script type="module">
   // 1. Improved Firebase Imports
-  import { initializeApp } from "firebase/app";
+import { initializeApp } from "firebase/app";
 import { getFirestore, collection, addDoc, serverTimestamp } from "firebase/firestore";
 import 'dotenv/config'; // Loads your keys from a .env file
 import cors from 'cors';
