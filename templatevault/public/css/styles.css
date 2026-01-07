@@ -1086,13 +1086,14 @@ input:checked + .toggle-slider:before {
 
 .contact-item {
     display: flex;
-    align-items: center;
-    gap: 1.5rem;
-    padding: 2rem;
+    flex-direction: column; /* Changed from default row to give form more room */
+    align-items: stretch;   /* Allows children to fill width */
+    padding: 2rem;          /* Increased padding for a better look */
     background: white;
     border-radius: var(--border-radius);
     box-shadow: var(--shadow-light);
     transition: var(--transition);
+    width: 100%;            /* Ensure container takes full width of its parent */
 }
 
 .contact-item:hover {
@@ -1124,10 +1125,21 @@ input:checked + .toggle-slider:before {
 }
 
 .contact-form {
+    margin: 0 auto;         /* Centers the form */
+    width: 100%;            /* Forces it to take up available space */
+    max-width: 1200px;      /* Increased from 800px to 1200px */
     background: white;
-    padding: 3rem;
+    padding: 2rem;          /* Increased internal spacing */
     border-radius: 20px;
     box-shadow: var(--shadow-light);
+}
+
+/* Ensure inputs take up the full width of the wider form */
+.form-group input, 
+.form-group select, 
+.form-group textarea {
+    width: 100%;
+    box-sizing: border-box; /* Prevents padding from breaking width */
 }
 
 .form-group {
@@ -1492,9 +1504,7 @@ input:checked + .toggle-slider:before {
         width: calc(100% - 2rem);
     }
     
-    .contact-form {
-        padding: 2rem;
-    }
+    
 }
 
 @media (max-width: 480px) {
