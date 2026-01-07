@@ -607,7 +607,7 @@ contactForm.addEventListener('submit', async (e) => {
 
     try {
         // Send data to your Node.js server instead of directly to Firebase
-        const response = await fetch("http://localhost:3000/api/contact", {
+        const response = await fetch("https://airstadt-api.onrender.com/api/contact", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(formData)
