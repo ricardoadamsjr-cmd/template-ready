@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Preview | Customization</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* One single dark color for the entire page */
+            --bg-dark: #0f172a; 
+            --primary: #da781d;
+            --primary-hover: #f59e0b;
+            --border: rgba(251, 191, 36, 0.2);
+        }
+
+        /* Applying the color to both html and body to prevent white gaps */
+        html, body {
+            background-color: var(--bg-dark);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            color: #f8fafc;
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Top Navigation Bar */
+        .nav-header {
+            width: 100%;
+            padding: 20px 0;
+            display: flex;
+            justify-content: center;
+            background: #0f172a; /* Solid color, no transparency */
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .return-btn {
+            background-color: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            padding: 10px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+        }
+
+        .return-btn:hover {
+            background-color: var(--primary);
+            color: #1c1917;
+        }
+
+        /* Main Content Area */
+        .preview-container {
+            max-width: 1000px;
+            width: 90%;
+            margin: 40px auto;
+            text-align: center;
+            background-color: var(--bg-dark); /* Same as background */
+        }
+
+        .preview-title h1 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+
+        .preview-title p {
+            color: #94a3b8;
+            margin-bottom: 30px;
+        }
+
+        /* Removed the lighter 'image-wrapper' background */
+        .image-wrapper {
+            background: transparent; 
+            padding: 0;
+            border-radius: 12px;
+            border: 1px solid var(--border); /* Keeps the subtle orange border */
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+            overflow: hidden;
+        }
+
+        .preview-image {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .footer-note {
+            margin: 60px 0;
+            color: #64748b;
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="nav-header">
+        <a href="index.html" class="return-btn">← Return Home</a>
+    </header>
+
+    <main class="preview-container">
+        <div class="preview-title">
+            <h1>Form Preview</h1>
+            <p>This is a visual guide of the customization steps you'll complete.</p>
+        </div>
+
+        <div class="image-wrapper">
+            <img src="images/customization_form_preview.jpeg" alt="Customization Form Preview" class="preview-image">
+        </div>
+
+        <div class="footer-note">
+            &copy; 2026 Your Brand Name
+        </div>
+    </main>
+
+</body>
+</html>
