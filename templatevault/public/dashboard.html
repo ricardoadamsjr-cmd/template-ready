@@ -717,7 +717,7 @@
                 downloads: 1250,
                 rating: 4.8,
                 image: "images/card_image_homebuilder2.png",   // path to your image
-                demoUrl: "https://ricardoadamsjr-cmd.github.io/HomeBuilders/", // link to demo site
+                demoUrl: "https://airstadt.github.io/Homebuilders/", // link to demo site
             },
             {
                 id: 2,
@@ -914,6 +914,10 @@ function generateTemplateCard(template) {
                                         class="purchase-btn template-subscribe-btn" data-url="https://payhip.com/b/IOGdt">
                                         Purchase
                                     </button>
+                                    <button
+                                        class="purchase-btn template-subscribe-btn" data-url="https://airstadt.github.io/Homebuilders/">
+                                        Preview
+                                    </button>
 
                                 <div class="stat">
                                     <i class="fas fa-dollar-sign"></i>
@@ -924,6 +928,8 @@ function generateTemplateCard(template) {
                                     <span>Monthly: $100</span>
                                 </div>
                               `
+
+                              
                             : template.id === 2
                             ? `
                                 <!-- Pricing for CARD 2 -->
@@ -936,6 +942,8 @@ function generateTemplateCard(template) {
                                     <span>Monthly: $60</span>
                                 </div>
                               `
+
+
                               //start copy here code this code modifies the purchase button and pricing
                               : template.id === 3
                             ? `
