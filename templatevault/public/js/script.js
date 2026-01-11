@@ -187,7 +187,7 @@ function filterTemplates(filter) {
 function initializeFavorites() {
     updateFavoriteButtons();
 }
-
+/*
 function toggleFavorite(button) {
     const templateCard = button.closest('.template-card');
     const templateTitle = templateCard.querySelector('.template-title').textContent;
@@ -223,7 +223,7 @@ function updateFavoriteButtons() {
         }
     });
 }
-
+*/
 // Form handling
 function initializeFormHandling() {
     // Contact form
