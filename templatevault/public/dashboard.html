@@ -447,7 +447,7 @@
         }
 
         .card-image i {
-            font-size: 3rem;
+            font-size: 3.5rem;
             color: #ff6b35;
             z-index: 2;
             position: relative;
@@ -727,18 +727,19 @@
                 tags: ["Creative", "Portfolio", "Modern"],
                 downloads: 890,
                 rating: 4.9,
-                 image: "images/fitnesssnippet.png",   // path to your image
+                image: "images/fitnesssnippet.png",   // path to your image
                 demoUrl: "https://demo.corporatepro.com" // link to demo site
             },
             {
                 id: 3,
-                title: "E-Shop Master",
+                title: "Plumber Pro",
                 description: "Complete e-commerce solution with shopping cart and payment integration",
                 category: "ecommerce",
                 tags: ["E-commerce", "Shopping", "Payment"],
                 downloads: 2100,
                 rating: 4.7,
-                icon: "fas fa-shopping-cart"
+                image: "sitepreview/plumber_site_preview.png",   // path to your image image width 1000px standard
+                demoUrl: "https:" // link to demo site
             },
             /*  card 4 
             {
@@ -947,15 +948,25 @@ function generateTemplateCard(template) {
                               //start copy here code this code modifies the purchase button and pricing
                               : template.id === 3
                             ? `
-                                <!-- Pricing for CARD 3 -->
+                                 <!-- Pricing for CARD 1 -->
+                                <!-- Purchase button -->
+                                    <button
+                                        class="purchase-btn template-subscribe-btn" data-url="https://payhip.com/b/IOGdt">
+                                        Purchase
+                                    </button>
+                                    <button
+                                        class="purchase-btn template-subscribe-btn" data-url="https://airstadt.github.io/Homebuilders/">
+                                        Preview
+                                    </button>
+
                                 <div class="stat">
                                     <i class="fas fa-dollar-sign"></i>
-                                    <span>Setup: $200</span>
+                                    <span>Setup: $300</span>
                                 </div>
                                 <div class="stat">
                                     <i class="fas fa-calendar-alt"></i>
-                                    <span>Monthly: $60</span>
-                                </div> 
+                                    <span>Monthly: $100</span>
+                                </div>
                               `
                               //end copy here code 
                               //card 12
