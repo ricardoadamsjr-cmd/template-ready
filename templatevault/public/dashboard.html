@@ -727,7 +727,7 @@
                 tags: ["Creative", "Portfolio", "Modern"],
                 downloads: 890,
                 rating: 4.9,
-                image: "images/fitnesssnippet.png",   // path to your image
+                image: "sitepreview/fitpro_card.jpeg",   // path to your image
                 demoUrl: "https://demo.corporatepro.com" // link to demo site
             },
             {
@@ -933,14 +933,24 @@ function generateTemplateCard(template) {
                               
                             : template.id === 2
                             ? `
-                                <!-- Pricing for CARD 2 -->
+                                <!-- Pricing for CARD 1 -->
+                                <!-- Purchase button -->
+                                    <button
+                                        class="purchase-btn template-subscribe-btn" data-url="https://payhip.com/b/IOGdt">
+                                        Purchase
+                                    </button>
+                                    <button
+                                        class="purchase-btn template-subscribe-btn" data-url="https://airstadt.github.io/Homebuilders/">
+                                        Preview
+                                    </button>
+
                                 <div class="stat">
                                     <i class="fas fa-dollar-sign"></i>
-                                    <span>Setup: $200</span>
+                                    <span>Setup: $300</span>
                                 </div>
                                 <div class="stat">
                                     <i class="fas fa-calendar-alt"></i>
-                                    <span>Monthly: $60</span>
+                                    <span>Monthly: $100</span>
                                 </div>
                               `
 
