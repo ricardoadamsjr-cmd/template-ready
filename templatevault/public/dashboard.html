@@ -441,6 +441,110 @@
             animation: shimmer 3s ease-in-out infinite;
         }
 
+/* 4. FOOTER STYLING (Spans full width at bottom) */
+        .footer {
+            background: #1a1a1a;
+            color: white;
+            padding: 40px 0 20px;
+            width: 100%;
+            margin-top: auto; /* Safety fallback for sticky bottom */
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 40px;
+        }
+
+        .footer-section h4 {
+            color: #ff6b35;
+            margin-bottom: 15px;
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-link {
+            color: #ccc;
+            text-decoration: none;
+            font-size: 0.9rem;
+            line-height: 2;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            margin-top: auto;
+            border-top: 1px solid #333;
+            font-size: 0.8rem;
+            color: #777;
+        }
+
+        @media (max-width: 768px) {
+            .footer-content { grid-template-columns: 1fr; text-align: center; }
+        }
+
+
+.social-link {
+    width: 50px;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.social-link:hover {
+    background: var(--primary-color);
+    transform: translateY(-3px);
+}
+
+.footer-links {
+    list-style: none;
+}
+
+.footer-links li {
+    margin-bottom: 0.8rem;
+}
+
+.footer-link {
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.footer-link:hover {
+    color: var(--primary-color);
+}
+
+.footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.footer-copyright {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.footer-legal {
+    display: flex;
+    gap: 2rem;
+}
+
         @keyframes shimmer {
             0% { transform: translateX(-100%); }
             100% { transform: translateX(100%); }
@@ -1008,7 +1112,10 @@ function generateTemplateCard(template) {
             </div>
         </div>
     `;
+
+    
 }
+
 
 
 
@@ -1192,6 +1299,33 @@ document.addEventListener("click", (e) => {
 
 
    <!-- Firebase v9 CDN -->
-
+<!-- Footer -->
+   <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Airastadt SiteFlow</h4>
+                <p>Premium websites designed for entrepreneurs and startups who want to launch fast and scale quickly.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul class="footer-links">
+                    <li><a href="index.html#home" class="footer-link">Home</a></li>
+                    <li><a href="index.html#templates" class="footer-link">Websites</a></li>
+                    <li><a href="index.html#pricing" class="footer-link">Pricing</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Legal</h4>
+                <ul class="footer-links">
+                    <li><a href="privacy.html" class="footer-link">Privacy Policy</a></li>
+                    <li><a href="termsofservice.html" class="footer-link">Terms of Service</a></li>
+                    <li><a href="cookie_policy.html" class="footer-link">Cookie Policy</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Airastadt SiteFlow. All rights reserved.</p>
+        </div>
+    </footer>
 </body>
 </html>
