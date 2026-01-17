@@ -845,18 +845,19 @@
                 image: "sitepreview/plumber_site_preview.png",   // path to your image image width 1000px standard
                 demoUrl: "https://airstadt.github.io/plumber/" // link to demo site
             },
-            /*  card 4 
+           
             {
                 id: 4,
-                title: "Blog Central",
-                description: "Clean and minimal blog template with SEO optimization",
-                category: "blog",
-                tags: ["Blog", "SEO", "Minimal"],
+                title: "Electrician Pro",
+                description: "WEBSITE COMING ON 1-20-26",
+                category: "Specialist",
+                tags: ["Electrician", "specialist", "Minimal"],
                 downloads: 750,
                 rating: 4.6,
-                icon: "fas fa-blog"
+                image: "sitepreview/Electrician_dashboard.png",   // path to your image image width 1000px standard
+                demoUrl: "https://airstadt.github.io/plumber/" // link to demo site
             },
-            */
+            
             /*  card 5 
             {
                 id: 5,
@@ -1016,14 +1017,13 @@ function generateTemplateCard(template) {
                                 <!-- Pricing for CARD 1 -->
                                 <!-- Purchase button -->
                                     <button
-                                        class="purchase-btn template-subscribe-btn" data-url="https://payhip.com/b/IOGdt">
+                                        class="purchase-btn template-subscribe-btn" data-url="https://payhip.com/b/IOGdt" >
                                         Purchase
                                     </button>
                                     <button
                                         class="purchase-btn template-subscribe-btn" data-url="https://airstadt.github.io/Homebuilders/">
                                         Preview
                                     </button>
-
                                 <div class="stat">
                                     <i class="fas fa-dollar-sign"></i>
                                     <span>Setup: $300</span>
@@ -1064,25 +1064,55 @@ function generateTemplateCard(template) {
                             ? `
                                  <!-- Pricing for CARD 1 -->
                                 <!-- Purchase button -->
-                                    <button
+                                <button
                                         class="purchase-btn template-subscribe-btn" data-url="https://payhip.com/b/aJELU">
                                         Purchase
                                     </button>
-                                    <button
+                                <button
                                         class="purchase-btn template-subscribe-btn" data-url="https://airstadt.github.io/plumber/">
                                         Preview
                                     </button>
-
                                 <div class="stat">
                                     <i class="fas fa-dollar-sign"></i>
                                     <span>Setup: $400</span>
                                 </div>
+
                                 <div class="stat">
                                     <i class="fas fa-calendar-alt"></i>
                                     <span>Monthly: $120</span>
                                 </div>
                               `
-                              //end copy here code 
+                                //end copy here code 
+
+                              //start copy here code this code modifies the purchase button and pricing
+                              //Remove the button inline styles to activate the button
+                              //add link to store
+                              //Add preview link
+                              : template.id === 4
+                            ? `
+                                 <!-- Pricing for CARD 1 -->
+                                <!-- Purchase button -->
+                                <button
+                                        class="purchase-btn template-subscribe-btn" data-url="https://payhip.com/b/aJELU" 
+                                        style="background:#ccc; color:#666; opacity:0.6; pointer-events:none; cursor:not-allowed;"> 
+                                        Purchase
+                                    </button>
+                                 <button
+                                        class="purchase-btn template-subscribe-btn" data-url="https://airstadt.github.io/plumber/" 
+                                        style="background:#ccc; color:#666; opacity:0.6; pointer-events:none; cursor:not-allowed;">
+                                        Preview
+                                    </button>
+                                <div class="stat">
+                                    <i class="fas fa-dollar-sign"></i>
+                                    <span>Setup: $400</span>
+                                </div>
+
+                                <div class="stat">
+                                    <i class="fas fa-calendar-alt"></i>
+                                    <span>Monthly: $120</span>
+                                </div>
+                              `
+                                //end copy here code 
                               //card 12
                               
                             : `
