@@ -858,18 +858,19 @@
                 demoUrl: "https://airstadt.github.io/plumber/" // link to demo site
             },
             
-            /*  card 5 
+            
             {
                 id: 5,
-                title: "Landing Master",
+                title: "Care Giver",
                 description: "High-converting landing page template with call-to-action focus",
-                category: "landing",
-                tags: ["Landing", "Conversion", "CTA"],
+                category: "Healthcare",
+                tags: ["Healthcare", "Conversion", "CTA"],
                 downloads: 1680,
                 rating: 4.8,
-                icon: "fas fa-rocket"
+                image: "sitepreview/caregiver.preview_rev2.jpeg",   // path to your image image width 1000px standard
+                demoUrl: "https://airstadt.github.io/plumber/" // link to demo site
             },
-            */
+            
             /*  card 6 
             {
                 id: 6,
@@ -1089,6 +1090,35 @@ function generateTemplateCard(template) {
                               //add link to store
                               //Add preview link
                               : template.id === 4
+                            ? `
+                                 <!-- Pricing for CARD 1 -->
+                                <!-- Purchase button -->
+                                <button
+                                        class="purchase-btn template-subscribe-btn" data-url="https://payhip.com/b/aJELU" 
+                                        style="background:#ccc; color:#666; opacity:0.6; pointer-events:none; cursor:not-allowed;"> 
+                                        Purchase
+                                    </button>
+                                 <button
+                                        class="purchase-btn template-subscribe-btn" data-url="https://airstadt.github.io/plumber/" 
+                                        style="background:#ccc; color:#666; opacity:0.6; pointer-events:none; cursor:not-allowed;">
+                                        Preview
+                                    </button>
+                                <div class="stat">
+                                    <i class="fas fa-dollar-sign"></i>
+                                    <span>Setup: $400</span>
+                                </div>
+
+                                <div class="stat">
+                                    <i class="fas fa-calendar-alt"></i>
+                                    <span>Monthly: $120</span>
+                                </div>
+                              `
+                                //end copy here code 
+                                //start copy here code this code modifies the purchase button and pricing
+                              //Remove the button inline styles to activate the button
+                              //add link to store
+                              //Add preview link
+                              : template.id === 5
                             ? `
                                  <!-- Pricing for CARD 1 -->
                                 <!-- Purchase button -->
