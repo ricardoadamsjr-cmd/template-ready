@@ -442,48 +442,36 @@
         }
 
 /* 4. FOOTER STYLING (Spans full width at bottom) */
-        .footer {
-            background: #1a1a1a;
-            color: white;
-            padding: 40px 0 20px;
-            width: 100%;
-            margin-top: auto; /* Safety fallback for sticky bottom */
-        }
+       /* Container for the copyright and logo */
+.footer-bottom {
+    text-align: center; /* Fallback for older browsers */
+    padding: 20px 0;
+    border-top: 1px solid #ececec; /* Optional: adds a separator line */
+}
 
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr;
-            gap: 40px;
-        }
+.footer-bottom-content {
+    display: flex;
+    flex-direction: column; /* Stacks logo on top of text */
+    align-items: center;    /* Centers items horizontally */
+    justify-content: center;
+    gap: 10px;              /* Space between logo and text */
+}
 
-        .footer-section h4 {
-            color: #ff6b35;
-            margin-bottom: 15px;
-        }
+/* Logo Sizing */
+.footer-logo {
+    width: auto;            /* Maintains aspect ratio */
+    height: 40px;           /* Adjust this value to change size */
+    max-width: 150px;       /* Ensures it doesn't get too big on mobile */
+    margin-bottom: 5px;     /* Extra spacing control */
+    display: block;
+}
 
-        .footer-links {
-            list-style: none;
-            padding: 0;
-        }
-
-        .footer-link {
-            color: #ccc;
-            text-decoration: none;
-            font-size: 0.9rem;
-            line-height: 2;
-        }
-
-        .footer-bottom {
-            text-align: center;
-            padding-top: 20px;
-            margin-top: auto;
-            border-top: 1px solid #333;
-            font-size: 0.8rem;
-            color: #777;
-        }
+/* Optional: Styling for the text itself */
+.footer-bottom p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #666;
+}
 
         @media (max-width: 768px) {
             .footer-content { grid-template-columns: 1fr; text-align: center; }
