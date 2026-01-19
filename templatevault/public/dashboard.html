@@ -18,6 +18,10 @@
 
 
     <script type="module">
+        firebase.initializeApp(firebaseConfig);
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
     //this code is for firebase v9 and it is for getting the user's email and protecting the page
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
         import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
@@ -35,9 +39,7 @@
 
 
         // Initialize once
-        firebase.initializeApp(firebaseConfig);
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
+        
 
         // Protect the page
         onAuthStateChanged(auth, (user) => {
@@ -101,61 +103,40 @@
 
 
 <script type="module">
-    ////////HANDLES PURCHASE BUTTON /////////////////
-  // 1. Import the necessary v9 functions
-  import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
+
+  // Use the existing auth if available, otherwise initialize it
 
   let currentUser = null;
 
-  // 2. Track Auth State changes (use the auth from the first module)
-  onAuthStateChanged(window.auth || getAuth(), (user) => {
+  onAuthStateChanged(auth, (user) => {
     if (user) {
       currentUser = user;
       console.log('✅ Purchase system ready for:', user.email);
     } else {
       currentUser = null;
-      console.log('❌ Purchase system: No user logged in');
     }
   });
 
-  // 3. Handle the click event
   document.addEventListener("click", function (e) {
-    // Use .closest in case there's an icon or span inside the button
     const btn = e.target.closest(".purchase-btn");
-    
-    if (btn) {
-      // Prevent default link behavior if it's an <a> tag
-      e.preventDefault();
+    if (!btn) return; // Exit if the clicked element isn't a purchase button
 
-      if (!currentUser) {
-        alert("You must be logged in to purchase.");
-        // Optional: redirect to login
-        // window.location.href = "/loginForm.html";
-        return;
-      }
+    e.preventDefault();
 
-      const email = currentUser.email;
-      const baseUrl = btn.getAttribute("data-url");
+    if (!currentUser) {
+      alert("Please wait for the page to load or log in to continue.");
+      return;
+    }
 
-      if (!baseUrl) {
-        console.error('Purchase button missing data-url attribute');
-        alert('Purchase URL is missing.');
-        return;
-      }
+    const email = currentUser.email;
+    const baseUrl = btn.getAttribute("data-url");
 
-      // 4. Construct the URL (handling existing query params)
+    if (baseUrl) {
       const separator = baseUrl.includes("?") ? "&" : "?";
       const finalUrl = `${baseUrl}${separator}email=${encodeURIComponent(email)}`;
-
-      console.log('Redirecting to Payhip:', finalUrl);
-
-      // Optional: store for Pipedream or other flows
-      localStorage.setItem("userEmail", email);
       
-      // Add loading state to UI
-      document.body.classList.add("loading");
-
-      // 5. Redirect to Payhip
+      console.log('Redirecting:', finalUrl);
       window.location.href = finalUrl;
     }
   });
@@ -1077,12 +1058,15 @@ function generateTemplateCard(template) {
                             ? `
                                 <!-- Pricing for CARD 1 -->
                                 <!-- Purchase button -->
-                                    <button
-                                        class="purchase-btn template-subscribe-btn" data-url="https://payhip.com/b/IOGdt" >
-                                        Purchase
-                                    </button>
-                                    <button
-                                        class="purchase-btn template-subscribe-btn" data-url="https://airstadt.github.io/Homebuilders/">
+                                    <button 
+                                            class="purchase-btn template-subscribe-btn" 
+                                            onclick="window.open('https://payhip.com/b/IOGdt', '_blank')">
+                            
+                                            Purchase
+                                </button>
+                                    <button 
+                                        class="template-subscribe-btn" 
+                                        onclick="window.open('https://airstadt.github.io/Homebuilders/', '_blank')">
                                         Preview
                                     </button>
                                 <div class="stat">
