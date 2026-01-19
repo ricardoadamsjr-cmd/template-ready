@@ -105,12 +105,12 @@
   // 1. Import the necessary v9 functions
   import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
 
-  // Initialize Auth (Ensure 'app' is defined from your initializeApp call)
-  const auth = getAuth();
+  // Use the auth instance from the first module
+  const purchaseAuth = getAuth();
   let currentUser = null;
 
   // 2. Track Auth State changes
-  onAuthStateChanged(auth, (user) => {
+  onAuthStateChanged(purchaseAuth, (user) => {
     if (user) {
       currentUser = user;
       console.log('✅ Purchase system ready for:', user.email);
@@ -1390,33 +1390,14 @@ function closeSubscriptionModal() {
   <!-- Firebase SDKs (compat builds for global `firebase`) -->
   
 
-
-  <script>
-    // Initialize Firebase
-    
-
-    firebase.initializeApp(firebaseConfig);
-   
-  </script>
-
-  
 <script>
- 
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
 document.addEventListener("click", (e) => {
   console.log("CLICK DETECTED:", e.target);
 });
 
 </script>
-
-
-
-
-
-
-
-
-
-
 
    <!-- Firebase v9 CDN -->
 <!-- Footer -->
