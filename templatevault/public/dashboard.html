@@ -42,7 +42,7 @@
         // Protect the page
         onAuthStateChanged(auth, (user) => {
             if (!user) {
-            window.location.href = "/loginForm.html";
+            window.location.href = "https://template-ready-bwa6.onrender.com/";
             }
         });
 
@@ -103,14 +103,12 @@
 <script type="module">
     ////////HANDLES PURCHASE BUTTON /////////////////
   // 1. Import the necessary v9 functions
-  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
+  import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
 
-  // Initialize Auth (Ensure 'app' is defined from your initializeApp call)
-  const auth = getAuth();
   let currentUser = null;
 
-  // 2. Track Auth State changes
-  onAuthStateChanged(auth, (user) => {
+  // 2. Track Auth State changes (use the auth from the first module)
+  onAuthStateChanged(window.auth || getAuth(), (user) => {
     if (user) {
       currentUser = user;
       console.log('✅ Purchase system ready for:', user.email);
@@ -1396,26 +1394,11 @@ function closeSubscriptionModal() {
     
 
     firebase.initializeApp(firebaseConfig);
+    
    
   </script>
 
   
-<script>
- 
-document.addEventListener("click", (e) => {
-  console.log("CLICK DETECTED:", e.target);
-});
-
-</script>
-
-
-
-
-
-
-
-
-
 
 
    <!-- Firebase v9 CDN -->
