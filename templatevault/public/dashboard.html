@@ -912,7 +912,7 @@
                 demoUrl: "https://airstadt.github.io/plumber/" // link to demo site
             },
             
-            /*  card 6 
+            
             {
                 id: 6,
                 title: "Tech Startup",
@@ -921,9 +921,10 @@
                 tags: ["Startup", "Tech", "Innovation"],
                 downloads: 920,
                 rating: 4.7,
-                icon: "fas fa-lightbulb"
+                image: "sitepreview/msedge_tHj8tW30QO.png",   // path to your image image width 1000px standard
+                demoUrl: "https://airstadt.github.io/plumber/" // link to demo site
             },
-            */
+            
             /*  card 7 
             {
                 id: 7,
@@ -1186,7 +1187,33 @@ function generateTemplateCard(template) {
                               `
                                 //end copy here code 
                               //card 12
-                              
+                                //start copy here code this code modifies the purchase button and pricing
+                              //Remove the button inline styles to activate the button
+                              //add link to store
+                              //Add preview link
+                              : template.id === 5
+                            ? `
+                                 <!-- Pricing for CARD 1 -->
+                                <!-- Purchase button -->
+                                <button
+                                        class="purchase-btn template-subscribe-btn" onclick="window.open('https://payhip.com/b/1UQng', '_blank')"> 
+                                        Purchase
+                                    </button>
+                                 <button
+                                        class="purchase-btn template-subscribe-btn" onclick="window.open('https://airstadt.github.io/Homecare/', '_blank')">
+                                        Preview
+                                    </button>
+                                <div class="stat">
+                                    <i class="fas fa-dollar-sign"></i>
+                                    <span>Setup: $1000</span>
+                                </div>
+
+                                <div class="stat">
+                                    <i class="fas fa-calendar-alt"></i>
+                                    <span>Monthly: $200</span>
+                                </div>
+                              `
+                                //end copy here code 
                             : `
                                 <!-- Default stats for all other cards -->
                                 
