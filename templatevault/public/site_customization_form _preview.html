@@ -39,53 +39,6 @@
         min-height: 100vh; /* Prevents white space on short pages */
     }
 
-    .top-nav {
-    width: 100%;
-    padding: 15px 0;
-    background: rgba(15, 23, 42, 0.8);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--glass-border);
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-}
-
-.nav-container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 0 20px;
-    display: flex;
-    justify-content: flex-start;
-}
-
-.back-home-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    color: var(--primary);
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 0.9rem;
-    padding: 8px 16px;
-    border-radius: 8px;
-    border: 1px solid var(--primary);
-    transition: all 0.3s ease;
-    background: transparent;
-}
-
-.back-home-btn:hover {
-    background: var(--primary);
-    color: #1c1917;
-    box-shadow: 0 0 15px rgba(218, 120, 29, 0.3);
-}
-
-/* Adjust container margin since header is now sticky */
-.container { 
-    max-width: 800px; 
-    margin: 20px auto 40px auto; 
-    padding: 20px; 
-}
-
         .container { max-width: 800px; margin: 40px auto; padding: 20px; }
         .form-header { text-align: center; margin-bottom: 20px; }
         .form-header h2 {
@@ -204,20 +157,16 @@
 <div class="container">
     <header class="form-header">
         <h2>Website Strategy & Design</h2>
-        <nav class="top-nav">
-    <div class="nav-container">
-        <a href="index.html" class="back-home-btn">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="m15 18-6-6 6-6"/>
-            </svg>
-            Back to Home
-        </a>
-    </div>
-</nav>
         <p style="color: var(--text-muted)">Let's craft the visual soul of your brand.</p>
     </header>
 
-    
+    <div class="auth-notice">
+        <p>
+            Please ensure you are <strong>signed in</strong> with the email address where you received your invitation. 
+            This ensures your strategy is correctly linked to your project files.
+        </p>
+        <a href="https://template-ready-bwa6.onrender.com/loginForm.html" target="_blank" rel="noopener noreferrer" class="auth-link">Switch Account or Sign In &rarr;</a>
+    </div>
 
     <form id="strategyForm">
         <div class="form-section">
@@ -241,7 +190,7 @@
         </div>
 
         <div class="form-section">
-            <h3>2. Visual Identity</h3>
+            <h3>2. Text content tone</h3>
             
             <label>Brand Personality <span class="hint">(Select up to 2)</span></label>
             <div class="option-grid" data-max="2" id="personality-grid">
@@ -257,8 +206,8 @@
                 <label for="decide_personality">Let us decide what fits your brand best</label>
             </div>
 
-            <label>Color Direction</label>
-            <select id="color_direction" required>
+            <label>Color Direction adjustment</label>
+            <select id="color_direction" title="Color Direction" required>
                 <option value="" disabled selected>Select a direction</option>
                 <option>Light & Airy</option>
                 <option>Dark & Bold</option>
@@ -273,7 +222,7 @@
             </div>
 
             <label>Typography Feel</label>
-            <select id="typography" required>
+            <select id="typography" title="Typography Feel" required>
                 <option value="" disabled selected>Select text style</option>
                 <option>Modern & Clean (Sans-serif)</option>
                 <option>Classic & Trustworthy (Serif)</option>
@@ -290,7 +239,7 @@
         <div class="form-section">
             <h3>3. Strategy & Tone</h3>
             <label>Marketing Style</label>
-            <select id="marketing_style" required>
+            <select id="marketing_style" title="Marketing Style" required>
                 <option value="" disabled selected>Choose persuasion style</option>
                 <option>Soft & Trust-building (Pull)</option>
                 <option>Direct & Action-focused (Push)</option>
@@ -298,7 +247,7 @@
             </select>
 
             <label>Imagery Style</label>
-            <select id="imagery_style" required>
+            <select id="imagery_style" title="Imagery Style" required>
                 <option value="" disabled selected>Select preference</option>
                 <option>Real photos of people</option>
                 <option>Real photos of your work</option>
@@ -309,7 +258,7 @@
             </select>
 
             <label>Tone of Voice</label>
-            <select id="tone_of_voice" required>
+            <select id="tone_of_voice" title="Tone of Voice" required>
                 <option value="" disabled selected>Select tone</option>
                 <option>Professional</option>
                 <option>Friendly</option>
@@ -330,13 +279,13 @@
             <button type="button" id="addServiceBtn" class="secondary-btn">+ Add Additional Service</button>
 
             <label>Which service is your primary focus?</label>
-            <select id="primary_focus" required><option value="" disabled selected>Add services...</option></select>
+            <select id="primary_focus" title="Primary Focus Service" required><option value="" disabled selected>Add services...</option></select>
 
             <label>Which service is most profitable?</label>
-            <select id="profitable_service" required><option value="" disabled selected>Add services...</option></select>
+            <select id="profitable_service" title="Most Profitable Service" required><option value="" disabled selected>Add services...</option></select>
 
             <label>Which service do you want more customers for?</label>
-            <select id="growth_service" required><option value="" disabled selected>Add services...</option></select>
+            <select id="growth_service" title="Growth Target Service" required><option value="" disabled selected>Add services...</option></select>
         </div>
 
         <div class="form-section">
@@ -364,7 +313,9 @@
             </div>
         </div>
 
-        
+        <button type="submit" id="submitBtn" class="submit-btn">Complete Setup</button>
+    </form>
+</div> 
     </form>
 </div>
 
