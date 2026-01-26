@@ -925,7 +925,7 @@
                 demoUrl: "https://airstadt.github.io/hvac/" // link to demo site
             },
             
-            /*  card 7 
+            
             {
                 id: 7,
                 title: "Artist Showcase",
@@ -934,9 +934,10 @@
                 tags: ["Gallery", "Art", "Photography"],
                 downloads: 650,
                 rating: 4.9,
-                icon: "fas fa-camera"
+                image: "sitepreview/proVault_elec_preview.png",   // path to your image image width 1000px standard
+                demoUrl: "https://airstadt.github.io/provault_Electric/" // link to demo site
             },
-            */
+            
 
             /*  card 8 
             {
@@ -1201,6 +1202,33 @@ function generateTemplateCard(template) {
                                     </button>
                                  <button
                                         class="purchase-btn template-subscribe-btn" onclick="window.open('https://airstadt.github.io/hvac/', '_blank')">
+                                        Preview
+                                    </button>
+                                <div class="stat">
+                                    <i class="fas fa-dollar-sign"></i>
+                                    <span>Setup: $500</span>
+                                </div>
+
+                                <div class="stat">
+                                    <i class="fas fa-calendar-alt"></i>
+                                    <span>Monthly: $100</span>
+                                </div>
+                              `
+                                //end copy here code 
+                                  //start copy here code this code modifies the purchase button and pricing
+                              //Remove the button inline styles to activate the button
+                              //add link to store
+                              //Add preview link
+                              : template.id === 7
+                            ? `
+                                 <!-- Pricing for CARD 1 -->
+                                <!-- Purchase button -->
+                                <button
+                                        class="purchase-btn template-subscribe-btn" onclick="window.open('https://payhip.com/b/JapG6', '_blank')"> 
+                                        Purchase
+                                    </button>
+                                 <button
+                                        class="purchase-btn template-subscribe-btn" onclick="window.open('https://airstadt.github.io/provault_Electric/', '_blank')">
                                         Preview
                                     </button>
                                 <div class="stat">
