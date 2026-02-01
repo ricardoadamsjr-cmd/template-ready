@@ -992,16 +992,18 @@
         // Generate template cards
     // Updated generateTemplateCard function with subscription-aware download button
 function generateTemplateCard(template) {
+    // Fallback to empty string if no custom style is provided
+    const inlineStyle = template.customStyle ? template.customStyle : "";
+
     return `
         <div class="template-card" data-category="${template.category}">
             <div class="card-image">
-                ${template.demoUrl 
-                  ? `<a href="${template.demoUrl}" target="_blank" rel="noopener">
-                       <img src="${template.image}" alt="${template.title} preview" class="card-image-img" />
-                     </a>`
-                  : `<img src="${template.image}" alt="${template.title} preview" class="card-image-img" />`
-                }
-                <i class="${template.icon}"></i>
+                <a href="${template.demoUrl}" target="_blank" rel="noopener">
+                    <img src="${template.image}" 
+                         alt="${template.title} preview" 
+                         class="card-image-img" 
+                         style="${inlineStyle}" /> 
+                </a>
             </div>
             <div class="card-content">
                 <h3 class="card-title">${template.title}</h3>
