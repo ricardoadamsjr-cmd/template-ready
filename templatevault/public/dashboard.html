@@ -252,24 +252,25 @@
 }
 
 #backhomeBtn {
-  display: block;              /* makes it a block element */
-  margin: 2rem auto;           /* centers horizontally */
-  padding: 0.8rem 2rem;        /* size */
-  background-color: orange;    /* orange background */
-  color: white;                /* white text */
-  border: none;                /* remove default border */
-  border-radius: 30px;         /* rounded corners */
-  font-size: 1rem;             /* consistent font size */
-  font-weight: 600;            /* bold text */
-  cursor: pointer;             /* pointer on hover */
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* subtle shadow */
+  display: inline-block;       /* FIX: Only takes up the width of the button */
+  margin: 2rem 0.5rem;         /* Space around the button */
+  padding: 0.8rem 2rem;
+  background-color: orange;
+  color: white;
+  border: none;
+  border-radius: 30px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  vertical-align: middle;      /* Keeps it aligned with other buttons */
 }
 
 #backhomeBtn:hover {
   transform: translateY(-3px);
   box-shadow: 0 6px 10px rgba(0,0,0,0.15);
-  background-color: #ff9933;   /* slightly lighter orange on hover */
+  background-color: #ff9933;
 }
 #subscribebutton {
   display: block;              /* makes it a block element */
