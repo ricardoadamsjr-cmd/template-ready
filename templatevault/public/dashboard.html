@@ -16,131 +16,82 @@
     
     <!-- Add the integration script -->
 
-
-    <script type="module">
-        firebase.initializeApp(firebaseConfig);
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-
-    //this code is for firebase v9 and it is for getting the user's email and protecting the page
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
-        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
-        
-        const firebaseConfig = {
-            apiKey: "AIzaSyBhsMRHyuWF-R9MyRKKjzGQC0p-eznYILE",
-            authDomain: "uplift-local.firebaseapp.com",
-            projectId: "uplift-local",
-            storageBucket: "uplift-local.firebasestorage.app",
-            messagingSenderId: "615612260052",
-            appId: "1:615612260052:web:c7cac371c0698314e36541"
-        };
-
-// Initialize Firebase
-
-
-        // Initialize once
-        
-
-        // Protect the page
-        onAuthStateChanged(auth, (user) => {
-            if (!user) {
-            window.location.href = "https://template-ready-bwa6.onrender.com/";
-            }
-        });
-
-        // Logout button
-        document.getElementById("logoutBtn").addEventListener("click", async () => {
-            try {
-            await signOut(auth);
-            alert("You have been logged out.");
-            window.location.href = "https://template-ready-bwa6.onrender.com/";
-            } catch (err) {
-            console.error("Logout failed:", err);
-            }
-        });
-</script>
-
-   
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    // Grab the element where you want to show the user
-    const currentUserElement = document.getElementById("current-user");
-
-    // Global variable to hold the email
-    window.currentUserEmail = null;
-
-    // Watch auth state
-    firebase.auth().onAuthStateChanged(user => {
-      if (user) {
-        // Update the <p> element
-        if (currentUserElement) {
-          currentUserElement.textContent = `Logged in as: ${user.full_name || user.email}`;
-        }
-        // Save email in a variable for other code
-        window.currentUserEmail = user.email;
-        console.log("✅ Current user:", window.currentUserEmail);
-      } else {
-        if (currentUserElement) {
-          currentUserElement.textContent = "No user logged in";
-        }
-        window.currentUserEmail = null;
-        console.log("❌ No user logged in");
-      }
-    });
-  });
-  
-</script>
-
-
-
-
-
-
-
-
-
-
-
-
 <script type="module">
-  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
 
-  // Use the existing auth if available, otherwise initialize it
+    const firebaseConfig = {
+        apiKey: "AIzaSyBhsMRHyuWF-R9MyRKKjzGQC0p-eznYILE",
+        authDomain: "uplift-local.firebaseapp.com",
+        projectId: "uplift-local",
+        storageBucket: "uplift-local.firebasestorage.app",
+        messagingSenderId: "615612260052",
+        appId: "1:615612260052:web:c7cac371c0698314e36541"
+    };
 
-  let currentUser = null;
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
 
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      currentUser = user;
-      console.log('✅ Purchase system ready for:', user.email);
-    } else {
-      currentUser = null;
+    // Elements
+    const currentUserElements = document.querySelectorAll("#current-user"); // Selects all instances
+    const logoutBtn = document.getElementById("logoutBtn");
+
+    // 1. Auth State Observer (Handles Email Display & Protection)
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            console.log("✅ User logged in:", user.email);
+            
+            // Update all "Logged in as" displays
+            currentUserElements.forEach(el => {
+                el.textContent = `Logged in as: ${user.email}`;
+            });
+
+            // Global variable for your purchase logic
+            window.currentUserEmail = user.email;
+        } else {
+            console.log("❌ No user detected. Redirecting...");
+            window.location.href = "https://template-ready-bwa6.onrender.com/";
+        }
+    });
+
+    // 2. Logout Logic (Fixes the button issue)
+    if (logoutBtn) {
+        logoutBtn.addEventListener("click", async (e) => {
+            e.preventDefault();
+            try {
+                await signOut(auth);
+                console.log("Logged out successfully");
+                // The onAuthStateChanged will handle the redirect automatically
+            } catch (err) {
+                console.error("Logout failed:", err);
+                alert("Error logging out. Please try again.");
+            }
+        });
     }
-  });
 
-  document.addEventListener("click", function (e) {
-    const btn = e.target.closest(".purchase-btn");
-    if (!btn) return; // Exit if the clicked element isn't a purchase button
+    // 3. Purchase Button Logic (Using ES Module scope)
+    document.addEventListener("click", function (e) {
+        const btn = e.target.closest(".purchase-btn");
+        if (!btn) return;
 
-    e.preventDefault();
+        e.preventDefault();
+        const user = auth.currentUser;
 
-    if (!currentUser) {
-      alert("Please wait for the page to load or log in to continue.");
-      return;
-    }
+        if (!user) {
+            alert("Please log in to continue.");
+            return;
+        }
 
-    const email = currentUser.email;
-    const baseUrl = btn.getAttribute("data-url");
-
-    if (baseUrl) {
-      const separator = baseUrl.includes("?") ? "&" : "?";
-      const finalUrl = `${baseUrl}${separator}email=${encodeURIComponent(email)}`;
-      
-      console.log('Redirecting:', finalUrl);
-      window.location.href = finalUrl;
-    }
-  });
+        const baseUrl = btn.getAttribute("data-url");
+        if (baseUrl) {
+            const separator = baseUrl.includes("?") ? "&" : "?";
+            const finalUrl = `${baseUrl}${separator}email=${encodeURIComponent(user.email)}`;
+            window.location.href = finalUrl;
+        }
+    });
 </script>
+    
 
 
     <style>
@@ -819,7 +770,6 @@
         <a href="#" class="nav-tab" data-category="landing">Roofing</a>
     </nav>
     <div>
-        <p id="current-user"><window class="currentUserEmail"></window></p>
         <button id="logoutBtn">Logout</button>
         <a href="index.html" style="text-decoration: none;">
             <button id="logoutBtn">back to Home page</button>
