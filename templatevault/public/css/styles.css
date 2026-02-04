@@ -432,6 +432,16 @@ body {
     animation: titleSlideUp 1s ease-out;
 }
 
+.hero-offer {
+    font-size: 1.25rem;
+    margin-top: 1rem;
+    color: rgba(255, 255, 255, 0.85);
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    animation: fadeIn 1.2s ease-out;
+}
+
+
 @keyframes titleSlideUp {
     from {
         opacity: 0;
