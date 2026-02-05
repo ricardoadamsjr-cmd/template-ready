@@ -925,18 +925,20 @@
             },
             
 
-            /*  card 8 
             {
                 id: 8,
-                title: "Fashion Store",
-                description: "Elegant e-commerce template for fashion and lifestyle brands",
-                category: "ecommerce",
-                tags: ["Fashion", "Lifestyle", "Elegant"],
+                title: "Consulting",
+                description: "A perfect business consulting website with service showcase",
+                category: "Business",
+                tags: ["Business", "Consulting", "Services"],
                 downloads: 1450,
                 rating: 4.8,
-                icon: "fas fa-tshirt"
+                icon: "fas fa-tshirt",
+                image: "sitepreview/consulting.png",   // path to your image image width 1000px standard
+                demoUrl: "https://airstadt.github.io/provault_Electric/" // link to demo site
+                //Quick CSS Overrides you can use in customStyle use these->(transform: scale(1.1); object-fit: cover;object-fit: contain; object-position: top  )
             },
-            */
+            
 
             /*  card 9 
             {
@@ -1229,6 +1231,33 @@ function generateTemplateCard(template) {
                                     <span>Monthly: $100</span>
                                 </div>
                               `
+                              //start copy here code this code modifies the purchase button and pricing
+                              //Remove the button inline styles to activate the button
+                              //add link to store
+                              //Add preview link
+                              : template.id === 8
+                            ? `
+                                 <!-- Pricing for CARD 1 -->
+                                <!-- Purchase button -->
+                                <button
+                                        class="purchase-btn template-subscribe-btn" onclick="window.open('https://payhip.com/b/JapG6', '_blank')"> 
+                                        Purchase
+                                    </button>
+                                 <button
+                                        class="purchase-btn template-subscribe-btn" onclick="window.open('https://airstadt.github.io/provault_Electric/', '_blank')">
+                                        Preview
+                                    </button>
+                                <div class="stat">
+                                    <i class="fas fa-dollar-sign"></i>
+                                    <span>Setup: $500</span>
+                                </div>
+
+                                <div class="stat">
+                                    <i class="fas fa-calendar-alt"></i>
+                                    <span>Monthly: $100</span>
+                                </div>
+                              `
+                                //end copy here code 
                                 //end copy here code 
                             : `
                                 <!-- Default stats for all other cards -->
