@@ -122,10 +122,11 @@
     <section class="hero" id="home">
         <div class="hero-content">
             <h1 class="hero-title">Service Industry Websites.</h1>
-            <p class="hero-offer">30-Day Free Trial</p>
+            
             <p class="hero-subtitle">Ready‑to‑launch desktop and mobile ready websites built for entrepreneurs and startups.</p>
             <div class="hero-buttons">
                 <a href="#templates" class="btn-primary">Browse Website</a>
+                <p class="hero-offer">30-Day Free Trial</p>
                 <a href="#contact" class="btn-accent">Contact Us Right Away</a>
                 
             </div>
@@ -172,7 +173,7 @@
                 <div class="feature-icon">
                     <i class="fas fa-palette"></i>
                 </div>
-                <h3 class="feature-title">Copy & Design, No Hassle</h3>
+                <h3 class="feature-title">Text content & Design, No Hassle</h3>
                 <p class="feature-description">Your site comes fully written with professional, conversion ready content. Request custom content or launch it exactly as is with your branding included. </p>
             </div>
             
@@ -532,29 +533,47 @@
             <div class="contact-item">
                 <form class="contactform" action="https://eoh2tas57la7ws2.m.pipedream.net" method="POST">
 
-                        <div class="form-group">
-                            <input type="text" name="name" placeholder="Your Name" required>
-                        </div>
+    <div class="form-group">
+        <input type="text" name="name" placeholder="Your Name" required>
+    </div>
 
-                        <div class="form-group">
-                            <input type="email" name="email" placeholder="Your Email" required>
-                                </div>
-                        <div class="form-group">
-                                <select name="subject" required title="Select a subject for your inquiry">
-                                    <option value="">Select Subject</option>
-                                    <option value="general">General Inquiry</option>
-                                    <option value="support">Technical Support</option>
-                                    <option value="billing">Billing Question</option>
-                                    <option value="partnership">Partnership</option>
-                                </select>
-                        </div>
-                <div class="form-group">
-                    <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
-                </div>
-                <button type="submit" class="form-submit">
-                    <i class="fas fa-paper-plane"></i> Send Message
-                </button>
-            </form>
+    <div class="form-group">
+        <input type="email" name="email" placeholder="Your Email" required>
+    </div>
+
+    <!-- Updated Subject Dropdown -->
+    <div class="form-group">
+        <select name="subject" required title="Select a subject for your inquiry">
+            <option value="">Select Subject</option>
+            <option value="general">General Question</option>
+            <option value="trial">Start a 30-Day Trial</option>
+            <option value="support">Technical Support</option>
+            <option value="billing">Billing Question</option>
+            <option value="partnership">Partnership Inquiry</option>
+            <option value="estimate">Project Estimate</option>
+            <option value="other">Something Else</option>
+        </select>
+    </div>
+
+    <!-- Optional: Lead Qualification Dropdown -->
+    <div class="form-group">
+        <select name="timeline" title="How soon would you like to begin?">
+            <option value="">How soon would you like to begin?</option>
+            <option value="immediately">Immediately</option>
+            <option value="1-2-weeks">Within 1–2 Weeks</option>
+            <option value="30-days">Within 30 Days</option>
+            <option value="exploring">Just Exploring Options</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
+    </div>
+
+    <button type="submit" class="form-submit">
+        <i class="fas fa-paper-plane"></i> Send Message
+    </button>
+</form>
 
 
             </div>
