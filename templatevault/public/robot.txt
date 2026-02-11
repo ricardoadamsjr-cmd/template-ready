@@ -1,0 +1,14 @@
+# Allow all search engines to crawl the site
+User-agent: *
+
+# Block access to private/functional pages
+Disallow: /loginForm.html
+Disallow: /signupForm.html
+Disallow: /auth.html
+Disallow: /dashboard/
+
+# Allow access to everything else
+Allow: /
+
+# Link to your sitemap (Update the URL once your sitemap is created)
+Sitemap: https://www.buildandhost.services/sitemap.xml
