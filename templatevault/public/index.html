@@ -540,15 +540,19 @@
                     -->
                     
             <div class="contact-item">
-                <form class="contactform" action="https://eoh2tas57la7ws2.m.pipedream.net" method="POST">
+    <p class="fallback-contact">
+    If this form fails to send, you can reach us directly at 
+    <a href="mailto:info@buildandhost.services">info@buildandhost.services</a>.
+</p>
+        <form class="contactform" action="https://eoh2tas57la7ws2.m.pipedream.net" method="POST">
 
-    <div class="form-group">
-        <input type="text" name="name" placeholder="Your Name" required>
-    </div>
+                <div class="form-group">
+                    <input type="text" name="name" placeholder="Your Name" required>
+                </div>
 
-    <div class="form-group">
-        <input type="email" name="email" placeholder="Your Email" required>
-    </div>
+                <div class="form-group">
+                    <input type="email" name="email" placeholder="Your Email" required>
+                </div>
 
     <!-- Updated Subject Dropdown -->
     <div class="form-group">
@@ -690,11 +694,21 @@
 
     <!-- Success Toast -->
     <div class="toast" id="toast">
+        
         <div class="toast-content">
             <i class="fas fa-check-circle"></i>
             <span id="toastMessage">Success!</span>
         </div>
+      
     </div>
+<div>
+    
+</div>
+
+
+
+
+
     <script src="js/script.js"></script>
 
 <!-- Loading Screen -->
@@ -715,7 +729,7 @@ import cors from 'cors';
     appId: process.env.VITE_FIREBASE_APP_ID
   };
 
-
+  
 
   // Initialize Firebase
   const app = initializeApp(firebaseConfig);
